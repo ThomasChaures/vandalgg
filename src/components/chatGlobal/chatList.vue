@@ -1,5 +1,7 @@
 <script>
 import { darLike } from '@/service/chatGlobal'
+import { auth } from '@/service/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 export default {
   name: 'chatList',
   props: {
@@ -10,12 +12,33 @@ export default {
   },
   data() {
     return {
-      flagComment: false
+      flagComment: false,
+      userLogged: {
+        id: '',
+        email: ''
+      }
     }
+  },
+  mounted() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.userLogged = {
+          id: user.uid,
+          email: user.email
+        }
+      } else {
+        this.userLogged = {
+          id: null,
+          email: null
+        }
+      }
+    })
   },
   methods: {
     like(id) {
-      darLike(id, 1)
+      if (this.userLogged.id !== null) {
+        darLike(id, this.userLogged.id)
+      }
     }
   }
 }

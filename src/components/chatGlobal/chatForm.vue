@@ -1,4 +1,6 @@
 <script>
+import { auth } from '@/service/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 export default {
   name: 'chatForm',
   emits: {
@@ -10,8 +12,12 @@ export default {
     return {
       fecha: '',
       newMessage: {
-        email: 'hola@gmail.com',
+        email: '',
         content: ''
+      },
+      userLogged: {
+        id: '',
+        email: ''
       }
     }
   },
@@ -19,7 +25,23 @@ export default {
     this.dateNow()
     setInterval(() => {
       this.dateNow()
-    }, 1000)
+    }, 1000),
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.userLogged = {
+            id: user.uid,
+            email: user.email
+          }
+          this.newMessage = {
+            email: user.email
+          }
+        } else {
+          this.userLogged = {
+            id: null,
+            email: null
+          }
+        }
+      })
   },
   methods: {
     envioSubmit() {

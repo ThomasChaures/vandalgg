@@ -14,7 +14,8 @@ export default {
   },
   async mounted() {
     cambiosEnElChat((mensajesDB) => {
-      ;(this.messages = mensajesDB), (this.postCargados = true)
+      this.messages = mensajesDB.reverse()
+      this.postCargados = true
     })
   },
   methods: {

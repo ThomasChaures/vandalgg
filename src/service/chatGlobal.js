@@ -21,7 +21,8 @@ export async function enviarMensajeAfirebase(newMessage) {
     usertag: '@usuario',
     likes: 0,
     likesBy: [],
-    comentarios: 0
+    comentarios: 0,
+    comentarios_text: []
   })
 }
 

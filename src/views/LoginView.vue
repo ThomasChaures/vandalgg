@@ -46,7 +46,7 @@ export default {
         <input
           type="password"
           name="password"
-          v-model="user.email"
+          v-model="user.password"
           class="w-full p-2 border border-slate-950 rounded"
         />
       </div>
