@@ -2,8 +2,14 @@
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        '2xl-white': '0 25px 50px -12px #d8d8d83e'
+      },
+      gridTemplateRows: {
+        layout: 'auto 1fr 60px'
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 }
-
