@@ -12,7 +12,7 @@ export default {
 <template>
   <div class="flex mx-auto w-[1200px] relative">
     <AppNavbar />
-    <main class="container w-full">
+    <main class="container w-full ml-[300px]">
       <RouterView />
     </main>
     <AppFooter />

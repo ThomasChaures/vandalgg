@@ -33,7 +33,7 @@ export default {
 </script>
 
 <template>
-  <header class="h-screen w-[300px] p-4 pl-7 bg-slate-900 flex flex-col justify-between">
+  <header class="fixed top-0 left-[300px] h-full  w-[300px] p-4 pl-7 bg-slate-900 flex flex-col justify-between">
     <div>
       <p class="text-4xl text-white font-semibold tracking-wider uppercase mb-10">Vandal</p>
     </div>

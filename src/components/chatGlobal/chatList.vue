@@ -63,7 +63,7 @@ export default {
           @click="like(messages.id)"
           class="like flex items-center text-white/75 mr-4 text-lg cursor-pointer"
         >
-          <i class="fa-regular fa-heart hover:bg-blue-700/50 rounded-full p-2"></i>
+          <i class="fa-regular fa-heart hover:bg-blue-700/50  rounded-full p-2"></i>
           <p>{{ messages.likes }}</p>
         </div>
         <div class="like flex items-center text-white/75 mr-4 text-lg cursor-pointer">

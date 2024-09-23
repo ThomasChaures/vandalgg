@@ -73,6 +73,10 @@ export async function enviarComentarioAlPost(comentario) {
   })
 }
 
+// export async functio getComentariosDelPost(id){
+//   const commentRef = getDoc(id,.)
+// }
+
 export function cambiosEnElChat(callback) {
   const chatRef = collection(db, 'chat')
   const q = query(chatRef, orderBy('created_at'))
