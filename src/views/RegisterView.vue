@@ -1,8 +1,8 @@
 <script>
-import { login } from '@/service/auth'
+import { register } from '@/service/auth'
 
 export default {
-  name: 'LoginView',
+  name: 'RegisterView',
   data() {
     return {
       user: {
@@ -16,7 +16,7 @@ export default {
     async envioDeFormulario() {
       this.loading = true
       try {
-        await login({
+        await register({
           ...this.user
         })
         this.$router.push('/')
@@ -30,7 +30,7 @@ export default {
 
 <template>
   <section class="w-full max-w-[600px] p-8 h-screen border-l border-r border-white/40">
-    <h1 class="text-white text-xl font-semibold mb-4">Ingresar cuenta</h1>
+    <h1 class="text-white text-xl font-semibold mb-4">Registro de cuenta</h1>
 
     <form action="#" @submit.prevent="envioDeFormulario()">
       <div class="mb-4">

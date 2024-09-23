@@ -1,4 +1,5 @@
 <script>
+import { subscribeToAuth } from '@/service/auth';
 import { auth } from '@/service/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 export default {
@@ -26,25 +27,11 @@ export default {
     setInterval(() => {
       this.dateNow()
     }, 1000),
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          this.userLogged = {
-            id: user.uid,
-            email: user.email
-          }
-          this.newMessage = {
-            email: user.email
-          }
-        } else {
-          this.userLogged = {
-            id: null,
-            email: null
-          }
-        }
-      })
+    subscribeToAuth(newUserData => this.userLogged = newUserData)
   },
   methods: {
     envioSubmit() {
+      this.newMessage.email = this.userLogged.email 
       this.$emit('newMessages', { ...this.newMessage })
       this.newMessage.content = ''
     },
@@ -67,7 +54,7 @@ export default {
         hidden
         type="text"
         name="user"
-        v-model="newMessage.email"
+        v-model="userLogged.email"
         class="w-full border rounded py-2 px-4"
       />
     </div>

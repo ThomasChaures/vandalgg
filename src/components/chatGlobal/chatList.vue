@@ -1,7 +1,7 @@
 <script>
 import { darLike } from '@/service/chatGlobal'
-import { auth } from '@/service/firebase'
-import { onAuthStateChanged } from 'firebase/auth'
+import { subscribeToAuth } from '@/service/auth';
+
 export default {
   name: 'chatList',
   props: {
@@ -20,19 +20,7 @@ export default {
     }
   },
   mounted() {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.userLogged = {
-          id: user.uid,
-          email: user.email
-        }
-      } else {
-        this.userLogged = {
-          id: null,
-          email: null
-        }
-      }
-    })
+    subscribeToAuth(newUserData => this.userLogged = newUserData)
   },
   methods: {
     like(id) {

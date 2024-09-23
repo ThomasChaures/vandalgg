@@ -1,7 +1,8 @@
 <script>
 import { RouterLink } from 'vue-router'
 import { auth } from '@/service/firebase'
-import { onAuthStateChanged } from 'firebase/auth'
+import { signOut } from 'firebase/auth';
+import { cerrarSesion, subscribeToAuth } from '@/service/auth';
 
 export default {
   name: 'AppNavbar',
@@ -15,19 +16,12 @@ export default {
     }
   },
   mounted() {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.userLogged = {
-          id: user.uid,
-          email: user.email
-        }
-      } else {
-        this.userLogged = {
-          id: null,
-          email: null
-        }
-      }
-    })
+    subscribeToAuth(newUserData => this.userLogged = newUserData)
+  },
+  methods: {
+    logout(){
+      cerrarSesion()
+    }
   }
 }
 </script>
@@ -75,11 +69,12 @@ export default {
       </template>
       <template v-else>
         <li>
-          <RouterLink
-            to="/"
+          <form action="#" @submit.prevent="logout()">
+            <button
+            type="submit"
             class="rounded bg-red-600 items-center justify-center py-1.5 w-[200px] flex ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all"
-            >Cerrar sesion</RouterLink
-          >
+            >Cerrar sesion</button>
+          </form>
         </li>
       </template>
     </ul>
