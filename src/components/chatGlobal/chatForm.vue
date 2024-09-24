@@ -12,7 +12,6 @@ export default {
     return {
       fecha: '',
       newMessage: {
-        email: '',
         username: '',
         usertag: '',
         content: ''
@@ -35,7 +34,6 @@ export default {
   },
   methods: {
   async  envioSubmit() {
-      this.newMessage.email = this.userLogged.email 
     await  localizarLosDatosDelUsuarioLoggeado(this.userLogged.email)
   .then(data => {
     this.newMessage.username = data.username;
@@ -59,15 +57,7 @@ export default {
     @submit.prevent="envioSubmit()"
     class="container-md bg-slate-900 p-5 rounded-md w-full"
   >
-    <div class="mb-4">
-      <input
-        hidden
-        type="text"
-        name="user"
-        v-model="userLogged.email"
-        class="w-full border rounded py-2 px-4"
-      />
-    </div>
+  
     <div class="mb-4">
       <textarea
         name="content"

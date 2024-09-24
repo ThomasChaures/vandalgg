@@ -27,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <header class="absolute top-0 left-0 h-[900px] w-[300px] p-4 pl-7 bg-slate-900 flex flex-col justify-between">
+  <header class="absolute top-0 left-0 h-[100vh] w-[300px] p-4 pl-7 bg-slate-900 flex flex-col justify-between">
     <div>
       <p class="text-4xl text-white font-semibold tracking-wider uppercase mb-10">Vandal</p>
     </div>
