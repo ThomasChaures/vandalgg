@@ -17,8 +17,6 @@ export async function enviarMensajeAfirebase(newMessage) {
   await addDoc(chatRef, {
     ...newMessage,
     created_at: serverTimestamp(),
-    username: 'Usuario',
-    usertag: '@usuario',
     likes: 0,
     likesBy: [],
     comentarios: 0,
@@ -61,13 +59,13 @@ export async function darLike(id, userId) {
   }
 }
 
-export async function enviarComentarioAlPost(comentario) {
+export async function enviarComentarioAlPost(comentario, username, usertag) {
   const commentRef = collection(db, 'comentario')
   await addDoc(chatRef, {
     ...comentario,
     created_at: serverTimestamp(),
-    username: 'Usuario',
-    usertag: '@usuario',
+    username: username,
+    usertag: `@ ${usertag}`,
     likes: 0,
     likesBy: []
   })

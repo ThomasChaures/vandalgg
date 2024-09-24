@@ -2,6 +2,7 @@
 import { darLike } from '@/service/chatGlobal'
 import { subscribeToAuth } from '@/service/auth';
 
+
 export default {
   name: 'chatList',
   props: {
@@ -16,7 +17,7 @@ export default {
       userLogged: {
         id: '',
         email: ''
-      }
+      }, 
     }
   },
   mounted() {
@@ -40,7 +41,7 @@ export default {
           <i class="fa-solid fa-user text-black"></i>
         </div>
         <p class="pl-2 font-semibold text-lg">{{ messages.username }}</p>
-        <p class="pl-2 opacity-60">{{ messages.usertag }}</p>
+        <p class="pl-2 opacity-60">@{{ messages.usertag }}</p>
       </div>
       <div class="message pt-4 pb-4 px-2 text-white text-wrap">
         <p class="break-all">{{ messages.content }}</p>

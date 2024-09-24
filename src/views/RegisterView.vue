@@ -1,5 +1,6 @@
 <script>
 import { register } from '@/service/auth'
+import { crearDatosDeUsuario } from '@/service/users'
 
 export default {
   name: 'RegisterView',
@@ -8,6 +9,10 @@ export default {
       user: {
         email: '',
         password: ''
+      },
+      collectionUser: {
+        username: '',
+        usertag: ''
       },
       loading: false
     }
@@ -19,6 +24,8 @@ export default {
         await register({
           ...this.user
         })
+
+        await crearDatosDeUsuario(this.user.email, this.collectionUser.username, this.collectionUser.usertag, 1)
         this.$router.push('/')
       } catch (err) {
         console.log(err)
@@ -33,6 +40,24 @@ export default {
     <h1 class="text-white text-xl font-semibold mb-4">Registro de cuenta</h1>
 
     <form action="#" @submit.prevent="envioDeFormulario()">
+      <div class="mb-4">
+        <label for="username" class="text-white block mb-2">Nombre</label>
+        <input
+          type="text"
+          name="username"
+          v-model="collectionUser.username"
+          class="w-full p-2 border border-slate-950 rounded"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="usertag" class="text-white block mb-2">User tag</label>
+        <input
+          type="text"
+          name="usertag"
+          v-model="collectionUser.usertag"
+          class="w-full p-2 border border-slate-950 rounded"
+        />
+      </div>
       <div class="mb-4">
         <label for="email" class="text-white block mb-2">E-mail</label>
         <input

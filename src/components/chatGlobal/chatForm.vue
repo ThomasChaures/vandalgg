@@ -1,7 +1,6 @@
 <script>
-import { subscribeToAuth } from '@/service/auth';
-import { auth } from '@/service/firebase'
-import { onAuthStateChanged } from 'firebase/auth'
+import { subscribeToAuth } from '@/service/auth'
+import { localizarLosDatosDelUsuarioLoggeado } from '@/service/users'
 export default {
   name: 'chatForm',
   emits: {
@@ -14,24 +13,35 @@ export default {
       fecha: '',
       newMessage: {
         email: '',
+        username: '',
+        usertag: '',
         content: ''
       },
       userLogged: {
         id: '',
         email: ''
-      }
+      },
     }
   },
   mounted() {
     this.dateNow()
     setInterval(() => {
       this.dateNow()
-    }, 1000),
+    }, 1000)
+
     subscribeToAuth(newUserData => this.userLogged = newUserData)
+
+
   },
   methods: {
-    envioSubmit() {
+  async  envioSubmit() {
       this.newMessage.email = this.userLogged.email 
+    await  localizarLosDatosDelUsuarioLoggeado(this.userLogged.email)
+  .then(data => {
+    this.newMessage.username = data.username;
+    this.newMessage.usertag = data.usertag;
+  })
+  .catch(err => console.error(err));
       this.$emit('newMessages', { ...this.newMessage })
       this.newMessage.content = ''
     },
