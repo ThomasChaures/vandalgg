@@ -12,7 +12,6 @@ export default {
         email: '',
         username: '',
         usertag: '',
-        posts: [],
         seguidores: 0,
         seguidores_cuentas: [],
         seguidos: 0,

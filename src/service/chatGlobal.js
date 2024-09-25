@@ -8,7 +8,9 @@ import {
   getDoc,
   updateDoc,
   increment,
-  doc
+  doc,
+  where,
+  getDocs
 } from 'firebase/firestore'
 import { db } from './firebase'
 
@@ -23,6 +25,7 @@ export async function enviarMensajeAfirebase(newMessage) {
     comentarios_text: []
   })
 }
+
 
 /**
  * @param {*} id
@@ -53,6 +56,10 @@ export async function darLike(id, userId) {
       }
     } else {
       console.log('El usuario ya ha dado like a este mensaje.')
+      await updateDoc(postRef, {
+        likes: increment(-1),
+        likesBy: postData.likesBy.filter(uid => uid !== userId)
+      })
     }
   } else {
     console.log('El mensaje no existe.')
@@ -87,4 +94,19 @@ export function cambiosEnElChat(callback) {
     })
     callback(messages)
   })
+}
+
+
+export async function obtenerPostsDeUsuarioById(usertag, callback) {
+    const chatRef = collection(db, 'chat')
+    const q = query(chatRef, where('usertag', '==', usertag))
+    onSnapshot(q, (snapshot) => {
+      const messages = snapshot.docs.map((doc) => {
+        return{
+          id: doc.id,
+          ...doc.data()
+        }
+      })
+      callback(messages)
+    })
 }
