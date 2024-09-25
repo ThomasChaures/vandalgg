@@ -24,7 +24,8 @@ import {
             id: id,
             username: username,
             usertag: usertag,
-            posts: [],
+            description: '',
+            posts: [], // array en donde se guardarian los uids de cada documento que sea un post del usuario
             fecha_nacimiento: nacimiento,
             seguidores: 0,
             seguidores_cuentas: [],

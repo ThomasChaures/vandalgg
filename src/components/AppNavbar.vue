@@ -1,7 +1,5 @@
 <script>
 import { RouterLink } from 'vue-router'
-import { auth } from '@/service/firebase'
-import { signOut } from 'firebase/auth';
 import { cerrarSesion, subscribeToAuth } from '@/service/auth';
 
 export default {
@@ -11,7 +9,14 @@ export default {
     return {
       userLogged: {
         id: '',
-        email: ''
+        email: '',
+        username: '',
+        usertag: '',
+        posts: [],
+        seguidores: 0,
+        seguidores_cuentas: [],
+        seguidos: 0,
+        seguidos_cuentas: []
       }
     }
   },
@@ -42,7 +47,7 @@ export default {
         <li v-if="userLogged.id" class="hover:text-red-600 w-full block">
           <RouterLink
             class="font-semibold tracking-wider w-full block"
-            :to="'/perfil/' + userLogged.id"
+            :to="'/perfil/' + userLogged.usertag"
           >
             <i class="fa-solid fa-user pr-2"></i>Perfil</RouterLink
           >

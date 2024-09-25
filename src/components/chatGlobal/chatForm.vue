@@ -1,24 +1,26 @@
 <script>
 import { subscribeToAuth } from '@/service/auth'
 import { localizarLosDatosDelUsuarioLoggeado } from '@/service/users'
+
 export default {
   name: 'chatForm',
-  emits: {
-    newMessages({ email, content }) {
-      return typeof email === 'string' && typeof content === 'string'
-    }
-  },
+  emits: ['newMessages'],
   data() {
     return {
       fecha: '',
       newMessage: {
-        username: '',
-        usertag: '',
         content: ''
       },
       userLogged: {
         id: '',
-        email: ''
+        email: '',
+        username: '',
+        usertag: '',
+        posts: [],
+        seguidores: 0,
+        seguidores_cuentas: [],
+        seguidos: 0,
+        seguidos_cuentas: []
       },
     }
   },
@@ -29,27 +31,29 @@ export default {
     }, 1000)
 
     subscribeToAuth(newUserData => this.userLogged = newUserData)
-
-
   },
   methods: {
-  async  envioSubmit() {
-    await  localizarLosDatosDelUsuarioLoggeado(this.userLogged.email)
-  .then(data => {
-    this.newMessage.username = data.username;
-    this.newMessage.usertag = data.usertag;
-  })
-  .catch(err => console.error(err));
-      this.$emit('newMessages', { ...this.newMessage })
-      this.newMessage.content = ''
+    async envioSubmit() {
+      if (this.userLogged && this.userLogged.id) {
+
+          if (this.newMessage.content.trim() !== '') {
+            this.$emit('newMessages', { 
+            username: this.userLogged.username,
+            usertag: this.userLogged.usertag,
+            content: this.newMessage.content 
+          })
+            this.newMessage.content = ''
+          }
+      }
     },
     dateNow() {
-      const fecha = new Date()
+      const fecha = new Date();
       this.fecha = fecha.toLocaleString()
     }
-  }
+  },
 }
 </script>
+
 
 <template>
   <form
@@ -57,15 +61,15 @@ export default {
     @submit.prevent="envioSubmit()"
     class="container-md bg-slate-900 p-5 rounded-md w-full"
   >
-  
     <div class="mb-4">
+      <label for="message" class="sr-only">Mensaje</label>
       <textarea
+        id="message"
         name="content"
         v-model="newMessage.content"
         class="w-full h-28 resize-none border-slate-900 border rounded py-2 px-4 text-slate-900 focus:border-slate-950"
-        placeholder="Que esta pasando en valorant?"
-      >
-      </textarea>
+        placeholder="Que esta pasando en Valorant?"
+      ></textarea>
     </div>
     <div class="grid items-center">
       <p class="col-start-1 flex items-center text-white">
