@@ -16,8 +16,15 @@ export default {
       flagComment: false,
       userLogged: {
         id: '',
-        email: ''
-      }, 
+        email: '',
+        username: '',
+        usertag: '',
+        posts: [],
+        seguidores: 0,
+        seguidores_cuentas: [],
+        seguidos: 0,
+        seguidos_cuentas: []
+      },
     }
   },
   mounted() {

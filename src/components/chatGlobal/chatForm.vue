@@ -16,7 +16,6 @@ export default {
         email: '',
         username: '',
         usertag: '',
-        posts: [],
         seguidores: 0,
         seguidores_cuentas: [],
         seguidos: 0,
@@ -38,6 +37,7 @@ export default {
 
           if (this.newMessage.content.trim() !== '') {
             this.$emit('newMessages', { 
+            user_id: this.userLogged.id,
             username: this.userLogged.username,
             usertag: this.userLogged.usertag,
             content: this.newMessage.content 
