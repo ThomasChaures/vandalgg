@@ -78,8 +78,7 @@ export default{
             </div>
         </section>
         
-        {{ userLogged.email }}
-            {{ userProfile.id }}
+        
         <section class="mt-[180px] border-t border-white/40">
             <chatList :messages="messages" />
         </section>
