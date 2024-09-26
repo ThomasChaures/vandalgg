@@ -1,19 +1,12 @@
 
 import { auth } from './firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
-import { localizarLosDatosDelUsuarioLoggeado } from './users';
 
-let userLogged = {
-  id: '',
-  email: '',
-  username: '',
-  usertag: '',
-  posts: [],
-  seguidores: 0,
-  seguidores_cuentas: [],
-  seguidos: 0,
-  seguidos_cuentas: []
-}
+
+const userLogged = {
+  id: null,
+  email: null,
+};
 
 let observers = []
 
@@ -21,27 +14,10 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     userLogged.id = user.uid 
     userLogged.email = user.email
-    try {
-      const data = await localizarLosDatosDelUsuarioLoggeado(userLogged.email);  // Espera a que los datos se resuelvan
-      if (data) {
-        userLogged.username = data.username;
-        userLogged.usertag = data.usertag;
-      }
-    } catch (error) {
-      console.error("Error al localizar los datos del usuario:", error);
-    }
+  
   } else {
-    userLogged = {
-      id: null,
-      email: null,
-      username:null,
-      usertag: null,
-      posts: null,
-      seguidores: null,
-      seguidores_cuentas: null,
-      seguidos: null,
-      seguidos_cuentas: null
-    }
+    userLogged.id = null;
+    userLogged.email = null;
   }
   notifyAll()
 })

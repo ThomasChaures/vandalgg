@@ -14,51 +14,60 @@ export default {
       userLogged: {
         id: '',
         email: '',
-        username: '',
-        usertag: '',
-        seguidores: 0,
-        seguidores_cuentas: [],
-        seguidos: 0,
-        seguidos_cuentas: []
       },
+      dataUserLogged: {
+         username: '',
+         usertag: ''
+      },
+      unsubscribe: null 
     }
   },
   mounted() {
-    this.dateNow()
+    this.dateNow();
     setInterval(() => {
-      this.dateNow()
-    }, 1000)
+      this.dateNow();
+    }, 1000);
 
-    subscribeToAuth(newUserData => this.userLogged = newUserData)
+    this.unsubscribe = subscribeToAuth(newUserData => {
+      this.userLogged = newUserData;
+
+      if (this.userLogged.email) {
+        localizarLosDatosDelUsuarioLoggeado(this.userLogged.email, user => { 
+          this.dataUserLogged = user; 
+        })
+        .catch(err => console.error('Error fetching user data:', err));
+      }
+    });
+  },
+  beforeDestroy() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
   },
   methods: {
-    async envioSubmit() {
-      if (this.userLogged && this.userLogged.id) {
-
-          if (this.newMessage.content.trim() !== '') {
-            this.$emit('newMessages', { 
-            user_id: this.userLogged.id,
-            username: this.userLogged.username,
-            usertag: this.userLogged.usertag,
-            content: this.newMessage.content 
-          })
-            this.newMessage.content = ''
-          }
+    async handleSubmit() {
+      if (this.userLogged && this.userLogged.id && this.newMessage.content.trim() !== '') {
+        this.$emit('newMessages', { 
+          user_id: this.userLogged.id,
+          username: this.dataUserLogged.username,
+          usertag: this.dataUserLogged.usertag,
+          content: this.newMessage.content 
+        });
+        this.newMessage.content = '';
       }
     },
     dateNow() {
       const fecha = new Date();
-      this.fecha = fecha.toLocaleString()
+      this.fecha = fecha.toLocaleString();
     }
   },
 }
 </script>
 
-
 <template>
   <form
     action="#"
-    @submit.prevent="envioSubmit()"
+    @submit.prevent="handleSubmit()"
     class="container-md bg-slate-900 p-5 rounded-md w-full"
   >
     <div class="mb-4">

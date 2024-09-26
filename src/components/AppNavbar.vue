@@ -1,6 +1,7 @@
 <script>
 import { RouterLink } from 'vue-router'
-import { cerrarSesion, subscribeToAuth } from '@/service/auth';
+import { cerrarSesion, subscribeToAuth } from '@/service/auth'
+import { localizarLosDatosDelUsuarioLoggeado } from '@/service/users';
 
 export default {
   name: 'AppNavbar',
@@ -10,17 +11,22 @@ export default {
       userLogged: {
         id: '',
         email: '',
-        username: '',
-        usertag: '',
-        seguidores: 0,
-        seguidores_cuentas: [],
-        seguidos: 0,
-        seguidos_cuentas: []
+      },
+      dataUserLogged: {
+         username: '',
+         usertag: ''
       }
     }
   },
-  mounted() {
+  async mounted() {
     subscribeToAuth(newUserData => this.userLogged = newUserData)
+
+
+      localizarLosDatosDelUsuarioLoggeado(this.userLogged.email, user => {
+      this.dataUserLogged = user, console.log(user), console.log(this.dataUserLogged)
+    })
+
+    console.log(this.dataUserLogged)
   },
   methods: {
     logout(){
@@ -46,7 +52,7 @@ export default {
         <li v-if="userLogged.id" class="hover:text-red-600 w-full block">
           <RouterLink
             class="font-semibold tracking-wider w-full block"
-            :to="'/perfil/' + userLogged.usertag"
+            :to="'/perfil/' + dataUserLogged.usertag"
           >
             <i class="fa-solid fa-user pr-2"></i>Perfil</RouterLink
           >

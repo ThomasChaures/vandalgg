@@ -17,39 +17,45 @@ export default{
            userLogged: {
            id: '',
            email: '',
-           username: '',
-           usertag: '',
-           seguidores: 0,
-           seguidores_cuentas: [],
-           seguidos: 0,
-           seguidos_cuentas: []
+
           },
         }
     },
-    async beforeMount(){
-    subscribeToAuth(userData => {
-        this.userLogged = userData
-    })
-    const data = await localizarLosDatosDelUsuarioLoggeadoByUsertag(this.$route.params.usertag)
-    if(data){
-        this.userProfile = data
-        obtenerPostsDeUsuarioById(data.usertag, mensajesDelUsuario => { this.messages = mensajesDelUsuario })
+    async mounted(){
+       subscribeToAuth(userData => {this.userLogged = userData})
         
-        if(data.id === this.userLogged.email){
-            this.myProfile = true
-        } 
-      
-      this.seguido = await checkFollow(this.userLogged.email, this.userProfile.id)
-     
-    }
-},
-    methods: {
-        seguir(){
-         darFollow(this.userLogged.email, this.userProfile.id)
-            .then(data => this.seguido = data)
-            .catch(err => console.log(err))
+    
+
+        try{
+            await localizarLosDatosDelUsuarioLoggeadoByUsertag(this.$route.params.usertag, userData => {this.userProfile = userData})
+
+            console.log(this.userProfile.id)
+
+             await obtenerPostsDeUsuarioById(this.$route.params.usertag,
+                messagees => {this.messages = messagees}
+            )
+
+            if(this.userLogged.email === this.userProfile.id){
+                this.myProfile = true
+            } else {
+                this.myProfile = false
+            }
+
+            this.seguido = await checkFollow(this.userLogged.email, this.userProfile.id);
+        }catch(err){
+            console.log('Error al cargar los datos:', err)
         }
+    },
+    methods: {
+    async seguir() {
+      try {
+        this.seguido = await darFollow(this.userLogged.email, this.userProfile.id);
+      } catch (err) {
+        console.error('Error al seguir:', err);
+      }
     }
+}
+
 }
 </script>
 
