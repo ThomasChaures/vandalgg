@@ -1,10 +1,12 @@
 <script>
 import { darLike } from '@/service/chatGlobal'
 import { subscribeToAuth } from '@/service/auth';
+import { RouterLink } from 'vue-router';
 
 
 export default {
   name: 'chatList',
+  components: {RouterLink},
   props: {
     messages: {
       type: Array,
@@ -46,8 +48,8 @@ export default {
         <div class="h-9 w-9 bg-white flex items-center justify-center rounded-full">
           <i class="fa-solid fa-user text-black"></i>
         </div>
-        <p class="pl-2 font-semibold text-lg">{{ messages.username }}</p>
-        <p class="pl-2 opacity-60">@{{ messages.usertag }}</p>
+        <router-link :to="'/perfil/' + messages.usertag" class="pl-2 font-semibold text-lg">{{ messages.username }}</router-link>
+        <router-link :to="'/perfil/' + messages.usertag" class="pl-2 opacity-60">@{{ messages.usertag }}</router-link>
       </div>
       <div class="message pt-4 pb-4 px-2 text-white text-wrap">
         <p class="break-all">{{ messages.content }}</p>
