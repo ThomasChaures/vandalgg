@@ -23,7 +23,7 @@ import {
     }
 
     const usersRef = collection(db, 'usuario');
-    const q = query(usersRef, where("id", "==", useremail));
+    const q = query(usersRef, where("id_m", "==", useremail));
 
     const querySnapshot = await getDocs(q);
 
@@ -47,7 +47,7 @@ export async function darFollow(myemail, useremail) {
     }
 
     const usersRef = collection(db, 'usuario');
-    const q = query(usersRef, where("id", "==", useremail));
+    const q = query(usersRef, where("id_m", "==", useremail));
 
     const querySnapshot = await getDocs(q);
 
@@ -86,7 +86,7 @@ export async function darFollow(myemail, useremail) {
   export async function crearDatosDeUsuario(id, username, usertag, nacimiento) {
         const userRef = collection(db, 'usuario')
         await addDoc(userRef, {
-            id: id,
+            id_m: id, // el email del usuari
             username: username,
             usertag: usertag,
             description: '',
@@ -99,30 +99,41 @@ export async function darFollow(myemail, useremail) {
   }
 
 
-  export async function localizarLosDatosDelUsuarioLoggeado(email, callback) {
-        try{
-            const userRerf = collection(db, 'usuario')
-            const q = query(userRerf, where('id', '==', email))
-            const querySnapshot = await getDocs(q)
 
-            if(!querySnapshot.empty){
-                const userData = querySnapshot.docs[0].data()
-           
-
-               let userP = {
-                    username:userData.username,
-                    usertag:userData.usertag
-                }
-
-                callback(userP)
-            } else {
-                callback(null)
-            }
-        }catch(err){
-            console.log(err)
-            throw err
-        }
+  export async function localizarLosDatosDelUsuario(email) {
+      try {
+          // Crea una referencia a la colección y ejecuta la consulta donde 'id_m' es igual al email
+          const userDoc = collection(db, 'usuario');
+          const q = query(userDoc, where("id_m", "==", email));
+          const qSnapshot = await getDocs(q); // Ejecuta la consulta con getDocs
+  
+          // Verifica si la consulta trajo resultados
+          if (qSnapshot.empty) {
+              throw new Error(`No se encontró ningún usuario con el correo electrónico ${email}.`);
+          }
+  
+          // Obtén el primer documento de los resultados (en caso de que haya más de uno)
+          const userSnapshot = qSnapshot.docs[0]; 
+          const userData = userSnapshot.data(); // Obtén los datos del documento
+  
+          // Retorna los datos del usuario
+          return {
+              id_m: userData.id_m,
+              username: userData.username,
+              usertag: userData.usertag,
+              description: userData.description,
+              fecha_nacimiento: userData.nacimiento,
+              seguidores: userData.seguidor,
+              seguidores_cuentas: userData.seguidores_cuentas,
+              seguidos: userData.seguidos,
+              seguidos_cuentas: userData.seguidos_cuentas
+          };
+      } catch (error) {
+          console.error("Error buscando los datos del usuario:", error);
+          throw error;
+      }
   }
+  
 
   export async function localizarLosDatosDelUsuarioLoggeadoByUsertag(usertag, callback) {
     try {

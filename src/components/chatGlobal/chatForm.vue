@@ -1,6 +1,5 @@
 <script>
 import { subscribeToAuth } from '@/service/auth'
-import { localizarLosDatosDelUsuarioLoggeado } from '@/service/users'
 
 export default {
   name: 'chatForm',
@@ -14,12 +13,9 @@ export default {
       userLogged: {
         id: '',
         email: '',
-      },
-      dataUserLogged: {
          username: '',
          usertag: ''
-      },
-      unsubscribe: null 
+      }, 
     }
   },
   mounted() {
@@ -28,29 +24,29 @@ export default {
       this.dateNow();
     }, 1000);
 
-    this.unsubscribe = subscribeToAuth(newUserData => {
-      this.userLogged = newUserData;
 
-      if (this.userLogged.email) {
-        localizarLosDatosDelUsuarioLoggeado(this.userLogged.email, user => { 
-          this.dataUserLogged = user; 
-        })
-        .catch(err => console.error('Error fetching user data:', err));
-      }
-    });
-  },
-  beforeDestroy() {
-    if (this.unsubscribe) {
-      this.unsubscribe();
-    }
+
+    subscribeToAuth(newUserData => {
+
+let dataUserStorage = localStorage.getItem('user')
+if(!dataUserStorage){
+  localStorage.setItem('user', JSON.stringify(newUserData))
+}
+this.userLogged = newUserData
+
+})
+
+const user = localStorage.getItem('user')
+this.userLogged = JSON.parse(user)
+console.log(user)
   },
   methods: {
     async handleSubmit() {
       if (this.userLogged && this.userLogged.id && this.newMessage.content.trim() !== '') {
         this.$emit('newMessages', { 
           user_id: this.userLogged.id,
-          username: this.dataUserLogged.username,
-          usertag: this.dataUserLogged.usertag,
+          username: this.userLogged.username,
+          usertag: this.userLogged.usertag,
           content: this.newMessage.content 
         });
         this.newMessage.content = '';

@@ -17,31 +17,48 @@ export default{
            userLogged: {
            id: '',
            email: '',
-
+           username: '',
+           usertag: ''
           },
         }
     },
     async mounted(){
-       subscribeToAuth(userData => {this.userLogged = userData})
+       
+
+subscribeToAuth(newUserData => {
+
+  let dataUserStorage = localStorage.getItem('user')
+  if(!dataUserStorage){
+    localStorage.setItem('user', JSON.stringify(newUserData))
+  }
+  this.userLogged = newUserData
+
+})
+
+const user = localStorage.getItem('user')
+this.userLogged = JSON.parse(user)
+console.log(user)
+
         
-    
+        
 
         try{
             await localizarLosDatosDelUsuarioLoggeadoByUsertag(this.$route.params.usertag, userData => {this.userProfile = userData})
 
-            console.log(this.userProfile.id)
+            console.log(this.userProfile.id_m)
 
              await obtenerPostsDeUsuarioById(this.$route.params.usertag,
                 messagees => {this.messages = messagees}
             )
 
-            if(this.userLogged.email === this.userProfile.id){
+            if(this.userLogged.email === this.userProfile.id_m){
+                console.log(this.userProfile.id_m)
                 this.myProfile = true
             } else {
                 this.myProfile = false
             }
 
-            this.seguido = await checkFollow(this.userLogged.email, this.userProfile.id);
+            this.seguido = await checkFollow(this.userLogged.email, this.userProfile.id_m);
         }catch(err){
             console.log('Error al cargar los datos:', err)
         }
@@ -49,7 +66,7 @@ export default{
     methods: {
     async seguir() {
       try {
-        this.seguido = await darFollow(this.userLogged.email, this.userProfile.id);
+        this.seguido = await darFollow(this.userLogged.email, this.userProfile.id_m);
       } catch (err) {
         console.error('Error al seguir:', err);
       }
@@ -83,16 +100,21 @@ export default{
                 </form>
             </div>
             </template>
+            <template v-else-if="myProfile">
+                    <div class="follow-button absolute top-[53.8%] left-[85%] transform -translate-x-1/2 ">
+                        <button class='border transition-all hover:border-white hover:text-white border-white/50 rounded flex items-center h-[30px] w-[100px] justify-center text-white/50'>Editar <i class="fa-solid fa-pen ml-4"></i></button>
+                    </div>
+            </template>
 
 
-            <div class="data-name-user pt-[100px] pl-[28px]">
+            <div class="data-name-user pt-[100px] pl-[29px]">
                 <p class="text-2xl text-white font-bold">{{ userProfile.username }}</p>
                 <p class="text-lg text-white/50 font-normal">@{{ userProfile.usertag }}</p>
             </div>
 
             
 
-            <div class="followers  text-lg text-white flex pt-[20px] pb-[16px] pl-[25px] ">
+            <div class="followers  text-lg text-white flex pt-[20px] pb-[16px] pl-[29px] ">
                 <p class="mr-4">{{ userProfile.seguidores }} <span class="text-white/50" >Seguidores</span></p>
                 <p>{{ userProfile.seguidos }} <span class="text-white/50" >Seguidos</span></p>
             </div>

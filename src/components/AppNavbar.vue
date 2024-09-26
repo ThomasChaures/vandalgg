@@ -1,7 +1,7 @@
 <script>
 import { RouterLink } from 'vue-router'
 import { cerrarSesion, subscribeToAuth } from '@/service/auth'
-import { localizarLosDatosDelUsuarioLoggeado } from '@/service/users';
+import { localizarLosDatosDelUsuario } from '@/service/users';
 
 export default {
   name: 'AppNavbar',
@@ -11,26 +11,32 @@ export default {
       userLogged: {
         id: '',
         email: '',
-      },
-      dataUserLogged: {
-         username: '',
+           username: '',
          usertag: ''
-      }
+      },
     }
   },
   async mounted() {
-    subscribeToAuth(newUserData => this.userLogged = newUserData)
 
 
-      localizarLosDatosDelUsuarioLoggeado(this.userLogged.email, user => {
-      this.dataUserLogged = user, console.log(user), console.log(this.dataUserLogged)
+    subscribeToAuth(newUserData => {
+      let dataUserStorage = localStorage.getItem('user')
+      if(!dataUserStorage){
+        localStorage.setItem('user', JSON.stringify(newUserData))
+      }
+      this.userLogged = newUserData
+   
     })
 
-    console.log(this.dataUserLogged)
+    const user = localStorage.getItem('user')
+    this.userLogged = JSON.parse(user)
+    console.log(user)
+
   },
   methods: {
     logout(){
       cerrarSesion()
+      localStorage.removeItem("user")
     }
   }
 }
@@ -52,7 +58,7 @@ export default {
         <li v-if="userLogged.id" class="hover:text-red-600 w-full block">
           <RouterLink
             class="font-semibold tracking-wider w-full block"
-            :to="'/perfil/' + dataUserLogged.usertag"
+            :to="'/perfil/' + userLogged.usertag"
           >
             <i class="fa-solid fa-user pr-2"></i>Perfil</RouterLink
           >

@@ -1,11 +1,14 @@
 
 import { auth } from './firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut} from 'firebase/auth';
+import { localizarLosDatosDelUsuario } from './users';
 
 
-const userLogged = {
-  id: null,
-  email: null,
+let userLogged = {
+  id: '',
+  email: '',
+  username: '',
+  usertag: ''
 };
 
 let observers = []
@@ -14,7 +17,11 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     userLogged.id = user.uid 
     userLogged.email = user.email
-  
+
+    const fullProfile = await localizarLosDatosDelUsuario(user.email)
+    userLogged.username = fullProfile.username
+    userLogged.usertag = fullProfile.usertag
+    
   } else {
     userLogged.id = null;
     userLogged.email = null;
