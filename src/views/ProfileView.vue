@@ -166,7 +166,6 @@ export default {
 
       <div class="followers  text-lg text-white flex pt-[20px] pb-[16px] pl-[25px] ">
                 <p class="mr-4">{{ userProfile.seguidores }} <span class="text-white/50" >Seguidores</span></p>
-                <p>{{ userProfile.seguidos }} <span class="text-white/50" >Seguidos</span></p>
             </div>
     </section>
 
