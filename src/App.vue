@@ -1,12 +1,28 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router'
-import AppNavbar from './components/AppNavbar.vue'
-import AppFooter from './components/AppFooter.vue'
+import { RouterLink, RouterView } from "vue-router";
+import AppNavbar from "./components/AppNavbar.vue";
+import { subscribeToAuth } from "./service/auth";
+import AppFooter from "./components/AppFooter.vue";
 
 export default {
-  name: 'App',
-  components: { RouterLink, RouterView, AppNavbar, AppFooter }
-}
+  name: "App",
+  components: { RouterLink, RouterView, AppNavbar, AppFooter },
+  data() {
+    return {
+      userLogged: {
+        id: "",
+        email: "",
+        username: "",
+        usertag: "",
+      },
+    };
+  },
+  mounted() {
+    subscribeToAuth((newUserData) => {
+      this.userLogged = newUserData
+    })
+  },
+};
 </script>
 
 <template>

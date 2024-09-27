@@ -5,11 +5,11 @@ import { localizarLosDatosDelUsuario } from './users';
 
 
 let userLogged = {
-  id: '',
-  email: '',
-  username: '',
-  usertag: ''
-};
+  id: null,
+  email: null,
+  username: null,
+  usertag: null
+}
 
 let observers = []
 
@@ -24,7 +24,9 @@ onAuthStateChanged(auth, async (user) => {
     
   } else {
     userLogged.id = null;
-    userLogged.email = null;
+    userLogged.email = null
+    userLogged.username = null
+    userLogged.usertag = null
   }
   notifyAll()
 })

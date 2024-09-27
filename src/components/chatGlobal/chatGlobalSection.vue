@@ -2,6 +2,7 @@
 import chatForm from './chatForm.vue'
 import chatList from './chatList.vue'
 import { enviarMensajeAfirebase, cambiosEnElChat } from '@/service/chatGlobal.js'
+import { subscribeToAuth } from '@/service/auth'
 
 export default {
   name: 'chatGlobalSection',
@@ -9,13 +10,22 @@ export default {
   data() {
     return {
       messages: [],
-      postCargados: false
+      postCargados: false,
+      userLogged: {
+        id: '',
+        email: '',
+        username: '',
+        usertag: '',
+      },
     }
   },
   async mounted() {
     cambiosEnElChat((mensajesDB) => {
       this.messages = mensajesDB.reverse()
       this.postCargados = true
+    })
+    subscribeToAuth((newUserData) => {
+      this.userLogged = newUserData
     })
   },
   methods: {
@@ -27,11 +37,20 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 w-[100%]">
-    <section class="border-b border-white/40">
+  <div class="flex flex-col  w-[100%]">
+    <section v-if="this.userLogged.id" class="border-b border-white/40">
+      <div class="w-full flex item-center justify-center border-t border-b border-white/40">
+        <h2 class="font-semibold text-2xl py-2 text-white">Enviar post</h2>
+      </div>
       <chatForm @new-messages="sendMessage" />
     </section>
     <section>
+      <div class="w-full flex item-center justify-center border-t border-b border-white/40">
+        <h2 class="font-semibold text-2xl py-2 text-white">Posts</h2>
+      </div>
+      <template v-if="messages.length === 0">
+         <p class='w-full flex item-center justify-center py-20 text-4xl text-white/60'>No hay posts publicados.</p>
+      </template>
       <template v-if="postCargados">
         <chatList :messages="messages" />
       </template>

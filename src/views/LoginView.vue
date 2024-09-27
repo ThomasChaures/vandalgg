@@ -1,10 +1,13 @@
 <script>
 import { login } from '@/service/auth'
+import error from '@/components/slot/error.vue';
 
 export default {
   name: 'LoginView',
+  components: {error},
   data() {
     return {
+      error: '',
       user: {
         email: '',
         password: ''
@@ -22,6 +25,7 @@ export default {
         this.$router.push('/')
       } catch (err) {
         console.log(err)
+        this.error = `${err}`
       }
     }
   }
@@ -30,7 +34,9 @@ export default {
 
 <template>
   <section class="w-full max-w-[600px] p-8 h-screen border-l border-r border-white/40">
-    <h1 class="text-white text-xl font-semibold mb-4">Ingresar cuenta</h1>
+    <div class="w-full flex item-center justify-center border-t border-b border-white/40 mb-2">
+        <h2 class="font-semibold text-2xl py-2 text-white">Ingresar Cuenta</h2>
+      </div>
 
     <form action="#" @submit.prevent="envioDeFormulario()">
       <div class="mb-4">
@@ -57,5 +63,8 @@ export default {
         Enviar
       </button>
     </form>
+    <template v-if="error !== ''">
+        <error>Error al inciar sesion. El e-mail o la contraseña pueden no ser correctos.</error>
+    </template>
   </section>
 </template>

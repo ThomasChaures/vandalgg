@@ -1,22 +1,22 @@
 <script>
-import { subscribeToAuth } from '@/service/auth'
+import { subscribeToAuth } from "@/service/auth";
 
 export default {
-  name: 'chatForm',
-  emits: ['newMessages'],
+  name: "chatForm",
+  emits: ["newMessages"],
   data() {
     return {
-      fecha: '',
+      fecha: "",
       newMessage: {
-        content: ''
+        content: "",
       },
       userLogged: {
-        id: '',
-        email: '',
-         username: '',
-         usertag: ''
-      }, 
-    }
+        id: "",
+        email: "",
+        username: "",
+        usertag: "",
+      },
+    };
   },
   mounted() {
     this.dateNow();
@@ -24,40 +24,32 @@ export default {
       this.dateNow();
     }, 1000);
 
-
-
-    subscribeToAuth(newUserData => {
-
-let dataUserStorage = localStorage.getItem('user')
-if(!dataUserStorage){
-  localStorage.setItem('user', JSON.stringify(newUserData))
-}
-this.userLogged = newUserData
-
-})
-
-const user = localStorage.getItem('user')
-this.userLogged = JSON.parse(user)
-console.log(user)
+    subscribeToAuth((newUserData) => {
+      this.userLogged = newUserData
+    })
   },
   methods: {
     async handleSubmit() {
-      if (this.userLogged && this.userLogged.id && this.newMessage.content.trim() !== '') {
-        this.$emit('newMessages', { 
+      if (
+        this.userLogged &&
+        this.userLogged.id &&
+        this.newMessage.content.trim() !== ""
+      ) {
+        this.$emit("newMessages", {
           user_id: this.userLogged.id,
           username: this.userLogged.username,
           usertag: this.userLogged.usertag,
-          content: this.newMessage.content 
+          content: this.newMessage.content,
         });
-        this.newMessage.content = '';
+        this.newMessage.content = "";
       }
     },
     dateNow() {
       const fecha = new Date();
       this.fecha = fecha.toLocaleString();
-    }
+    },
   },
-}
+};
 </script>
 
 <template>

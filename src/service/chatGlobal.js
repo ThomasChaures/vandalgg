@@ -10,22 +10,20 @@ import {
   increment,
   doc,
   where,
-  getDocs
-} from 'firebase/firestore'
-import { db } from './firebase'
+} from "firebase/firestore";
+import { db } from "./firebase";
 
 export async function enviarMensajeAfirebase(newMessage) {
-  const chatRef = collection(db, 'chat')
+  const chatRef = collection(db, "chat");
   await addDoc(chatRef, {
     ...newMessage,
     created_at: serverTimestamp(),
     likes: 0,
     likesBy: [],
     comentarios: 0,
-    comentarios_text: []
-  })
+    comentarios_text: [],
+  });
 }
-
 
 /**
  * @param {*} id
@@ -36,12 +34,12 @@ export async function enviarMensajeAfirebase(newMessage) {
  *  Funciona de la siguiente manera:
  */
 export async function darLike(id, userId) {
-  const postRef = doc(db, 'chat', id) // Mediante doc() se obtiene la direccion del documento, en exactitud el que necesitamos con la id.
-  const postDoc = await getDoc(postRef) // Ya teniendo la referencia lo buscamos con getDoc para que podamos obtener la data.
+  const postRef = doc(db, "chat", id); // Mediante doc() se obtiene la direccion del documento, en exactitud el que necesitamos con la id.
+  const postDoc = await getDoc(postRef); // Ya teniendo la referencia lo buscamos con getDoc para que podamos obtener la data.
 
   if (postDoc.exists()) {
     // Si existe, pasaremos a obtenerla informacion del documento.
-    const postData = postDoc.data() // Obtenemos la info.
+    const postData = postDoc.data(); // Obtenemos la info.
 
     if (!postData.likesBy || !postData.likesBy.includes(userId)) {
       // Si el usuario no se encuentra en el Array 'likesBy' o el Array no existe, se procede a incrementar el dato likes del documento.
@@ -49,64 +47,86 @@ export async function darLike(id, userId) {
         // Mediante updateDoc() actualizaremos el documento
         await updateDoc(postRef, {
           likes: increment(1),
-          likesBy: [...(postData.likesBy || []), userId]
-        })
+          likesBy: [...(postData.likesBy || []), userId],
+        });
       } catch (err) {
-        console.log('Error al dar like:', err)
+        console.log("Error al dar like:", err);
       }
     } else {
-      console.log('El usuario ya ha dado like a este mensaje.')
+      console.log("El usuario ya ha dado like a este mensaje.");
       await updateDoc(postRef, {
         likes: increment(-1),
-        likesBy: postData.likesBy.filter(uid => uid !== userId)
-      })
+        likesBy: postData.likesBy.filter((uid) => uid !== userId),
+      });
     }
   } else {
-    console.log('El mensaje no existe.')
+    console.log("El mensaje no existe.");
   }
 }
 
-export async function enviarComentarioAlPost(comentario, username, usertag) {
-  const commentRef = collection(db, 'comentario')
-  await addDoc(chatRef, {
-    ...comentario,
+export async function enviarComentarioAlPost(comentario, usertag, id) {
+  const commentRef = collection(db, "comentario");
+  await addDoc(commentRef, {
+    post: id,
+    comentario: comentario,
+    usertag: usertag,
     created_at: serverTimestamp(),
-    username: username,
-    usertag: `@ ${usertag}`,
-    likes: 0,
-    likesBy: []
-  })
+  });
+  const postRef = doc(db, "chat", id);
+  const postDoc = await getDoc(postRef);
+
+  if (postDoc.exists()) {
+    const postData = postDoc.data();
+
+    try {
+      await updateDoc(postRef, {
+        comentarios: increment(1),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
-// export async functio getComentariosDelPost(id){
-//   const commentRef = getDoc(id,.)
-// }
+export function getComentariosDelPost(id, callback) {
+  const commentsRef = collection(db, "comentario") // Cambia "comentarios" al nombre de tu colección
+  const q = query(commentsRef, where("post", "==", id));// Filtra por el ID del post
+  
+  return onSnapshot(q, (querySnapshot) => {
+    const comentarios = [];
+    querySnapshot.forEach((doc) => {
+      comentarios.push({ id: doc.id, ...doc.data() });
+    });
+    callback(comentarios); // Devuelve los comentarios a través del callback
+  }, (error) => {
+    console.error("Error obteniendo comentarios: ", error);
+  });
+}
 
 export function cambiosEnElChat(callback) {
-  const chatRef = collection(db, 'chat')
-  const q = query(chatRef, orderBy('created_at'))
+  const chatRef = collection(db, "chat");
+  const q = query(chatRef, orderBy("created_at"));
   onSnapshot(q, (snapshot) => {
     const messages = snapshot.docs.map((doc) => {
       return {
         id: doc.id,
-        ...doc.data()
-      }
-    })
-    callback(messages)
-  })
+        ...doc.data(),
+      };
+    });
+    callback(messages);
+  });
 }
 
-
 export async function obtenerPostsDeUsuarioById(usertag, callback) {
-    const chatRef = collection(db, 'chat')
-    const q = query(chatRef, where('usertag', '==', usertag))
-    onSnapshot(q, (snapshot) => {
-      const messages = snapshot.docs.map((doc) => {
-        return{
-          id: doc.id,
-          ...doc.data()
-        }
-      })
-      callback(messages)
-    })
+  const chatRef = collection(db, "chat");
+  const q = query(chatRef, where("usertag", "==", usertag));
+  onSnapshot(q, (snapshot) => {
+    const messages = snapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+    callback(messages);
+  });
 }
