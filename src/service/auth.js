@@ -13,6 +13,10 @@ let userLogged = {
   username: null,
   usertag: null,
   description: null,
+  seguidores: null,
+  seguidores_cuentas: null,
+  seguidos: null,
+  seguidos_cuentas: null,
 };
 
 let observers = [];
@@ -25,13 +29,21 @@ onAuthStateChanged(auth, async (user) => {
     const fullProfile = await localizarLosDatosDelUsuario(user.email);
     userLogged.username = fullProfile.username;
     userLogged.usertag = fullProfile.usertag;
-    userLogged.desciption = fullProfile.description;
+    userLogged.description = fullProfile.description;
+    userLogged.seguidores = fullProfile.seguidores;
+    userLogged.seguidores_cuentas = fullProfile.seguidores_cuentas;
+    userLogged.seguidos = fullProfile.seguidos;
+    userLogged.seguidos_cuentas = fullProfile.seguidos_cuentas;
   } else {
     userLogged.id = null;
     userLogged.email = null;
     userLogged.username = null;
     userLogged.usertag = null;
-    userLogged.desciption = null;
+    userLogged.description = null;
+    userLogged.seguidores = null;
+    userLogged.seguidores_cuentas = null;
+    userLogged.seguidos = null;
+    userLogged.seguidos_cuentas = null;
   }
   notifyAll();
 });

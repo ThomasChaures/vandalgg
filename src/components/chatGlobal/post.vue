@@ -25,6 +25,10 @@ export default {
         username: "",
         usertag: "",
         desciption: "",
+        seguidores: null,
+        seguidores_cuentas: null,
+        seguidos: null,
+        seguidos_cuentas: null,
       },
     };
   },

@@ -1,5 +1,4 @@
 <script>
-
 import { subscribeToAuth } from "@/service/auth";
 import { RouterLink } from "vue-router";
 import post from "./post.vue";
@@ -21,13 +20,16 @@ export default {
         username: "",
         usertag: "",
         desciption: "",
+        seguidores: null,
+        seguidores_cuentas: null,
+        seguidos: null,
+        seguidos_cuentas: null,
       },
-    }
+    };
   },
   mounted() {
     subscribeToAuth((newUserData) => (this.userLogged = newUserData));
   },
-  
 };
 </script>
 
@@ -38,7 +40,7 @@ export default {
       v-for="(messages, index) in messages"
       :key="index"
     >
-        <post :message="messages" />
+      <post :message="messages" />
     </div>
   </div>
 </template>

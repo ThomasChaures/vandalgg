@@ -5,83 +5,82 @@ import {
   where,
   getDocs,
   updateDoc,
+  increment
 } from "firebase/firestore";
 import { db } from "./firebase";
 
-//   export async function checkFollow(myemail, useremail) {
+  export async function checkFollow(myemail, useremail) {
 
-//     if (!myemail || !useremail) {
-//         console.error('Los emails proporcionados no son válidos.', { myemail, useremail });
-//         return null;
-//     }
+    if (!myemail || !useremail) {
+        console.error('Los emails proporcionados no son válidos.', { myemail, useremail });
+        return null;
+    }
 
-//     const usersRef = collection(db, 'usuario');
-//     const q = query(usersRef, where("id_m", "==", useremail));
+    const usersRef = collection(db, 'usuario');
+    const q = query(usersRef, where("id_m", "==", useremail));
 
-//     const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(q);
 
-//     if (querySnapshot.empty) {
-//         console.log('Este usuario no existe.');
-//         return null;
-//     }
+    if (querySnapshot.empty) {
+        console.log('Este usuario no existe.');
+        return null;
+    }
 
-//     const userDoc = querySnapshot.docs[0];
-//     const userData = userDoc.data();
+    const userDoc = querySnapshot.docs[0];
+    const userData = userDoc.data();
 
-//     const siguiendo = userData.seguidores_cuentas.find(seguidor => seguidor === myemail);
-//     return !!siguiendo;
-// }
+    const siguiendo = userData.seguidores_cuentas.find(seguidor => seguidor === myemail);
+    return !!siguiendo;
+}
 
-// export async function darFollow(myemail, useremail) {
-//     // Verifica que myemail y useremail no sean undefined o null
-//     if (!myemail || !useremail) {
-//         console.error('Los emails proporcionados no son válidos.', { myemail, useremail });
-//         return null;
-//     }
+export async function darFollow(myemail, useremail) {
+    // Verifica que myemail y useremail no sean undefined o null
+    if (!myemail || !useremail) {
+        return null;
+    }
 
-//     const usersRef = collection(db, 'usuario');
-//     const q = query(usersRef, where("id_m", "==", useremail));
+    const usersRef = collection(db, 'usuario');
+    const q = query(usersRef, where("id_m", "==", useremail));
 
-//     const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(q);
 
-//     if (querySnapshot.empty) {
-//         console.log('Este usuario no existe.');
-//         return null;
-//     }
+    if (querySnapshot.empty) {
+        console.log('Este usuario no existe.');
+        return null;
+    }
 
-//     const userDoc = querySnapshot.docs[0];
-//     const userData = userDoc.data();
+    const userDoc = querySnapshot.docs[0];
+    const userData = userDoc.data();
 
-//     try {
-//         if (!userData.seguidores_cuentas || !userData.seguidores_cuentas.includes(myemail)) {
-//             // Añadir seguidor
-//             await updateDoc(userDoc.ref, {
-//                 seguidores: increment(1),
-//                 seguidores_cuentas: [...(userData.seguidores_cuentas || []), myemail]
-//             });
-//             return true;
-//         } else {
-//             // Eliminar seguidor
-//             await updateDoc(userDoc.ref, {
-//                 seguidores: increment(-1),
-//                 seguidores_cuentas: userData.seguidores_cuentas.filter(mail => mail !== myemail)
-//             });
-//             return false;
-//         }
-//     } catch (err) {
-//         console.error('Error al actualizar el documento:', err);
-//         return false;
-//     }
-// }
+    try {
+        if (!userData.seguidores_cuentas || !userData.seguidores_cuentas.includes(myemail)) {
+            // Añadir seguidor
+            await updateDoc(userDoc.ref, {
+                seguidores: increment(1),
+                seguidores_cuentas: [...(userData.seguidores_cuentas || []), myemail]
+            });
+            return true;
+        } else {
+            // Eliminar seguidor
+            await updateDoc(userDoc.ref, {
+                seguidores: increment(-1),
+                seguidores_cuentas: userData.seguidores_cuentas.filter(mail => mail !== myemail)
+            });
+            return false;
+        }
+    } catch (err) {
+        console.error('Error al actualizar el documento:', err);
+       
+    }
+}
 
-export async function crearDatosDeUsuario(id, username, usertag, nacimiento) {
+export async function crearDatosDeUsuario(id, username, usertag) {
   const userRef = collection(db, "usuario");
   await addDoc(userRef, {
     id_m: id,
     username: username,
     usertag: usertag,
     description: "Este usuario aun no tiene descripcion.",
-    fecha_nacimiento: nacimiento,
     seguidores: 0,
     seguidores_cuentas: [],
     seguidos: 0,

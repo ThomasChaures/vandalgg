@@ -15,6 +15,10 @@ export default {
         username: "",
         usertag: "",
         description: "",
+        seguidores: null,
+        seguidores_cuentas: null,
+        seguidos: null,
+        seguidos_cuentas: null,
       },
       editProfile: {
         username: "",
@@ -29,19 +33,19 @@ export default {
     };
   },
   mounted() {
-  subscribeToAuth((newUserData) => {
-    if (newUserData) {
-      this.userLogged = newUserData;
-      this.editProfile.username = this.userLogged.username || "";
-      this.editProfile.usertag = this.userLogged.usertag || "";
-      this.editProfile.description = this.userLogged.description || "";
+    subscribeToAuth((newUserData) => {
+      if (newUserData) {
+        this.userLogged = newUserData;
+        this.editProfile.username = this.userLogged.username || "";
+        this.editProfile.usertag = this.userLogged.usertag || "";
+        this.editProfile.description = this.userLogged.description || "";
 
-      if (this.userLogged.id !== this.$route.params.id) {
-        this.$router.push("/");
+        if (this.userLogged.id !== this.$route.params.id) {
+          this.$router.push("/");
+        }
       }
-    }
-  });
-},
+    });
+  },
 
   methods: {
     async envioDeFormulario() {
@@ -91,7 +95,7 @@ export default {
             this.editProfile.username,
             this.editProfile.usertag
           );
-          this.$router.push('/perfil/'+ this.editProfile.usertag)
+          this.$router.push("/perfil/" + this.editProfile.usertag);
         } catch (err) {
           console.log("Error al editar el perfil.");
         }
@@ -144,7 +148,9 @@ export default {
             name="description"
             v-model="editProfile.description"
             class="w-full h-28 resize-none border-slate-900 border rounded py-2 px-4 text-slate-900 focus:border-slate-950"
-          >{{}}</textarea>
+          >
+{{}}</textarea
+          >
           <template v-if="errors.description !== ''">
             <error>{{ errors.description }}</error>
           </template>

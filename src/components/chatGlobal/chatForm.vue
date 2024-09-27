@@ -16,6 +16,10 @@ export default {
         username: "",
         usertag: "",
         desciption: "",
+        seguidores: null,
+        seguidores_cuentas: null,
+        seguidos: null,
+        seguidos_cuentas: null,
       },
     };
   },
@@ -26,8 +30,8 @@ export default {
     }, 1000);
 
     subscribeToAuth((newUserData) => {
-      this.userLogged = newUserData
-    })
+      this.userLogged = newUserData;
+    });
   },
   methods: {
     async handleSubmit() {

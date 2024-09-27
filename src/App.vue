@@ -14,13 +14,17 @@ export default {
         email: "",
         username: "",
         usertag: "",
+        seguidores: null,
+        seguidores_cuentas: null,
+        seguidos: null,
+        seguidos_cuentas: null,
       },
     };
   },
   mounted() {
     subscribeToAuth((newUserData) => {
-      this.userLogged = newUserData
-    })
+      this.userLogged = newUserData;
+    });
   },
 };
 </script>
