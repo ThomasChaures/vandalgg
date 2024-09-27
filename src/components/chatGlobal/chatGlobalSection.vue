@@ -12,10 +12,11 @@ export default {
       messages: [],
       postCargados: false,
       userLogged: {
-        id: '',
-        email: '',
-        username: '',
-        usertag: '',
+        id: "",
+        email: "",
+        username: "",
+        usertag: "",
+        desciption: "",
       },
     }
   },

@@ -18,6 +18,7 @@ export default {
         email: "",
         username: "",
         usertag: "",
+        desciption: "",
       },
     };
   },
@@ -84,9 +85,10 @@ export default {
         </div>
       </template>
 
-      <div class="data-name-user pt-[70px] pl-[29px]">
-        <p class="text-2xl text-white font-bold">{{ userProfile.username }}</p>
-        <p class="text-lg text-white/50 font-normal">
+      <div class="data-name-user flex items-center pt-[70px] pl-[29px]">
+        <p class="text-2xl mr-2 text-white font-bold">{{ userProfile.username }}</p>
+        <span class="text-xl text-white/50">•</span>
+        <p class=" ml-2 text-xl text-white/50 font-normal">
           @{{ userProfile.usertag }}
         </p>
       </div>

@@ -20,6 +20,7 @@ export default {
         email: "",
         username: "",
         usertag: "",
+        desciption: "",
       },
     }
   },

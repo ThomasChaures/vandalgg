@@ -24,6 +24,7 @@ export default {
         email: "",
         username: "",
         usertag: "",
+        desciption: "",
       },
     };
   },
@@ -105,7 +106,7 @@ export default {
   <template v-if="flagComment">
     <div class="border-t mt-2 border-white/40">
       <h3 class="text-lg py-2 text-white">Comentarios:</h3>
-      <div v-if="userLogged.id"class="border-b pt-2 pb-6 border-white/40">
+      <div v-if="userLogged.id" class="border-b pt-2 pb-6 border-white/40">
         <form
           action="#"
           @submit.prevent="comentar()"
@@ -129,29 +130,28 @@ export default {
       </div>
       <template v-if="comentarios.length !== 0">
         <div
-        class="border border-white/40 p-2"
-        
-        v-for="(comentarios, index) in comentarios"
-        :key="index"
-      >
-        <div>
-          <div class="headerMessage flex items-center text-white">
-            <div
-              class="h-9 w-9 bg-white flex items-center justify-center rounded-full"
-            >
-              <i class="fa-solid fa-user text-black"></i>
+          class="border border-white/40 p-2"
+          v-for="(comentarios, index) in comentarios"
+          :key="index"
+        >
+          <div>
+            <div class="headerMessage flex items-center text-white">
+              <div
+                class="h-9 w-9 bg-white flex items-center justify-center rounded-full"
+              >
+                <i class="fa-solid fa-user text-black"></i>
+              </div>
+              <router-link
+                :to="'/perfil/' + comentarios.usertag"
+                class="pl-2 font-semibold text-lg"
+                >@{{ comentarios.usertag }}</router-link
+              >
             </div>
-            <router-link
-              :to="'/perfil/' + comentarios.usertag"
-              class="pl-2 font-semibold text-lg"
-              >@{{ comentarios.usertag }}</router-link
-            >
-          </div>
-          <div class="message pt-4 pb-4 px-2 text-white text-wrap">
-            <p class="break-all">{{ comentarios.comentario }}</p>
+            <div class="message pt-4 pb-4 px-2 text-white text-wrap">
+              <p class="break-all">{{ comentarios.comentario }}</p>
+            </div>
           </div>
         </div>
-      </div>
       </template>
       <template v-else>
         <p class="text-white">Este post no tiene ningun comentario.</p>

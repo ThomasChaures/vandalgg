@@ -87,13 +87,13 @@ export default {
 
 <template>
   <section
-    class="w-full max-w-[600px] p-8 h-screen border-l border-r border-white/40"
+    class="w-full max-w-[600px]  h-screen border-l border-r border-white/40"
   >
   <div class="w-full flex item-center justify-center border-t border-b border-white/40 mb-2">
         <h2 class="font-semibold text-2xl py-2 text-white">Registro de Cuenta</h2>
       </div>
 
-    <form action="#" @submit.prevent="envioDeFormulario()">
+    <form action="#" class="p-8" @submit.prevent="envioDeFormulario()">
       <div class="mb-4">
         <label for="username" class="text-white block mb-2">Nombre</label>
         <input

@@ -1,39 +1,43 @@
 <script>
-import { RouterLink } from 'vue-router'
-import { cerrarSesion, subscribeToAuth } from '@/service/auth'
-
+import { RouterLink } from "vue-router";
+import { cerrarSesion, subscribeToAuth } from "@/service/auth";
 
 export default {
-  name: 'AppNavbar',
+  name: "AppNavbar",
   components: { RouterLink },
   data() {
     return {
       userLogged: {
-        id: '',
-        email: '',
-           username: '',
-         usertag: ''
+        id: "",
+        email: "",
+        username: "",
+        usertag: "",
+        desciption: "",
       },
-    }
+    };
   },
   async mounted() {
     subscribeToAuth((newUserData) => {
-      this.userLogged = newUserData
-    })
+      this.userLogged = newUserData;
+    });
   },
   methods: {
-    logout(){
-      cerrarSesion()
-      this.$router.push('/')
+    logout() {
+      cerrarSesion();
+      this.$router.push("/");
     },
-  }
-}
+  },
+};
 </script>
 
 <template>
-  <header class="absolute top-0 left-0 h-[100vh] w-[300px] p-4 pl-7 bg-slate-900 flex flex-col justify-between">
+  <header
+    class="absolute top-0 left-0 h-[100vh] w-[300px] p-4 pl-7 bg-slate-900 flex flex-col justify-between"
+  >
     <div>
-      <p class="text-4xl text-red-600 font-bold tracking-wider uppercase mb-10">Vandal</p>
+      <p class="text-4xl text-red-600 font-bold tracking-wider uppercase mb-10">
+        Vandal
+      </p>
     </div>
 
     <nav class="flex-1 w-full">
@@ -75,9 +79,11 @@ export default {
         <li>
           <form action="#" @submit.prevent="logout()">
             <button
-            type="submit"
-            class="rounded bg-red-600 items-center justify-center py-1.5 w-[200px] flex ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all"
-            >Cerrar sesion</button>
+              type="submit"
+              class="rounded bg-red-600 items-center justify-center py-1.5 w-[200px] flex ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all"
+            >
+              Cerrar sesion
+            </button>
           </form>
         </li>
       </template>
