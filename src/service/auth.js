@@ -17,6 +17,7 @@ let userLogged = {
   seguidores_cuentas: null,
   seguidos: null,
   seguidos_cuentas: null,
+  rango: null
 };
 
 let observers = [];
@@ -34,6 +35,7 @@ onAuthStateChanged(auth, async (user) => {
     userLogged.seguidores_cuentas = fullProfile.seguidores_cuentas;
     userLogged.seguidos = fullProfile.seguidos;
     userLogged.seguidos_cuentas = fullProfile.seguidos_cuentas;
+    userLogged.rango = fullProfile.rango
   } else {
     userLogged.id = null;
     userLogged.email = null;
@@ -44,6 +46,7 @@ onAuthStateChanged(auth, async (user) => {
     userLogged.seguidores_cuentas = null;
     userLogged.seguidos = null;
     userLogged.seguidos_cuentas = null;
+    userLogged.rango = null
   }
   notifyAll();
 });

@@ -22,11 +22,9 @@ export default {
       },
       editProfile: {
         username: "",
-        usertag: "",
         description: "",
       },
       errors: {
-        usertag: "",
         username: "",
         description: "",
       },
@@ -37,7 +35,6 @@ export default {
       if (newUserData) {
         this.userLogged = newUserData;
         this.editProfile.username = this.userLogged.username || "";
-        this.editProfile.usertag = this.userLogged.usertag || "";
         this.editProfile.description = this.userLogged.description || "";
 
         if (this.userLogged.id !== this.$route.params.id) {
@@ -50,23 +47,6 @@ export default {
   methods: {
     async envioDeFormulario() {
       let flag = false;
-
-      // Verificar si usertag no es null/undefined antes de compararlo
-      if (this.userLogged.usertag !== this.editProfile.usertag) {
-        let unico = await esUnicoTag(this.editProfile.usertag);
-        if (!unico) {
-          flag = true;
-          this.errors.usertag = "Este usertag ya existe.";
-        } else if (!this.editProfile.usertag) {
-          // Verificar que usertag no sea null
-          flag = true;
-          this.errors.usertag = "Este campo no puede estar vacío.";
-        } else if (this.editProfile.usertag.length > 10) {
-          flag = true;
-          this.errors.usertag =
-            "Este campo no puede tener más de 10 caracteres.";
-        }
-      }
 
       if (!this.editProfile.username) {
         // Verificar que username no sea null
@@ -93,9 +73,8 @@ export default {
             this.userLogged.email,
             this.editProfile.description,
             this.editProfile.username,
-            this.editProfile.usertag
           );
-          this.$router.push("/perfil/" + this.editProfile.usertag);
+          this.$router.push("/perfil/" + this.userLogged.usertag);
         } catch (err) {
           console.log("Error al editar el perfil.");
         }
@@ -127,18 +106,7 @@ export default {
           </template>
         </div>
 
-        <div class="mb-4">
-          <label for="usertag" class="text-white block mb-2">Usertag</label>
-          <input
-            type="text"
-            name="usertag"
-            v-model="editProfile.usertag"
-            class="w-full p-2 border border-slate-950 rounded"
-          />
-          <template v-if="errors.usertag !== ''">
-            <error>{{ errors.usertag }}</error>
-          </template>
-        </div>
+        
 
         <div class="mb-4">
           <label for="description" class="text-white block mb-2"

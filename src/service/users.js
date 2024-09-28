@@ -9,6 +9,19 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 
+
+  /** 
+   *  @param {*} myemail  Mail de mi cuenta
+   *  @param {*} useremail ID del documento del usuario
+   * 
+   * Esta funcion hace lo siguiente, primero chequea que los mails sean validos. Despues de eso entra a la consulta a 
+   * firebase. Mediante un query utilizando where. Buscamos el "id_m" que seria el mailID. Este se otorga cuando el usuario se crea la cuenta.
+   * Se espera encontrar el documento y se consulta si esta vacio. Si lo esta, devuelve un error. Si no, pasamos la variable userDoc el cual frena la busqueda
+   * cuando encuentra la igualdad, debido al .docs[0]. Se obtiene la data y se valida si el usuario sigue o no al otro.
+   * 
+   * Esto devuelve true o false, asegurado que lo devuelve asi debido a que en el return utilizo un doble !. El cual obliga digamos a devolver ese resultado.
+   * 
+   */
   export async function checkFollow(myemail, useremail) {
 
     if (!myemail || !useremail) {
@@ -33,8 +46,24 @@ import { db } from "./firebase";
     return !!siguiendo;
 }
 
+/**
+ * @param {*} myemail 
+ * @param {*} useremail 
+ * 
+ * Esta funcion se encarga de permitir al usuario seguir a otro. Primero se toma el mail del usuario loggeado y despues el id_m (emailID) 
+ * del usuario al que se va a seguir.
+ * 
+ * Se inicia la consulta a Firebase, referenciamos la collection, utilizamos un query para buscar el documento del usuario a seugir
+ * y esperamos a recibirlo.
+ * 
+ * Esperamos a recibir los datos y cuando los tenemos entramos a un try/catch para contener los posibles errores que pueda tener la accion.
+ * 
+ * Se verifica que el usuario no lo siga y que no tenga un array con seguidores, si da paso entonces se sigue al usuario, si el usuario intenta accionar otra vez 
+ * se deja de seguir.
+ */
+
 export async function darFollow(myemail, useremail) {
-    // Verifica que myemail y useremail no sean undefined o null
+    
     if (!myemail || !useremail) {
         return null;
     }
@@ -54,14 +83,12 @@ export async function darFollow(myemail, useremail) {
 
     try {
         if (!userData.seguidores_cuentas || !userData.seguidores_cuentas.includes(myemail)) {
-            // Añadir seguidor
             await updateDoc(userDoc.ref, {
                 seguidores: increment(1),
                 seguidores_cuentas: [...(userData.seguidores_cuentas || []), myemail]
             });
             return true;
         } else {
-            // Eliminar seguidor
             await updateDoc(userDoc.ref, {
                 seguidores: increment(-1),
                 seguidores_cuentas: userData.seguidores_cuentas.filter(mail => mail !== myemail)
@@ -85,6 +112,7 @@ export async function crearDatosDeUsuario(id, username, usertag) {
     seguidores_cuentas: [],
     seguidos: 0,
     seguidos_cuentas: [],
+    rango: 'unranked'
   });
 }
 
@@ -117,6 +145,7 @@ export async function localizarLosDatosDelUsuario(email) {
       seguidores_cuentas: userData.seguidores_cuentas,
       seguidos: userData.seguidos,
       seguidos_cuentas: userData.seguidos_cuentas,
+      rango: userData.rango
     };
   } catch (error) {
     console.error("Error buscando los datos del usuario:", error);
@@ -158,14 +187,14 @@ export async function esUnicoTag(usertag) {
   }
 }
 
-export async function editarPerfil(email, description, username, usertag) {
+export async function editarPerfil(email, description, username) {
   const userRef = collection(db, "usuario");
   const q = query(userRef, where("id_m", "==", email));
   const querySnapshot = await getDocs(q);
 
   if (!querySnapshot.empty) {
     const docRef = querySnapshot.docs[0].ref; // Toma el primer documento que cumple con el criterio
-    return await updateDoc(docRef, { description, username, usertag });
+    return await updateDoc(docRef, { description, username});
   } else {
     throw new Error("No se encontró el usuario con ese email.");
   }

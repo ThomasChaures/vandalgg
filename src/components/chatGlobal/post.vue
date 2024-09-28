@@ -29,6 +29,7 @@ export default {
         seguidores_cuentas: null,
         seguidos: null,
         seguidos_cuentas: null,
+        rango: null
       },
     };
   },
