@@ -19,12 +19,15 @@ export default {
         seguidores_cuentas: null,
         seguidos: null,
         seguidos_cuentas: null,
+        rango: null,
       },
       editProfile: {
+        rango: "",
         username: "",
         description: "",
       },
       errors: {
+        rango: "",
         username: "",
         description: "",
       },
@@ -36,6 +39,7 @@ export default {
         this.userLogged = newUserData;
         this.editProfile.username = this.userLogged.username || "";
         this.editProfile.description = this.userLogged.description || "";
+        this.editProfile.rango = this.userLogged.rango || "";
 
         if (this.userLogged.id !== this.$route.params.id) {
           this.$router.push("/");
@@ -73,6 +77,7 @@ export default {
             this.userLogged.email,
             this.editProfile.description,
             this.editProfile.username,
+            this.editProfile.rango
           );
           this.$router.push("/perfil/" + this.userLogged.usertag);
         } catch (err) {
@@ -106,7 +111,27 @@ export default {
           </template>
         </div>
 
-        
+        <div class="mb-4">
+          <label for="rango" class="text-white block mb-2"
+            >Rango en Valorant</label
+          >
+          <select
+            name="rango"
+            v-model="editProfile.rango"
+            class="w-full p-2 border border-slate-950 rounded"
+          >
+            <option value="unranked">Unranked</option>
+            <option value="hierro">Hierro</option>
+            <option value="bronce">Bronce</option>
+            <option value="plata">Plata</option>
+            <option value="oro">Oro</option>
+            <option value="platino">Platino</option>
+            <option value="diamante">Diamante</option>
+            <option value="ascendant">Ascendant</option>
+            <option value="inmortal">Inmortal</option>
+            <option value="radiant">Radiant</option>
+          </select>
+        </div>
 
         <div class="mb-4">
           <label for="description" class="text-white block mb-2"

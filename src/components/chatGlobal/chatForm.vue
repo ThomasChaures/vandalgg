@@ -70,7 +70,7 @@ export default {
         id="message"
         name="content"
         v-model="newMessage.content"
-        class="w-full h-28 resize-none border-slate-900 border rounded py-2 px-4 text-slate-900 focus:border-slate-950"
+        class="w-full h-28 resize-none border-slate-900 border rounded py-2 px-4 bg-slate-9000 bg-slate-500 text-white focus:border-slate-950"
         placeholder="Que esta pasando en Valorant?"
       ></textarea>
     </div>

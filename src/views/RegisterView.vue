@@ -44,6 +44,9 @@ export default {
         if (this.collectionUser.username === "") {
           errorFlag = true;
           this.errors.username = "No puedes dejar este campo vacio.";
+        } else if (this.collectionUser.username.length > 10 ){
+          errorFlag = true;
+          this.errors.username = "Debe tener menos de 10 caracteres.";
         }
 
         if (this.user.email === "") {
@@ -54,6 +57,9 @@ export default {
         if (this.collectionUser.usertag === "") {
           errorFlag = true;
           this.errors.usertag = "No puedes dejar este campo vacio.";
+        }else if (this.collectionUser.usertag.length > 12 ){
+          errorFlag = true;
+          this.errors.usertag = "Debe tener menos de 10 caracteres.";
         }
 
     

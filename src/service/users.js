@@ -187,14 +187,14 @@ export async function esUnicoTag(usertag) {
   }
 }
 
-export async function editarPerfil(email, description, username) {
+export async function editarPerfil(email, description, username, rango) {
   const userRef = collection(db, "usuario");
   const q = query(userRef, where("id_m", "==", email));
   const querySnapshot = await getDocs(q);
 
   if (!querySnapshot.empty) {
     const docRef = querySnapshot.docs[0].ref; // Toma el primer documento que cumple con el criterio
-    return await updateDoc(docRef, { description, username});
+    return await updateDoc(docRef, { description, username, rango});
   } else {
     throw new Error("No se encontró el usuario con ese email.");
   }

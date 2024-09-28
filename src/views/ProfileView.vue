@@ -2,6 +2,16 @@
 import { subscribeToAuth } from "@/service/auth";
 import { obtenerPostsDeUsuarioById } from "@/service/chatGlobal";
 import chatList from "@/components/chatGlobal/chatList.vue";
+import unranked from "@/assets/img/rangos/unranked.png";
+import hierro from "@/assets/img/rangos/hierro.png";
+import bronce from "@/assets/img/rangos/bronce.png";
+import plata from "@/assets/img/rangos/plata.png";
+import oro from "@/assets/img/rangos/oro.png";
+import platino from "@/assets/img/rangos/platino.png";
+import diamante from "@/assets/img/rangos/diamante.png";
+import ascendant from "@/assets/img/rangos/ascendant.png";
+import inmortal from "@/assets/img/rangos/inmortal.png";
+import radiant from "@/assets/img/rangos/radiant.png";
 import {
   darFollow,
   localizarLosDatosDelUsuarioLoggeadoByUsertag,
@@ -13,6 +23,18 @@ export default {
   components: { chatList },
   data() {
     return {
+      rangos: {
+        unranked,
+        hierro,
+        bronce,
+        plata,
+        oro,
+        platino,
+        diamante,
+        ascendant,
+        inmortal,
+        radiant
+      },
       myProfile: null,
       seguido: false,
       cargado: false,
@@ -111,6 +133,14 @@ export default {
         <i class="fa-solid fa-user text-[3rem]"></i>
       </div>
 
+      <div
+        class="img-perfil absolute top-[70%] left-[85%] transform -translate-x-1/2 object-contain w-[90px] h-[90px] flex items-center flex-col justify-center rounded-full"
+      >
+        <img :src="rangos[userProfile.rango]" :alt="userProfile.rango">
+       
+        <p class="text-white/50 pt-2">{{ userLogged.rango }}</p>
+      </div>
+
       <template v-if="myProfile">
         <div
           class="follow-button absolute top-[52%] left-[85%] transform -translate-x-1/2"
@@ -147,7 +177,7 @@ export default {
         </div>
       </template>
 
-      <div class="data-name-user flex items-center pt-[80px] pl-[29px]">
+      <div class="data-name-user flex items-center pt-[110px] pl-[29px]">
         <p class="text-2xl mr-2 text-white font-bold">
           {{ userProfile.username }}
         </p>
@@ -157,14 +187,14 @@ export default {
         </p>
       </div>
 
-      <div class="data-name-user pt-[10px] pl-[29px] text-wrap">
+      <div class="data-name-user pt-[10px] pl-[29px] w-full text-wrap">
         <p class="mr-4 text-[1.1rem] text-white/40">Biografia:</p>
-        <p class="mr-4 text-[1.1rem] text-white break-all">
+        <p class="mr-4 text-[1.1rem] text-white break-all w-[60%]">
           {{ userProfile.description }}
         </p>
       </div>
 
-      <div class="followers  text-lg text-white flex pt-[20px] pb-[16px] pl-[25px] ">
+      <div class="followers  text-lg text-white flex pt-[20px] pb-[16px] pl-[29px] ">
                 <p class="mr-4">{{ userProfile.seguidores }} <span class="text-white/50" >Seguidores</span></p>
             </div>
     </section>
