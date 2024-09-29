@@ -44,14 +44,14 @@ export default {
 
 <template>
   <div class="flex flex-col  w-[100%]">
-    <section v-if="this.userLogged.id" class="border-b border-white/40">
-      <div class="w-full flex item-center justify-center border-t border-b border-white/40">
+    <section v-if="this.userLogged.id" class="border-b border-white/20">
+      <div class="w-full flex item-center justify-center border-t border-b border-white/20">
         <h2 class="font-semibold text-2xl py-2 text-white">Enviar post</h2>
       </div>
       <chatForm @new-messages="sendMessage" />
     </section>
     <section>
-      <div class="w-full flex item-center justify-center border-t border-b border-white/40">
+      <div class="w-full flex item-center justify-center border-t border-b border-white/20">
         <h2 class="font-semibold text-2xl py-2 text-white">Posts</h2>
       </div>
       <template v-if="messages.length === 0">

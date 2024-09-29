@@ -109,9 +109,9 @@ export default {
     </div>
   </div>
   <template v-if="flagComment">
-    <div class="border-t mt-2 border-white/40">
+    <div class="border-t mt-2 border-white/20">
       <h3 class="text-lg py-2 text-white">Comentarios:</h3>
-      <div v-if="userLogged.id" class="border-b pt-2 pb-6 border-white/40">
+      <div v-if="userLogged.id" class="border-b pt-2 pb-6 border-white/20">
         <form
           action="#"
           @submit.prevent="comentar()"
@@ -135,7 +135,7 @@ export default {
       </div>
       <template v-if="comentarios.length !== 0">
         <div
-          class="border border-white/40 p-2"
+          class="border border-white/20 p-2"
           v-for="(comentarios, index) in comentarios"
           :key="index"
         >

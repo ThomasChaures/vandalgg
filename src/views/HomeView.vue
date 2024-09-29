@@ -9,7 +9,7 @@ export default {
 
 <template>
   <div class="flex justify-between w-full min-h-screen">
-    <div class="w-[600px] marker: border-l border-r border-white/40">
+    <div class="w-[600px] marker: border-l border-r border-white/20">
       <chatGlobalSection />
     </div>
 
