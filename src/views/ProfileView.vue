@@ -57,8 +57,7 @@ export default {
     subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
       console.log(this.userLogged);
-      this.cargado = true;
-      this.checkFollowStatus();
+      this.cargado = true
     });
 
     if (this.cargado) {
@@ -86,6 +85,9 @@ export default {
         } else {
           this.myProfile = false;
         }
+        this.checkFollowStatus();
+
+        this.cargado = false
       } catch (err) {
         console.log("Error al cargar los datos:", err);
       }
@@ -93,21 +95,22 @@ export default {
   },
   methods: {
     async seguir() {
-      if(this.cargado){
+   
         const estado = await darFollow(
         this.userLogged.email,
         this.userProfile.id_m
       );
       this.seguido = estado; 
-      }
+      
     },
     async checkFollowStatus() {
-      if (this.cargado) {
+      
         this.seguido = await checkFollow(
           this.userLogged.email,
           this.userProfile.id_m
         );
-      }
+        
+      
     },
   },
 };
@@ -117,6 +120,19 @@ export default {
   <div
     class="min-h-screen w-[600px] border-l border-r border-white/40 flex flex-col gap-2"
   >
+  <template v-if="this.cargado">
+    <div class="relative h-screen">
+          <div class="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div class="animate-spin rounded-full h-20 w-20  border-t-2 border-b-2 border-blue-500"></div>
+          </div>
+          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+              class="animate-spin rounded-full h-20 w-20 border-slate-900"
+            ></div>
+          </div>
+        </div>
+  </template>
+  <template v-else>
     <section class="relative min-h-[400px]">
       <div
         class="banner h-[200px] bg-black w-full object-contain border-b border-white/40"
@@ -138,7 +154,7 @@ export default {
       >
         <img :src="rangos[userProfile.rango]" :alt="userProfile.rango">
        
-        <p class="text-white/50 pt-2">{{ userLogged.rango }}</p>
+        <p class="text-white/50 pt-2">({{ userProfile.rango }})</p>
       </div>
 
       <template v-if="myProfile">
@@ -202,5 +218,6 @@ export default {
     <section class="border-t border-white/40">
       <chatList :messages="messages" />
     </section>
+  </template>
   </div>
 </template>

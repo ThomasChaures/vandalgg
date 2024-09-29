@@ -1,9 +1,9 @@
 <script>
 import chatGlobalSection from '@/components/chatGlobal/chatGlobalSection.vue'
-import ResuemenPerfil from '@/components/User/resuemenPerfil.vue'
+
 export default {
   name: 'HomeView',
-  components: { chatGlobalSection, ResuemenPerfil }
+  components: { chatGlobalSection }
 }
 </script>
 
@@ -12,5 +12,6 @@ export default {
     <div class="w-[600px] marker: border-l border-r border-white/40">
       <chatGlobalSection />
     </div>
+
   </div>
 </template>
