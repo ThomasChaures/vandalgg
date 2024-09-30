@@ -20,7 +20,7 @@ export default {
         seguidores_cuentas: null,
         seguidos: null,
         seguidos_cuentas: null,
-        rango: null
+        rango: null,
       },
     };
   },
@@ -46,6 +46,7 @@ export default {
           username: this.userLogged.username,
           usertag: this.userLogged.usertag,
           content: this.newMessage.content,
+          date: this.dateNow(),
         });
         this.newMessage.content = "";
       }
