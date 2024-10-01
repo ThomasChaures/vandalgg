@@ -73,22 +73,31 @@ export default {
 </script>
 
 <template>
-  <div class="headerMessage flex items-center text-white">
+  <div class="flex justify-between items-center">
+    <div class="headerMessage flex items-center text-white">
     <div class="h-9 w-9 bg-white flex items-center justify-center rounded-full">
       <i class="fa-solid fa-user text-black"></i>
     </div>
     <router-link
       :to="'/perfil/' + message.usertag"
-      class="pl-2 font-semibold text-lg"
+      class="pl-3 font-semibold text-lg"
       >{{ message.username }}</router-link
     >
     <router-link :to="'/perfil/' + message.usertag" class="pl-2 opacity-60"
       >@{{ message.usertag }}</router-link
     >
   </div>
-  <div class="message pt-4 pb-4 px-2 text-white text-wrap">
+
+  <div class="message pt-4 pb-4 px-2 text-white/60 text-white text-wrap">
+    <p class="break-all">{{ message.date }}</p>
+  </div>
+  </div>
+
+  <div class="message pt-4 pb-5 px-2 text-white text-wrap">
     <p class="break-all">{{ message.content }}</p>
   </div>
+
+ 
 
   <div class="interaccion flex items-center">
     <div
@@ -122,7 +131,7 @@ export default {
               type="text"
               name="content"
               v-model="comentario"
-              class="w-[98%] py-1 rounded"
+              class="w-[98%] py-1 px-1 rounded"
             />
           </label>
           <button
@@ -135,7 +144,7 @@ export default {
       </div>
       <template v-if="comentarios.length !== 0">
         <div
-          class="border border-white/20 p-2"
+          class="border border-white/20 p-4 flex items-center justify-start"
           v-for="(comentarios, index) in comentarios"
           :key="index"
         >
@@ -152,7 +161,7 @@ export default {
                 >@{{ comentarios.usertag }}</router-link
               >
             </div>
-            <div class="message pt-4 pb-4 px-2 text-white text-wrap">
+            <div class="message pt-4 pb-4 text-white text-wrap">
               <p class="break-all">{{ comentarios.comentario }}</p>
             </div>
           </div>

@@ -14,10 +14,12 @@ export default {
         email: "",
         username: "",
         usertag: "",
+        desciption: "",
         seguidores: null,
         seguidores_cuentas: null,
         seguidos: null,
         seguidos_cuentas: null,
+        rango: null
       },
     };
   },

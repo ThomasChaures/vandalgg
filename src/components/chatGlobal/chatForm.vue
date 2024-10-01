@@ -46,7 +46,7 @@ export default {
           username: this.userLogged.username,
           usertag: this.userLogged.usertag,
           content: this.newMessage.content,
-          date: this.dateNow(),
+          date: new Date().toLocaleDateString(),
         });
         this.newMessage.content = "";
       }

@@ -163,7 +163,7 @@ export async function localizarLosDatosDelUsuario(email) {
       usertag: userData.usertag,
       description: userData.description,
       fecha_nacimiento: userData.nacimiento,
-      seguidores: userData.seguidor,
+      seguidores: userData.seguidores,
       seguidores_cuentas: userData.seguidores_cuentas,
       seguidos: userData.seguidos,
       seguidos_cuentas: userData.seguidos_cuentas,

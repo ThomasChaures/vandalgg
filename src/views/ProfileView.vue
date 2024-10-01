@@ -53,14 +53,25 @@ export default {
       },
     };
   },
+  watch: {
+    'userLogged.email': {
+      handler(newEmail) {
+        if (newEmail) {
+          this.loadData();
+        }
+      },
+      immediate: true,
+    }
+  },
   async mounted() {
     subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
       console.log(this.userLogged);
       this.cargado = true
     });
-
-    if (this.cargado) {
+  },
+  methods: {
+    async loadData(){
       try {
         await localizarLosDatosDelUsuarioLoggeadoByUsertag(
           this.$route.params.usertag,
@@ -85,15 +96,14 @@ export default {
         } else {
           this.myProfile = false;
         }
-        this.checkFollowStatus();
+        await this.checkFollowStatus();
 
         this.cargado = false
       } catch (err) {
         console.log("Error al cargar los datos:", err);
       }
-    }
-  },
-  methods: {
+    
+    },
     async seguir() {
    
         const estado = await darFollow(
