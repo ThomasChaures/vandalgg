@@ -64,12 +64,13 @@ export async function darLike(id, userId) {
   }
 }
 
-export async function enviarComentarioAlPost(comentario, usertag, id) {
+export async function enviarComentarioAlPost(comentario, usertag, username, id) {
   const commentRef = collection(db, "comentario");
   await addDoc(commentRef, {
     post: id,
     comentario: comentario,
     usertag: usertag,
+    username: username,
     created_at: serverTimestamp(),
   });
   const postRef = doc(db, "chat", id);

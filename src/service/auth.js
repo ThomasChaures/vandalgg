@@ -36,6 +36,7 @@ onAuthStateChanged(auth, async (user) => {
     userLogged.seguidos = fullProfile.seguidos;
     userLogged.seguidos_cuentas = fullProfile.seguidos_cuentas;
     userLogged.rango = fullProfile.rango
+    
   } else {
     userLogged.id = null;
     userLogged.email = null;
@@ -54,6 +55,7 @@ onAuthStateChanged(auth, async (user) => {
 export function subscribeToAuth(callback) {
   observers.push(callback);
   notify(callback);
+  return () => observers = observers.filter(obs => obs !== callback)
 }
 
 function notify(callback) {

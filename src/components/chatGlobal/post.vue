@@ -56,6 +56,7 @@ export default {
         enviarComentarioAlPost(
           this.comentario,
           this.userLogged.usertag,
+          this.userLogged.username,
           this.message.id
         );
       }
@@ -158,6 +159,11 @@ export default {
               <router-link
                 :to="'/perfil/' + comentarios.usertag"
                 class="pl-2 font-semibold text-lg"
+                >@{{ comentarios.username }}</router-link
+              >
+              <router-link
+                :to="'/perfil/' + comentarios.usertag"
+                class="pl-2 font-semibold text-white/60"
                 >@{{ comentarios.usertag }}</router-link
               >
             </div>

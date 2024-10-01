@@ -10,8 +10,8 @@ import {
 import { db } from "./firebase";
 
 /**
- *  @param {*} myemail  Mail de mi cuenta
- *  @param {*} useremail ID del documento del usuario
+ *  @param { string } myemail  Mail de mi cuenta
+ *  @param { string } useremail ID del documento del usuario
  *
  * Esta funcion hace lo siguiente, primero chequea que los mails sean validos. Despues de eso entra a la consulta a
  * firebase. Mediante un query utilizando where. Buscamos el "id_m" que seria el mailID. Este se otorga cuando el usuario se crea la cuenta.
@@ -50,8 +50,8 @@ export async function checkFollow(myemail, useremail) {
 }
 
 /**
- * @param { el email del usuario auth } myemail
- * @param { la id del documento del otro usuario } useremail
+ * @param { string } myemail
+ * @param { string } useremail
  *
  * Esta funcion se encarga de permitir al usuario seguir a otro. Primero se toma el mail del usuario loggeado y despues el id_m (emailID)
  * del usuario al que se va a seguir.
@@ -108,9 +108,9 @@ export async function darFollow(myemail, useremail) {
 }
 
 /**
- *  @param {email del usuario registrado} id
- *  @param {nombre del usuario registrado } username
- *  @param {nombre unico del usuario registrado} usertag
+ *  @param {string} id
+ *  @param {string} username
+ *  @param {string} usertag
  *
  * Esta funcion tiene como objetivo crear los datos de un usuario de forma inicial, toma de referencia la collection "usuario". La
  * cual permite mantener las cuentas con mas informacion.
@@ -132,7 +132,7 @@ export async function crearDatosDeUsuario(id, username, usertag) {
 }
 
 /**
- *  @param {email de usuario equivalente a id_m} email
+ *  @param {string} email
  *
  * Esta funcion lo que hace es localizar los datos del usuario segun su id_m que seria el mail.
  * Decidi utilizar try/catch debido a que tenia ciertos problemas en algunas circunstancias y esto logro solucionarlo.
@@ -176,7 +176,7 @@ export async function localizarLosDatosDelUsuario(email) {
 }
 
 /**
- *   @param {nombre unico del usuario} usertag
+ *   @param {string} usertag
  *   @param {devolucion de los datos} callback
  *
  *  Esta funcion busca devolver los datos de un usuario mediante su nombre unico. Esto se utiliza en la red social
@@ -215,7 +215,7 @@ export async function localizarLosDatosDelUsuarioLoggeadoByUsertag(
 
 
 /**
- * @param {nombreunico} usertag 
+ * @param {string} usertag 
  * 
  * Esta funcion lo que hace es hacer la busqueda cotidiana para localizar algun dato y verifica que nadie tenga 
  * el usertag que se introdujo. 
