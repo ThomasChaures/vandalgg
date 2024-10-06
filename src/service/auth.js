@@ -66,6 +66,13 @@ function notifyAll() {
   observers.forEach((callback) => notify(callback));
 }
 
+
+/**
+ * 
+ * @param {*} {email, password} 
+ * 
+ * Esta funcion por medio de una funcion de firebase lo que hace es logear al usuario.
+ */
 export async function login({ email, password }) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -76,6 +83,9 @@ export async function login({ email, password }) {
   }
 }
 
+/**
+ * Esta funcion lo que hace por medio de una funcion de firebase es cerrar la sesion y eliminar los datos del user autenticado.
+ */
 export async function cerrarSesion() {
   try {
     await signOut(auth);
@@ -84,6 +94,14 @@ export async function cerrarSesion() {
     console.error("Error al cerrar sesión: ", error);
   }
 }
+
+/**
+ * 
+ * @param {object} {email, password}
+ * 
+ * Esta funcion lo que hace es tomar el email y la password que ingresa el usuario y
+ * mediante una funcion de Firebase se crea la cuenta.
+ */
 export async function register({ email, password }) {
   try {
     await createUserWithEmailAndPassword(auth, email, password);

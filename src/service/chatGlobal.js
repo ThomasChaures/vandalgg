@@ -73,6 +73,16 @@ export async function darLike(id, userId) {
   }
 }
 
+/**
+ * 
+ * @param {string} comentario 
+ * @param {string} usertag 
+ * @param {string} username 
+ * @param {string} id 
+ * 
+ * Primero se referencia la collection 'comentarios', despues se crea el comentario. Se referencia el post inicial y se epera
+ * a obtener el documento. Si existe se incrementa el numero de comentarios. El id de parametro que se usa, es el id de documento del post.
+ */
 export async function enviarComentarioAlPost(comentario, usertag, username, id) {
   const commentRef = collection(db, "comentario");
   await addDoc(commentRef, {
@@ -98,6 +108,15 @@ export async function enviarComentarioAlPost(comentario, usertag, username, id) 
   }
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} callback 
+ * 
+ * Esta funcion lo que hace es recibir el id del post, que seria el del documento y por medio de una query buscar 
+ * los comentarios que tengan en el valor post el id del documento. Entonces los pushea todos en un array. Despues
+ * el usuario los obtiene por medio de un callback.
+ */
 export function getComentariosDelPost(id, callback) {
   const commentsRef = collection(db, "comentario") 
   const q = query(commentsRef, where("post", "==", id));
@@ -113,6 +132,13 @@ export function getComentariosDelPost(id, callback) {
   });
 }
 
+/**
+ * 
+ * @param {*} callback 
+ * 
+ * Esta funcion lo que hace es devolver los documentos en forma de objeto que hay en la collection 'chat'.
+ *  
+ */
 export function cambiosEnElChat(callback) {
   const chatRef = collection(db, "chat");
   const q = query(chatRef, orderBy("created_at"));
