@@ -64,7 +64,7 @@ export default {
       </button>
     </form>
     <template v-if="error !== ''">
-        <error>Error al inciar sesion. El e-mail o la contraseña pueden no ser correctos.</error>
+        <error>Error al iniciar sesión. El e-mail o la contraseña pueden no ser correctos.</error>
     </template>
   </section>
 </template>

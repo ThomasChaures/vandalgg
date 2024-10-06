@@ -174,7 +174,7 @@ export default {
         </div>
       </template>
       <template v-else>
-        <p class="text-white">Este post no tiene ningun comentario.</p>
+        <p class="text-white">Este post no tiene ningún comentario.</p>
       </template>
     </div>
   </template>

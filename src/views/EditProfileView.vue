@@ -1,6 +1,6 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
-import { editarPerfil, esUnicoTag } from "@/service/users";
+import { editarPerfil } from "@/service/users";
 import error from "@/components/slot/error.vue";
 
 export default {
@@ -90,6 +90,7 @@ export default {
 </script>
 
 <template>
+ <section>
   <div class="flex justify-between w-full min-h-screen">
     <div class="w-[600px] marker: border-l border-r border-white/40">
       <div
@@ -156,4 +157,5 @@ export default {
       </form>
     </div>
   </div>
+ </section>
 </template>

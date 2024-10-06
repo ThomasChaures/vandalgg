@@ -38,12 +38,12 @@ export default {
 
         if (this.user.password === "") {
           errorFlag = true;
-          this.errors.password = "No puedes dejar este campo vacio.";
+          this.errors.password = "No puedes dejar este campo vacío.";
         }
 
         if (this.collectionUser.username === "") {
           errorFlag = true;
-          this.errors.username = "No puedes dejar este campo vacio.";
+          this.errors.username = "No puedes dejar este campo vacío.";
         } else if (this.collectionUser.username.length > 10 ){
           errorFlag = true;
           this.errors.username = "Debe tener menos de 10 caracteres.";
@@ -51,12 +51,12 @@ export default {
 
         if (this.user.email === "") {
           errorFlag = true;
-          this.errors.email = "No puedes dejar este campo vacio.";
+          this.errors.email = "No puedes dejar este campo vacío.";
         }
 
         if (this.collectionUser.usertag === "") {
           errorFlag = true;
-          this.errors.usertag = "No puedes dejar este campo vacio.";
+          this.errors.usertag = "No puedes dejar este campo vacío.";
         }else if (this.collectionUser.usertag.length > 12 ){
           errorFlag = true;
           this.errors.usertag = "Debe tener menos de 10 caracteres.";

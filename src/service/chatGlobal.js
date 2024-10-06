@@ -13,6 +13,15 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 
+
+/**
+ * 
+ * @param {object} newMessage 
+ * 
+ * Primero se toma la referencia de la collection 'chat' y después con addDoc() se crea el mensaje con el objeto pasado y 
+ * algunos datos extras para su seguimiento.
+ */
+
 export async function enviarMensajeAfirebase(newMessage) {
   const chatRef = collection(db, "chat");
   await addDoc(chatRef, {
@@ -29,22 +38,22 @@ export async function enviarMensajeAfirebase(newMessage) {
  * @param {*} id
  * @param {*} userId
  *
- * Esta funcion lo que busca hacer es permitirle al usuario dar like a los posts.
+ * Esta función lo que busca hacer es permitirle al usuario dar like a los posts. Primero se referencia 
+ * el documento del chat al que queremos accionar. Hacemos la búsqueda y si este existe procedemos a realizar 
+ * la modificaciones en los datos dando a entender que se likeo el post. El usuario sera agregado a un array de usuarios 
+ * y se incrementara el numero de likes. Ademas en caso de que el usuario ya haya dado like si activa la función otra vez, 
+ * pasara lo contrario a lo dicho anteriormente.
  *
- *  Funciona de la siguiente manera:
  */
 export async function darLike(id, userId) {
-  const postRef = doc(db, "chat", id); // Mediante doc() se obtiene la direccion del documento, en exactitud el que necesitamos con la id.
-  const postDoc = await getDoc(postRef); // Ya teniendo la referencia lo buscamos con getDoc para que podamos obtener la data.
+  const postRef = doc(db, "chat", id); 
+  const postDoc = await getDoc(postRef); 
 
   if (postDoc.exists()) {
-    // Si existe, pasaremos a obtenerla informacion del documento.
-    const postData = postDoc.data(); // Obtenemos la info.
+    const postData = postDoc.data();
 
     if (!postData.likesBy || !postData.likesBy.includes(userId)) {
-      // Si el usuario no se encuentra en el Array 'likesBy' o el Array no existe, se procede a incrementar el dato likes del documento.
       try {
-        // Mediante updateDoc() actualizaremos el documento
         await updateDoc(postRef, {
           likes: increment(1),
           likesBy: [...(postData.likesBy || []), userId],
@@ -90,15 +99,15 @@ export async function enviarComentarioAlPost(comentario, usertag, username, id) 
 }
 
 export function getComentariosDelPost(id, callback) {
-  const commentsRef = collection(db, "comentario") // Cambia "comentarios" al nombre de tu colección
-  const q = query(commentsRef, where("post", "==", id));// Filtra por el ID del post
+  const commentsRef = collection(db, "comentario") 
+  const q = query(commentsRef, where("post", "==", id));
   
   return onSnapshot(q, (querySnapshot) => {
     const comentarios = [];
     querySnapshot.forEach((doc) => {
       comentarios.push({ id: doc.id, ...doc.data() });
     });
-    callback(comentarios); // Devuelve los comentarios a través del callback
+    callback(comentarios); 
   }, (error) => {
     console.error("Error obteniendo comentarios: ", error);
   });
@@ -118,6 +127,15 @@ export function cambiosEnElChat(callback) {
   });
 }
 
+/**
+ * 
+ * @param {string} usertag 
+ * @param {*} callback 
+ * 
+ * Mediante esta función se permite obtener los post un usuario mediante su usertag. Se referencia a una collection, en 
+ * este caso a la del chat y después se establece un query el cual tiene como objetivo encontrar al usuario. 
+ * Si este existe entonces se devuelve, en otro caso no.
+ */
 export async function obtenerPostsDeUsuarioById(usertag, callback) {
   const chatRef = collection(db, "chat");
   const q = query(chatRef, where("usertag", "==", usertag));

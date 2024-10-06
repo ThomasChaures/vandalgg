@@ -13,9 +13,9 @@ import { db } from "./firebase";
  *  @param { string } myemail  Mail de mi cuenta
  *  @param { string } useremail ID del documento del usuario
  *
- * Esta funcion hace lo siguiente, primero chequea que los mails sean validos. Despues de eso entra a la consulta a
+ * Esta función hace lo siguiente, primero chequea que los mails sean validos. Después de eso entra a la consulta a
  * firebase. Mediante un query utilizando where. Buscamos el "id_m" que seria el mailID. Este se otorga cuando el usuario se crea la cuenta.
- * Se espera encontrar el documento y se consulta si esta vacio. Si lo esta, devuelve un error. Si no, pasamos la variable userDoc el cual frena la busqueda
+ * Se espera encontrar el documento y se consulta si esta vacío. Si lo esta, devuelve un error. Si no, pasamos la variable userDoc el cual frena la búsqueda
  * cuando encuentra la igualdad, debido al .docs[0]. Se obtiene la data y se valida si el usuario sigue o no al otro.
  *
  * Esto devuelve true o false, asegurado que lo devuelve asi debido a que en el return utilizo un doble !. El cual obliga digamos a devolver ese resultado.
@@ -49,17 +49,18 @@ export async function checkFollow(myemail, useremail) {
   return !!siguiendo;
 }
 
+
 /**
  * @param { string } myemail
  * @param { string } useremail
  *
- * Esta funcion se encarga de permitir al usuario seguir a otro. Primero se toma el mail del usuario loggeado y despues el id_m (emailID)
+ * Esta función se encarga de permitir al usuario seguir a otro. Primero se toma el mail del usuario loggeado y después el id_m (emailID)
  * del usuario al que se va a seguir.
  *
- * Se inicia la consulta a Firebase, referenciamos la collection, utilizamos un query para buscar el documento del usuario a seugir
+ * Se inicia la consulta a Firebase, referenciamos la collection, utilizamos un query para buscar el documento del usuario a seguir
  * y esperamos a recibirlo.
  *
- * Esperamos a recibir los datos y cuando los tenemos entramos a un try/catch para contener los posibles errores que pueda tener la accion.
+ * Esperamos a recibir los datos y cuando los tenemos entramos a un try/catch para contener los posibles errores que pueda tener la acción.
  *
  * Se verifica que el usuario no lo siga y que no tenga un array con seguidores, si da paso entonces se sigue al usuario, si el usuario intenta accionar otra vez
  * se deja de seguir.
@@ -112,8 +113,8 @@ export async function darFollow(myemail, useremail) {
  *  @param {string} username
  *  @param {string} usertag
  *
- * Esta funcion tiene como objetivo crear los datos de un usuario de forma inicial, toma de referencia la collection "usuario". La
- * cual permite mantener las cuentas con mas informacion.
+ * Esta función tiene como objetivo crear los datos de un usuario de forma inicial, toma de referencia la collection "usuario". La
+ * cual permite mantener las cuentas con mas información.
  */
 
 export async function crearDatosDeUsuario(id, username, usertag) {
@@ -122,7 +123,7 @@ export async function crearDatosDeUsuario(id, username, usertag) {
     id_m: id,
     username: username,
     usertag: usertag,
-    description: "Este usuario aun no tiene descripcion.",
+    description: "Este usuario aun no tiene descripción.",
     seguidores: 0,
     seguidores_cuentas: [],
     seguidos: 0,
@@ -134,10 +135,10 @@ export async function crearDatosDeUsuario(id, username, usertag) {
 /**
  *  @param {string} email
  *
- * Esta funcion lo que hace es localizar los datos del usuario segun su id_m que seria el mail.
- * Decidi utilizar try/catch debido a que tenia ciertos problemas en algunas circunstancias y esto logro solucionarlo.
- * Referencio la collection, despues con un query hago una consulta para encontrar el usuario y despues mediatne getDocs(q) obtengo los datos.
- * Si esta vacio devuelve un error. Si no, se pasa mediatne un .docs[0] para tener la referencia exacta de la informacion y con un .data obtenemos
+ * Esta función lo que hace es localizar los datos del usuario según su id_m que seria el mail.
+ * Decidí utilizar try/catch debido a que tenia ciertos problemas en algunas circunstancias y esto logro solucionarlo.
+ * Referencio la collection, después con un query hago una consulta para encontrar el usuario y después mediante getDocs(q) obtengo los datos.
+ * Si esta vació devuelve un error. Si no, se pasa mediante un .docs[0] para tener la referencia exacta de la información y con un .data obtenemos
  * el objeto en si.
  *
  * Como resultado si todo salio bien, devuelve todos los datos que tenga el mismo.
@@ -177,19 +178,19 @@ export async function localizarLosDatosDelUsuario(email) {
 
 /**
  *   @param {string} usertag
- *   @param {devolucion de los datos} callback
+ *   @param {devolución de los datos} callback
  *
- *  Esta funcion busca devolver los datos de un usuario mediante su nombre unico. Esto se utiliza en la red social
+ *  Esta función busca devolver los datos de un usuario mediante su nombre único. Esto se utiliza en la red social
  *  para cosas como ver el perfil de usuarios.
  *  Cuando uno ve un post/twit/mensaje de un usuario, se puede clickear en el nombre o tag para ir a su perfil.
- *  Este toma de parametro el tag y se le pasa esta funcion.
+ *  Este toma de parámetro el tag y se le pasa esta función.
  *
- * Sacando el ejemplo de lado, pasamos a la explicacion:
+ * Sacando el ejemplo de lado, pasamos a la explicación:
  *
- * Primero referenciamos la collection "usuario", despues mediante un query hacemos una consulta.
+ * Primero referenciamos la collection "usuario", después mediante un query hacemos una consulta.
  * Esperamos a recibir el documento del usuario con un getDocs(q).
- * Si este no esta vacio, se llama a la data del documento exacto y se pasa en un callback.
- * Si no, se pasa null al mismo. Tambien si no pasa el try, el catch devuele eso tambien.
+ * Si este no esta vacío, se llama a la data del documento exacto y se pasa en un callback.
+ * Si no, se pasa null al mismo. También si no pasa el try, el catch devuelve eso también.
  */
 export async function localizarLosDatosDelUsuarioLoggeadoByUsertag(
   usertag,
@@ -217,13 +218,13 @@ export async function localizarLosDatosDelUsuarioLoggeadoByUsertag(
 /**
  * @param {string} usertag 
  * 
- * Esta funcion lo que hace es hacer la busqueda cotidiana para localizar algun dato y verifica que nadie tenga 
+ * Esta función lo que hace es hacer la búsqueda cotidiana para localizar algún dato y verifica que nadie tenga 
  * el usertag que se introdujo. 
  * 
- * Por ejemplo, al crear la cuenta esta verfifica que no exista el tag que se pondra al usuario para permitirselo a la cuenta.
+ * Por ejemplo, al crear la cuenta esta verifica que no exista el tag que se pondrá al usuario para permitírselo a la cuenta.
  * 
- * Para empezar, se llama a la collection "usuario", despues con query se hace una busqueda la cual despues con el querySnapshot localizaremos 
- * el documento. Si esta vacio devuelve true, si existe devuelve false.
+ * Para empezar, se llama a la collection "usuario", después con query se hace una búsqueda la cual después con el querySnapshot localizaremos 
+ * el documento. Si esta vació devuelve true, si existe devuelve false.
  */
 export async function esUnicoTag(usertag) {
   const userRef = collection(db, "usuario");
@@ -237,6 +238,18 @@ export async function esUnicoTag(usertag) {
   }
 }
 
+
+
+/**
+ * 
+ * @param {string} email 
+ * @param {string} description 
+ * @param {string} username 
+ * @param {string} rango 
+ * 
+ * Esta función lo que hace es buscar el perfil del usuario mediante el mail y si existe, permite cambiar los valores.
+ * Estos son el username, descripción y rango. 
+ */
 export async function editarPerfil(email, description, username, rango) {
   const userRef = collection(db, "usuario");
   const q = query(userRef, where("id_m", "==", email));

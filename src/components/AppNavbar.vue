@@ -87,7 +87,7 @@ export default {
               type="submit"
               class="rounded bg-red-600 items-center justify-center py-1.5 w-[200px] flex ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all"
             >
-              Cerrar sesion
+              Cerrar sesión
             </button>
           </form>
         </li>

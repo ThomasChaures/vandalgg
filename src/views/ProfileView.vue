@@ -214,7 +214,7 @@ export default {
       </div>
 
       <div class="data-name-user pt-[10px] pl-[29px] w-full text-wrap">
-        <p class="mr-4 text-[1.1rem] text-white/40">Biografia:</p>
+        <p class="mr-4 text-[1.1rem] text-white/40">Biografía:</p>
         <p class="mr-4 text-[1.1rem] text-white break-all w-[60%]">
           {{ userProfile.description }}
         </p>

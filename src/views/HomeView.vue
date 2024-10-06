@@ -12,6 +12,5 @@ export default {
     <div class="w-[600px] marker: border-l border-r border-white/20">
       <chatGlobalSection />
     </div>
-
   </div>
 </template>
