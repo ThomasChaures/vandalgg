@@ -19,7 +19,7 @@ export default {
         email: "",
         username: "",
         usertag: "",
-        desciption: "",
+        description: "",
         seguidores: null,
         seguidores_cuentas: null,
         seguidos: null,
@@ -35,9 +35,8 @@ export default {
 </script>
 
 <template>
-  <div class="rounded bg-slate-900">
+  <div class="rounded">
     <div
-      class="p-4 border-b border-white/40"
       v-for="(messages, index) in messages"
       :key="index"
     >

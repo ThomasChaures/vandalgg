@@ -129,6 +129,7 @@ export async function crearDatosDeUsuario(id, username, usertag) {
     seguidos: 0,
     seguidos_cuentas: [],
     rango: "unranked",
+    photo: null
   });
 }
 
@@ -169,6 +170,7 @@ export async function localizarLosDatosDelUsuario(email) {
       seguidos: userData.seguidos,
       seguidos_cuentas: userData.seguidos_cuentas,
       rango: userData.rango,
+      photo: userData.photo
     };
   } catch (error) {
     console.error("Error buscando los datos del usuario:", error);
@@ -258,6 +260,31 @@ export async function editarPerfil(email, description, username, rango) {
   if (!querySnapshot.empty) {
     const docRef = querySnapshot.docs[0].ref;
     return await updateDoc(docRef, { description, username, rango });
+  } else {
+    throw new Error("No se encontró el usuario con ese email.");
+  }
+}
+
+
+
+/**
+ * 
+ * @param {string} email 
+ * @param {string} description 
+ * @param {string} username 
+ * @param {string} rango 
+ * 
+ * Esta función lo que hace es buscar el perfil del usuario mediante el mail y si existe, permite cambiar los valores.
+ * Estos son el username, descripción y rango. 
+ */
+export async function editarPerfilImg(email, photo) {
+  const userRef = collection(db, "usuario");
+  const q = query(userRef, where("id_m", "==", email));
+  const querySnapshot = await getDocs(q);
+
+  if (!querySnapshot.empty) {
+    const docRef = querySnapshot.docs[0].ref;
+    return await updateDoc(docRef, { photo });
   } else {
     throw new Error("No se encontró el usuario con ese email.");
   }

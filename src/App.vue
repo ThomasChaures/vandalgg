@@ -1,12 +1,13 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
-import AppNavbar from "./components/AppNavbar.vue";
 import { subscribeToAuth } from "./service/auth";
 import AppFooter from "./components/AppFooter.vue";
+import AppHeader from "./components/AppHeader.vue";
+import AppNavbar from "./components/AppNavbar.vue";
 
 export default {
   name: "App",
-  components: { RouterLink, RouterView, AppNavbar, AppFooter },
+  components: { RouterLink, RouterView, AppNavbar, AppFooter, AppHeader },
   data() {
     return {
       userLogged: {
@@ -14,7 +15,7 @@ export default {
         email: "",
         username: "",
         usertag: "",
-        desciption: "",
+        description: "",
         seguidores: null,
         seguidores_cuentas: null,
         seguidos: null,
@@ -23,7 +24,7 @@ export default {
       },
     };
   },
-  mounted() {
+ async mounted() {
     subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
     });
@@ -32,9 +33,11 @@ export default {
 </script>
 
 <template>
-  <div class="flex mx-auto w-[1200px] relative">
-    <AppNavbar />
-    <main class="container w-full ml-[300px]">
+  <div class="flex mx-auto max-w-[1200px] relative">
+    <AppHeader />
+
+    <main class="container max-w-[600px] mt-[130px] mx-auto">
+      <AppNavbar />
       <RouterView />
     </main>
     <AppFooter />

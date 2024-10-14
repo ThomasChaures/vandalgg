@@ -8,8 +8,8 @@ export default {
 </script>
 
 <template>
-  <div class="flex justify-between w-full min-h-screen">
-    <div class="w-[600px] marker: border-l border-r border-white/20">
+  <div class="flex justify-between w-full">
+    <div class="w-full">
       <chatGlobalSection />
     </div>
   </div>

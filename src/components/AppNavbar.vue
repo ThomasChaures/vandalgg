@@ -1,18 +1,17 @@
 <script>
 import { RouterLink } from "vue-router";
 import { cerrarSesion, subscribeToAuth } from "@/service/auth";
-
-export default {
-  name: "AppNavbar",
-  components: { RouterLink },
-  data() {
+export default{
+    name: 'AppNavbar',
+    components: {RouterLink},
+    data() {
     return {
       userLogged: {
         id: "",
         email: "",
         username: "",
         usertag: "",
-        desciption: "",
+        description: "",
         seguidores: null,
         seguidores_cuentas: null,
         seguidos: null,
@@ -26,72 +25,35 @@ export default {
       this.userLogged = newUserData;
     });
   },
-  methods: {
-    logout() {
-      cerrarSesion();
-      this.$router.push("/");
-    },
-  },
-};
+}
 </script>
 
 <template>
-  <header
-    class="absolute top-0 left-0 h-[100vh] w-[300px] p-4 pl-7 bg-slate-900 flex flex-col justify-between"
-  >
-    <div>
-      <p class="text-4xl text-red-600 font-bold tracking-wider uppercase mb-10">
-        Vandal
-      </p>
-    </div>
-
-    <nav class="flex-1 w-full">
-      <ul class="flex flex-col gap-10 text-white text-xl w-full">
-        <li class="hover:text-red-600 block w-full">
-          <RouterLink class="font-semibold tracking-wider block w-full" to="/"
-            ><i class="fa-solid fa-house pr-2"></i>Inicio</RouterLink
+      <nav class="max-w-[220px] bg-white  fixed top-[127px] rounded shadow-sm left-[390px] max-[1720px]:left-[270px] max-[1520px]:left-[150px] max-[1620px]:left-[220px] p-6 w-full max-[1370px]:left-[100px] max-[1270px]:left-[20px] max-[1101px]:max-w-[160px] max-[1000px]:top-auto max-[1000px]:bottom-0 max-[1000px]:max-w-[100%] max-[1000px]:left-1/2  max-[1000px]:translate-x-[-50%] max-[1000px]:border z-30">
+      <ul class="flex flex-col justify-between h-full max-[1000px]:flex-row max-[1000px]:justify-around items-start gap-10 text-cyan-950">
+        <li class="hover:text-red-600 block">
+          <RouterLink class="font-semibold text-sm flex items-center justify-center tracking-wider w-full" to="/"
+            ><i class="fa-solid pr-2 fa-house text-[20px]"></i><span class="max-[1000px]:hidden">Inicio</span></RouterLink
           >
         </li>
-        <li v-if="userLogged.id" class="hover:text-red-600 w-full block">
+        <template v-if="userLogged.id">
+          <li  class="hover:text-red-600 flex items-center">
           <RouterLink
-            class="font-semibold tracking-wider w-full block"
+            class="font-semibold text-sm flex  items-center justify-center tracking-wider w-full"
             :to="'/perfil/' + userLogged.usertag"
           >
-            <i class="fa-solid fa-user pr-2"></i>Perfil</RouterLink
+            <i class="fa-solid fa-user pr-2  text-[20px]"></i><span class="max-[1000px]:hidden">Perfil</span></RouterLink
           >
         </li>
+        <li  class="hover:text-red-600 flex items-center">
+          <RouterLink
+            class="font-semibold text-sm flex items-center justify-center tracking-wider w-full"
+            :to="'/perfil/' + userLogged.usertag"
+          >
+            <i class="fa-solid fa-message pr-2  text-[20px]"></i><span class="max-[1000px]:hidden">Menasjes</span></RouterLink
+          >
+        </li>
+        </template>
       </ul>
     </nav>
-
-    <ul class="flex flex-col gap-5 text-white text-xl">
-      <template v-if="!userLogged.id">
-        <li>
-          <RouterLink
-            to="/iniciar-sesion"
-            class="rounded bg-red-600 flex justify-center items-center py-1.5 w-[200px] ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all"
-            >Iniciar sesión</RouterLink
-          >
-        </li>
-        <li>
-          <RouterLink
-            to="/registro"
-            class="rounded bg-red-600 items-center justify-center py-1.5 w-[200px] flex ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all"
-            >Registrarse</RouterLink
-          >
-        </li>
-      </template>
-      <template v-else>
-        <li>
-          <form action="#" @submit.prevent="logout()">
-            <button
-              type="submit"
-              class="rounded bg-red-600 items-center justify-center py-1.5 w-[200px] flex ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all"
-            >
-              Cerrar sesión
-            </button>
-          </form>
-        </li>
-      </template>
-    </ul>
-  </header>
 </template>

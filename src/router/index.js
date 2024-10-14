@@ -4,6 +4,7 @@ import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import EditProfileView from "@/views/EditProfileView.vue";
+import EditProfileImgView from "@/views/EditProfileImgView.vue";
 import { subscribeToAuth } from "@/service/auth";
 
 const router = createRouter({
@@ -34,6 +35,12 @@ const router = createRouter({
       path: "/perfil/edit/:id",
       name: "editar-perfil",
       component: EditProfileView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/perfil/edit/img/:id",
+      name: "editar-perfil-img",
+      component: EditProfileImgView,
       meta: { requiresAuth: true },
     },
   ],

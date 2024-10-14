@@ -16,7 +16,7 @@ export default {
         email: "",
         username: "",
         usertag: "",
-        desciption: "",
+        description: "",
         seguidores: null,
         seguidores_cuentas: null,
         seguidos: null,
@@ -44,16 +44,10 @@ export default {
 
 <template>
   <div class="flex flex-col  w-[100%]">
-    <section v-if="this.userLogged.id" class="border-b border-white/20">
-      <div class="w-full flex item-center justify-center border-t border-b border-white/20">
-        <h2 class="font-semibold text-2xl py-2 text-white">Enviar post</h2>
-      </div>
+    <section v-if="this.userLogged.id">
       <chatForm @new-messages="sendMessage" />
     </section>
     <section>
-      <div class="w-full flex item-center justify-center border-t border-b border-white/20">
-        <h2 class="font-semibold text-2xl py-2 text-white">Posts</h2>
-      </div>
       <template v-if="messages.length === 0">
          <p class='w-full flex item-center justify-center py-20 text-4xl text-white/60'>No hay posts publicados.</p>
       </template>

@@ -1,0 +1,62 @@
+<script>
+import { editarMiFotoDePerfil } from '@/service/auth';
+
+export default {
+  name: 'EditProfileImg',
+  data() {
+    return {
+      editing: false,
+      foto: null,         // Aquí se almacenará el archivo seleccionado
+      fotoPreview: null,  // Aquí se almacenará la URL para previsualización
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        console.log("Foto seleccionada para subir:", this.foto); // Verificar si la foto se está pasando correctamente
+        if (!this.foto) {
+          throw new Error("No se ha seleccionado ninguna foto.");
+        }
+
+        await editarMiFotoDePerfil(this.foto); // Llamar la función con la foto
+      } catch (err) {
+        console.error("Error al actualizar la foto:", err);
+      }
+    },
+    async handleFileSelection(e) {
+      this.foto = e.target.files[0]; // El archivo seleccionado
+      if (!this.foto) {
+        console.error("No se ha seleccionado ningún archivo.");
+        return;
+      }
+
+      console.log("Archivo seleccionado:", this.foto);
+
+      // Crear la previsualización de la imagen
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        this.fotoPreview = reader.result; // Almacena el resultado para previsualización
+        console.log("Previsualización generada:", this.fotoPreview);
+      });
+
+      reader.readAsDataURL(this.foto); // Lee el archivo seleccionado para generar previsualización
+    },
+  },
+};
+</script>
+
+<template>
+  <section>
+    <form action="#" @submit.prevent="handleSubmit">
+      <div>
+        <label for="foto">Foto</label>
+        <input type="file" name="foto" id="foto" @change="handleFileSelection">
+      </div>
+      <button type="submit">Cambiar foto</button>
+    </form>
+
+    <!-- Previsualización de la imagen seleccionada -->
+    <img v-if="fotoPreview" :src="fotoPreview" alt="Previsualización de la foto de perfil">
+    
+  </section>
+</template>

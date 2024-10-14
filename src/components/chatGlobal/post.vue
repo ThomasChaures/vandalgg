@@ -24,7 +24,7 @@ export default {
         email: "",
         username: "",
         usertag: "",
-        desciption: "",
+        description: "",
         seguidores: null,
         seguidores_cuentas: null,
         seguidos: null,
@@ -74,11 +74,14 @@ export default {
 </script>
 
 <template>
-  <div class="flex justify-between items-center">
-    <div class="headerMessage flex items-center text-white">
-    <div class="h-9 w-9 bg-white flex items-center justify-center rounded-full">
+  <div class="bg-white p-4 border-b mb-10 rounded shadow-sm">
+    <div class="flex justify-between items-center">
+    <div class="headerMessage flex items-center text-cyan-950">
+      <!-- img -->
+    <div class="h-9 w-9 bg-white border flex items-center justify-center rounded-full">
       <i class="fa-solid fa-user text-black"></i>
     </div>
+
     <router-link
       :to="'/perfil/' + message.usertag"
       class="pl-3 font-semibold text-lg"
@@ -89,12 +92,12 @@ export default {
     >
   </div>
 
-  <div class="message pt-4 pb-4 px-2 text-white/60 text-white text-wrap">
+  <div class="message pt-4 pb-4 px-2 text-white/60 text-cyan-950 text-wrap">
     <p class="break-all">{{ message.date }}</p>
   </div>
   </div>
 
-  <div class="message pt-4 pb-5 px-2 text-white text-wrap">
+  <div class="message pt-4 pb-5 px-2 text-cyan-950text-wrap">
     <p class="break-all">{{ message.content }}</p>
   </div>
 
@@ -103,13 +106,13 @@ export default {
   <div class="interaccion flex items-center">
     <div
       @click="like(message.id)"
-      class="like flex items-center text-white/75 mr-4 text-lg cursor-pointer"
+      class="like flex items-center text-cyan-950/75 mr-4 text-lg cursor-pointer"
     >
       <i class="fa-regular fa-heart hover:bg-blue-700/50 rounded-full p-2"></i>
       <p>{{ message.likes }}</p>
     </div>
     <div
-      class="like flex items-center text-white/75 mr-4 text-lg cursor-pointer"
+      class="like flex items-center text-cyan-950/75 mr-4 text-lg cursor-pointer"
       @click="verComentarios"
     >
       <i
@@ -120,7 +123,7 @@ export default {
   </div>
   <template v-if="flagComment">
     <div class="border-t mt-2 border-white/20">
-      <h3 class="text-lg py-2 text-white">Comentarios:</h3>
+      <h3 class="text-lg py-2 text-cyan-950">Comentarios:</h3>
       <div v-if="userLogged.id" class="border-b pt-2 pb-6 border-white/20">
         <form
           action="#"
@@ -150,7 +153,7 @@ export default {
           :key="index"
         >
           <div>
-            <div class="headerMessage flex items-center text-white">
+            <div class="headerMessage flex items-center text-cyan-950">
               <div
                 class="h-9 w-9 bg-white flex items-center justify-center rounded-full"
               >
@@ -174,8 +177,9 @@ export default {
         </div>
       </template>
       <template v-else>
-        <p class="text-white">Este post no tiene ningún comentario.</p>
+        <p class="text-cyan-950">Este post no tiene ningún comentario.</p>
       </template>
     </div>
   </template>
+  </div>
 </template>

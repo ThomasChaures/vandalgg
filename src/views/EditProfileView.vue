@@ -53,7 +53,7 @@ export default {
       let flag = false;
 
       if (!this.editProfile.username) {
-        // Verificar que username no sea null
+       
         flag = true;
         this.errors.username = "El nombre no puede estar vacío.";
       } else if (this.editProfile.username.length > 10) {
@@ -62,7 +62,7 @@ export default {
       }
 
       if (!this.editProfile.description) {
-        // Verificar que description no sea null
+        
         flag = true;
         this.errors.description = "La descripción no puede estar vacía.";
       } else if (this.editProfile.description.length > 150) {

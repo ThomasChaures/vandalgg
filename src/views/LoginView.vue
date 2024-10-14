@@ -33,14 +33,14 @@ export default {
 </script>
 
 <template>
-  <section class="w-full max-w-[600px] h-screen border-l border-r border-white/40">
-    <div class="w-full flex item-center justify-center border-t border-b border-white/40 mb-2">
-        <h2 class="font-semibold text-2xl py-2 text-white">Ingresar Cuenta</h2>
+  <section class="w-full max-w-[600px] bg-white rounded shadow-sm">
+    <div class="w-full flex item-center justify-center mb-2">
+        <h2 class="font-semibold text-2xl py-4 text-cyan-950">Ingresar Cuenta</h2>
       </div>
 
     <form action="#" class="p-8" @submit.prevent="envioDeFormulario()">
       <div class="mb-4">
-        <label for="email" class="text-white block mb-2">E-mail</label>
+        <label for="email" class="text-cyan-950 block mb-2">E-mail</label>
         <input
           type="mail"
           name="email"
@@ -49,7 +49,7 @@ export default {
         />
       </div>
       <div class="mb-4">
-        <label for="password" class="text-white block mb-2">Password</label>
+        <label for="password" class="text-cyan-950 block mb-2">Password</label>
         <input
           type="password"
           name="password"
@@ -58,7 +58,7 @@ export default {
         />
       </div>
       <button
-        class="py-1 mt-8 w-full rounded bg-red-600 flex items-center justify-center ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all text-white"
+        class="py-1 mt-8 w-full rounded bg-cyan-950 flex items-center justify-center ring-cyan-950 ring-offset-white ring hover:ring-offset-2 ring-offset-0 transition-all text-white"
       >
         Enviar
       </button>
