@@ -99,7 +99,7 @@ export default {
         <h2 class="font-semibold text-2xl py-5 text-cyan-950">Registro de Cuenta</h2>
       </div>
 
-    <form action="#" class="p-8" @submit.prevent="envioDeFormulario()">
+    <form action="#" class="px-8" @submit.prevent="envioDeFormulario()">
       <div class="mb-4">
         <label for="username" class="text-cyan-950 block mb-2">Nombre</label>
         <input
@@ -154,5 +154,9 @@ export default {
         Enviar
       </button>
     </form>
+
+    <p class="py-7 text-center">
+       Ya contas con una cuenta? <router-link to="/iniciar-sesion"><span class="text-blue-500 underline">Inicia sesion!</span></router-link>
+    </p>
   </section>
 </template>

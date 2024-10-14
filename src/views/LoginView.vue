@@ -38,7 +38,7 @@ export default {
         <h2 class="font-semibold text-2xl py-4 text-cyan-950">Ingresar Cuenta</h2>
       </div>
 
-    <form action="#" class="p-8" @submit.prevent="envioDeFormulario()">
+    <form action="#" class="px-8" @submit.prevent="envioDeFormulario()">
       <div class="mb-4">
         <label for="email" class="text-cyan-950 block mb-2">E-mail</label>
         <input
@@ -62,9 +62,15 @@ export default {
       >
         Enviar
       </button>
-    </form>
-    <template v-if="error !== ''">
-        <error>Error al iniciar sesión. El e-mail o la contraseña pueden no ser correctos.</error>
+
+      <template v-if="error !== ''">
+        <error>Error al iniciar sesión. Credenciales incorrectas.</error>
     </template>
+
+    <p class="py-5 text-center">
+       No contas con una cuenta? <router-link to="/registro"><span class="text-blue-500 underline">Registrate!</span></router-link>
+    </p>
+    </form>
+   
   </section>
 </template>

@@ -1,13 +1,13 @@
 <script>
-import { editarMiFotoDePerfil } from '@/service/auth';
+import { editarMiFotoDePerfil } from "@/service/auth";
 
 export default {
-  name: 'EditProfileImg',
+  name: "EditProfileImg",
   data() {
     return {
       editing: false,
-      foto: null,         // Aquí se almacenará el archivo seleccionado
-      fotoPreview: null,  // Aquí se almacenará la URL para previsualización
+      foto: null, // Aquí se almacenará el archivo seleccionado
+      fotoPreview: null, // Aquí se almacenará la URL para previsualización
     };
   },
   methods: {
@@ -34,7 +34,7 @@ export default {
 
       // Crear la previsualización de la imagen
       const reader = new FileReader();
-      reader.addEventListener('load', () => {
+      reader.addEventListener("load", () => {
         this.fotoPreview = reader.result; // Almacena el resultado para previsualización
         console.log("Previsualización generada:", this.fotoPreview);
       });
@@ -47,16 +47,35 @@ export default {
 
 <template>
   <section>
+    <div
+        class="w-full flex item-center justify-center"
+      >
+        <h2 class="font-semibold text-2xl py-2 text-cyan-950">Editar Foto</h2>
+      </div>
+    <div
+      class="img-perfil bg-white w-[130px] h-[130px] flex items-center justify-center rounded-full border-2"
+    >
+      <i class="fa-solid text-4xl fa-user text-black"></i>
+    </div>
+
     <form action="#" @submit.prevent="handleSubmit">
       <div>
         <label for="foto">Foto</label>
-        <input type="file" name="foto" id="foto" @change="handleFileSelection">
+        <input
+          type="file"
+          name="foto"
+          id="foto"
+          @change="handleFileSelection"
+        />
       </div>
       <button type="submit">Cambiar foto</button>
     </form>
 
     <!-- Previsualización de la imagen seleccionada -->
-    <img v-if="fotoPreview" :src="fotoPreview" alt="Previsualización de la foto de perfil">
-    
+    <img
+      v-if="fotoPreview"
+      :src="fotoPreview"
+      alt="Previsualización de la foto de perfil"
+    />
   </section>
 </template>

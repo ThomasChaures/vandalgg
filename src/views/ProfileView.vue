@@ -123,7 +123,7 @@ export default {
 
 <template>
   <div
-    class="min-h-screen w-[600px] flex flex-col gap-2"
+    class="min-h-screen max-w-[600px] w-full flex flex-col gap-2"
   >
     <template v-if="this.cargado">
       <div class="relative h-screen">
@@ -146,17 +146,24 @@ export default {
     <template v-else>
       <section class="relative bg-white rounded shadow-sm min-h-[400px]">
         <div
-          class="banner h-[200px] bg-black w-full object-contain border-b border-white/40"
+          class="banner overflow-hidden bg-black w-full object-contain border-b border-white/40"
         >
           <img
+          class=" w-full"
             src="../assets/img/banner-placeholder/banner-placeholder.jpeg"
             alt="Banner de usuario"
           />
         </div>
         <div
-          class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-white w-[130px] h-[130px] flex items-center justify-center rounded-full"
+          class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-white w-[130px] h-[130px] flex items-center justify-center rounded-full border-2 overflow-hidden"
         >
-          <img :src="userProfile.photo" alt="foto" />
+        <i v-if="!userProfile.photo" class="fa-solid text-4xl  fa-user text-black"></i>
+            <img
+              v-else
+              class="h-full w-full"
+              :src="userProfile.photo"
+              alt="Foto de perfil"
+            />
         </div>
 
         <div
@@ -164,7 +171,7 @@ export default {
         >
           <img :src="rangos[userProfile.rango]" :alt="userProfile.rango" />
 
-          <p class="text-white/50 pt-2">({{ userProfile.rango }})</p>
+          <p class="text-cyan-950/50 pt-2">({{ userProfile.rango }})</p>
         </div>
 
         <template v-if="myProfile">

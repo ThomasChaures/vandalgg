@@ -91,16 +91,16 @@ export default {
 
 <template>
  <section>
-  <div class="flex justify-between w-full min-h-screen">
-    <div class="w-[600px] marker: border-l border-r border-white/40">
+  <div class="flex justify-between w-full rounded  bg-white py-4">
+    <div class="w-[600px]">
       <div
-        class="w-full flex item-center justify-center border-t border-b border-white/40"
+        class="w-full flex item-center justify-center"
       >
-        <h2 class="font-semibold text-2xl py-2 text-white">Editar Perfil</h2>
+        <h2 class="font-semibold text-2xl py-2 text-cyan-950">Editar Perfil</h2>
       </div>
       <form class="p-8" action="#" @submit.prevent="envioDeFormulario()">
         <div class="mb-4">
-          <label for="username" class="text-white block mb-2">Nombre</label>
+          <label for="username" class="text-cyan-950 block mb-2">Nombre</label>
           <input
             type="text"
             name="username"
@@ -113,7 +113,7 @@ export default {
         </div>
 
         <div class="mb-4">
-          <label for="rango" class="text-white block mb-2"
+          <label for="rango" class="text-cyan-950 block mb-2"
             >Rango en Valorant</label
           >
           <select
@@ -135,7 +135,7 @@ export default {
         </div>
 
         <div class="mb-4">
-          <label for="description" class="text-white block mb-2"
+          <label for="description" class="text-cyan-950 block mb-2"
             >Descripción</label
           >
           <textarea
@@ -150,7 +150,7 @@ export default {
           </template>
         </div>
         <button
-          class="py-1 mt-8 w-full rounded bg-red-600 flex items-center justify-center ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all text-white disabled:opacity-50"
+          class="py-1 mt-8 w-full rounded bg-cyan-950 flex items-center justify-center ring-cyan-950 ring-offset-white ring hover:ring-offset-2 ring-offset-0 transition-all text-white disabled:opacity-50"
         >
           Enviar
         </button>

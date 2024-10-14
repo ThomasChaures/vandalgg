@@ -38,7 +38,9 @@ export default {
 
     <main class="container max-w-[600px] mt-[130px] mx-auto">
       <AppNavbar />
-      <RouterView />
+      <div class="max-[1000px]:px-8">
+        <RouterView />
+      </div>
     </main>
     <AppFooter />
   </div>
