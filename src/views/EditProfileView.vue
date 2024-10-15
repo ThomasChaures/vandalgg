@@ -91,7 +91,7 @@ export default {
 
 <template>
  <section>
-  <div class="flex justify-between w-full rounded  bg-white py-4">
+  <div class="flex justify-between w-full rounded-xl  bg-white py-4">
     <div class="w-[600px]">
       <div
         class="w-full flex item-center justify-center"

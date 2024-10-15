@@ -93,7 +93,7 @@ export default {
 
 <template>
   <section
-    class="w-full max-w-[600px] bg-white rounded shadow-sm"
+    class="w-full max-w-[600px] bg-white rounded-xl shadow-sm"
   >
   <div class="w-full flex item-center justify-center border-t border-b border-white/40 mb-2">
         <h2 class="font-semibold text-2xl py-5 text-cyan-950">Registro de Cuenta</h2>

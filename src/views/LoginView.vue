@@ -33,7 +33,7 @@ export default {
 </script>
 
 <template>
-  <section class="w-full max-w-[600px] bg-white rounded shadow-sm">
+  <section class="w-full max-w-[600px] bg-white rounded-xl shadow-sm">
     <div class="w-full flex item-center justify-center mb-2">
         <h2 class="font-semibold text-2xl py-4 text-cyan-950">Ingresar Cuenta</h2>
       </div>

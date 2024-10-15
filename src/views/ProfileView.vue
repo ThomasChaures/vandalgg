@@ -122,9 +122,7 @@ export default {
 </script>
 
 <template>
-  <div
-    class="min-h-screen max-w-[600px] w-full flex flex-col gap-2"
-  >
+  <div class="min-h-screen max-w-[600px] w-full flex flex-col gap-2">
     <template v-if="this.cargado">
       <div class="relative h-screen">
         <div
@@ -144,26 +142,31 @@ export default {
       </div>
     </template>
     <template v-else>
-      <section class="relative bg-white rounded shadow-sm min-h-[400px]">
+      <section
+        class="relative bg-white rounded-xl overflow-hidden  min-h-[400px]"
+      >
         <div
           class="banner overflow-hidden bg-black w-full object-contain border-b border-white/40"
         >
           <img
-          class=" w-full"
+            class="w-full"
             src="../assets/img/banner-placeholder/banner-placeholder.jpeg"
             alt="Banner de usuario"
           />
         </div>
         <div
-          class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-white w-[130px] h-[130px] flex items-center justify-center rounded-full border-2 overflow-hidden"
+          class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full border-2 overflow-hidden"
         >
-        <i v-if="!userProfile.photo" class="fa-solid text-4xl  fa-user text-black"></i>
-            <img
-              v-else
-              class="h-full w-full"
-              :src="userProfile.photo"
-              alt="Foto de perfil"
-            />
+          <i
+            v-if="!userProfile.photo"
+            class="fa-solid text-4xl bottom-[30px] absolute text-[100px] fa-user text-gray-500"
+          ></i>
+          <img
+            v-else
+            class="h-full w-full"
+            :src="userProfile.photo"
+            alt="Foto de perfil"
+          />
         </div>
 
         <div
@@ -176,44 +179,44 @@ export default {
 
         <template v-if="myProfile">
           <div
-            class="follow-button absolute top-[52%] left-[65%] transform -translate-x-1/2"
+            class="follow-button absolute top-[48%] left-[85%] transform -translate-x-1/2"
           >
             <router-link
               :to="'/perfil/edit/' + this.userLogged.id"
-              class="border transition-all hover:border-white hover:text-white  rounded flex items-center h-[30px] w-[100px] justify-center text-white bg-cyan-950"
+              class="border transition-all hover:border-white hover:bg-green-500 hover:text-white rounded-full flex items-center h-10 w-10 justify-center text-white bg-cyan-950"
             >
-              Editar <i class="fa-solid fa-pen ml-4"></i>
+              <i class="fa-solid fa-pen "></i>
             </router-link>
           </div>
           <div
-            class="follow-button absolute top-[52%] left-[85%] transform -translate-x-1/2"
+            class="follow-button absolute top-[52%] left-[15%] transform -translate-x-1/2"
           >
             <router-link
               :to="'/perfil/edit/img/' + this.userLogged.id"
-              class="border transition-all hover:border-white hover:text-white rounded flex items-center h-[30px] w-[130px] justify-center text-white bg-cyan-950"
+              class="border transition-all hover:border-white hover:bg-green-500 hover:text-white rounded-xl flex items-center h-[30px] w-[130px] justify-center text-white bg-cyan-950"
             >
-              Editar Foto <i class="fa-solid fa-image ml-4"></i>
+              Editar <i class="fa-solid fa-image ml-4"></i>
             </router-link>
           </div>
         </template>
 
         <template v-if="!myProfile">
           <div
-            class="follow-button absolute top-[52%] left-[85%] transform -translate-x-1/2"
+            class="follow-button absolute top-[48%] left-[85%] transform -translate-x-1/2"
           >
             <form action="#" @submit.prevent="seguir()">
               <template v-if="!seguido">
                 <button
-                  class="border transition-all hover:border-white hover:text-white  rounded flex items-center h-[30px] w-[100px] justify-center text-white bg-cyan-950"
+                  class="border rounded-full transition-all duration-300 ease-in-out hover:border-white hover:text-white hover:bg-blue-500 transform hover:scale-110 flex items-center h-10 w-10 justify-center text-white bg-cyan-950"
                 >
-                  Seguir <i class="fa-solid fa-user-plus ml-4"></i>
+                  <i class="fa-solid fa-user-plus"></i>
                 </button>
               </template>
               <template v-else>
                 <button
-                  class="border transition-all hover:border-white hover:text-white rounded flex items-center h-[30px] w-[160px] justify-center text-white bg-cyan-950"
+                  class="border rounded-full transition-all duration-300 ease-in-out hover:border-white hover:text-white hover:bg-red-500 transform hover:scale-110 flex items-center h-10 w-10 justify-center text-white bg-cyan-950"
                 >
-                  Dejar de seguir <i class="fa-solid fa-user-minus ml-4"></i>
+                  <i class="fa-solid fa-user-minus"></i>
                 </button>
               </template>
             </form>

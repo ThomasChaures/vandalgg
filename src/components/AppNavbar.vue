@@ -31,7 +31,7 @@ export default {
 <template>
   <nav
     v-if="userLogged.id !== null"
-    class="max-w-[220px] bg-white fixed top-[130px] rounded shadow-sm left-[390px] max-[1820px]:left-[300px] max-[1720px]:left-[270px] max-[1520px]:left-[150px] max-[1620px]:left-[220px] p-6 w-full max-[1370px]:left-[100px] max-[1270px]:left-[20px] max-[1101px]:max-w-[160px] max-[1000px]:top-auto max-[1000px]:bottom-0 max-[1000px]:max-w-[100%] max-[1000px]:left-1/2 max-[1000px]:translate-x-[-50%] max-[1000px]:border z-30"
+    class="max-w-[220px] bg-white fixed top-[130px] rounded-xl  left-[390px] max-[1820px]:left-[300px] max-[1720px]:left-[270px] max-[1520px]:left-[150px] max-[1620px]:left-[220px] p-6 w-full max-[1370px]:left-[100px] max-[1270px]:left-[20px] max-[1101px]:max-w-[160px] max-[1000px]:top-auto max-[1000px]:bottom-0 max-[1000px]:max-w-[100%] max-[1000px]:left-1/2 max-[1000px]:translate-x-[-50%] max-[1000px]:border z-30"
   >
     <ul
       class="flex flex-col justify-between h-full max-[1000px]:flex-row max-[1000px]:justify-around items-start gap-8 text-cyan-950"
@@ -44,7 +44,7 @@ export default {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            stroke-width="2"
             stroke="currentColor"
             class="size-5"
           >
@@ -67,7 +67,7 @@ export default {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              stroke-width="2"
               stroke="currentColor"
               class="size-5"
             >
@@ -89,7 +89,7 @@ export default {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              stroke-width="2"
               stroke="currentColor"
               class="size-5"
             >
@@ -111,7 +111,7 @@ export default {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              stroke-width="2"
               stroke="currentColor"
               class="size-5"
             >

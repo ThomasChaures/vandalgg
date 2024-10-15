@@ -83,15 +83,15 @@ export default {
 </script>
 
 <template>
-  <div class="bg-white p-4 border-b mb-2 rounded shadow-sm">
+  <div class="bg-white p-4 border-b mb-2 rounded-xl">
     <div class="flex justify-between items-center">
       <div class="headerMessage flex items-center text-cyan-950">
         <!-- img -->
         <router-link :to="'/perfil/' + message.usertag">
           <div
-            class="h-9 w-9 overflow-hidden bg-white border flex items-center justify-center rounded-full"
+            class="h-9 w-9 overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full"
           >
-            <i v-if="!userData.photo" class="fa-solid fa-user text-black"></i>
+            <i v-if="!userData.photo" class="fa-solid absolute bottom-[-2px] text-[27px] fa-user text-gray-500"></i>
             <img
               v-else
               class="h-full w-full"
@@ -116,22 +116,23 @@ export default {
       </div>
     </div>
 
-    <div class="message pt-4 pb-5 px-2 text-cyan-950text-wrap">
+    <div class="message pt-4 pb-8 pl-[50px] px-2 text-cyan-950text-wrap">
       <p class="break-all">{{ message.content }}</p>
     </div>
 
-    <div class="interaccion ml-1 flex items-center">
+    <div class="interaccion pl-[50px] flex items-center">
       <div
         @click="like(message.id)"
-        class="like flex items-center text-cyan-950/75 mr-4 text-lg cursor-pointer"
+        class="like flex items-center  text-cyan-950/75 pr-2 text-lg cursor-pointer"
       >
-        <svg
+        <div class="hover:bg-blue-700/50 rounded-full">
+          <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="1.5"
+          stroke-width="2"
           stroke="currentColor"
-          class="size-5 hover:bg-blue-700/50 rounded-full"
+          class="size-5 "
         >
           <path
             stroke-linecap="round"
@@ -139,18 +140,19 @@ export default {
             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
           />
         </svg>
+        </div>
 
         <p class="ml-1">{{ message.likes }}</p>
       </div>
       <div
-        class="like flex items-center text-cyan-950/75 mr-4 text-lg cursor-pointer"
+        class="like flex items-center text-cyan-950/75 pl-2 text-lg cursor-pointer"
         @click="verComentarios"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="1.5"
+          stroke-width="2"
           stroke="currentColor"
           class="size-5 hover:bg-blue-700/50 rounded-full"
         >

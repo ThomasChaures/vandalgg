@@ -43,6 +43,12 @@ const router = createRouter({
       component: EditProfileImgView,
       meta: { requiresAuth: true },
     },
+    {
+      path: "/busqueda/:parametro",
+      name: "buscador",
+      component: EditProfileImgView,
+      meta: { requiresAuth: true },
+    },
   ],
 });
 

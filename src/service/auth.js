@@ -24,6 +24,10 @@ let userLogged = {
 
 let observers = [];
 
+if (localStorage.getItem("user")) {
+  userLogged = JSON.parse(localStorage.getItem("user"));
+}
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     userLogged.id = user.uid;
@@ -39,6 +43,8 @@ onAuthStateChanged(auth, async (user) => {
     userLogged.seguidos_cuentas = fullProfile.seguidos_cuentas;
     userLogged.rango = fullProfile.rango;
     userLogged.photo = fullProfile.photo;
+    notifyAll();
+    localStorage.setItem("user", JSON.stringify(userLogged));
   } else {
     userLogged.id = null;
     userLogged.email = null;
@@ -92,6 +98,7 @@ export async function cerrarSesion() {
   try {
     await signOut(auth);
     console.log("Sesión cerrada con éxito");
+    localStorage.removeItem("user");
   } catch (error) {
     console.error("Error al cerrar sesión: ", error);
   }
@@ -127,15 +134,17 @@ export async function editarMiFotoDePerfil(foto) {
 
     // Verificar si la URL es válida
     if (!photoURL) {
-      throw new Error("La URL de la imagen es inválida o no fue generada correctamente.");
+      throw new Error(
+        "La URL de la imagen es inválida o no fue generada correctamente."
+      );
     }
 
     // Actualizar la imagen en la base de datos del usuario
     await editarPerfilImg(userLogged.email, photoURL);
-
   } catch (err) {
     console.error("Error al editar la foto de perfil:", err);
-    throw new Error("No se pudo actualizar la foto de perfil. Inténtalo de nuevo.");
+    throw new Error(
+      "No se pudo actualizar la foto de perfil. Inténtalo de nuevo."
+    );
   }
 }
-
