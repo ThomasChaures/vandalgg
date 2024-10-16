@@ -5,6 +5,7 @@ import RegisterView from "@/views/RegisterView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import EditProfileView from "@/views/EditProfileView.vue";
 import EditProfileImgView from "@/views/EditProfileImgView.vue";
+import SearchView from "@/views/SearchView.vue";
 import { subscribeToAuth } from "@/service/auth";
 
 const router = createRouter({
@@ -44,9 +45,9 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/busqueda/:parametro",
+      path: "/busqueda/:search",
       name: "buscador",
-      component: EditProfileImgView,
+      component: SearchView,
       meta: { requiresAuth: true },
     },
   ],

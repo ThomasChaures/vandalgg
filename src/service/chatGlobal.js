@@ -14,6 +14,55 @@ import {
 import { db } from "./firebase";
 
 
+
+function tokenizar(contenido) {
+  // Convierte el contenido a minúsculas y lo divide en palabras usando espacios como separador.
+  // El resultado es un array donde cada elemento es una palabra.
+  const palabras = contenido.toLowerCase().split(/\s+/); 
+  let tokens = []; // Inicializa un array vacío para almacenar los tokens generados.
+
+  // Recorre cada palabra en el array de palabras.
+  palabras.forEach(palabra => {
+    // Comprueba que la palabra no esté vacía (puede ocurrir si hay múltiples espacios).
+    if (palabra) { 
+      // Genera subtokens para la palabra actual y los añade al array de tokens.
+      tokens = tokens.concat(generarSubTokens(palabra)); 
+    }
+  });
+
+  // Genera combinaciones de palabras.
+  for (let i = 0; i < palabras.length; i++) {
+    // Inicia un segundo bucle para crear combinaciones de palabras.
+    for (let j = i + 1; j <= palabras.length; j++) { 
+      // Crea una frase combinando palabras desde el índice i hasta j.
+      const frase = palabras.slice(i, j).join(' '); 
+      // Asegura que la frase no esté vacía antes de añadirla a los tokens.
+      if (frase) { 
+        tokens.push(frase); // Añade la frase combinada al array de tokens.
+      }
+    }
+  }
+
+  // Devuelve el array de tokens generados.
+  return tokens;
+}
+
+
+function generarSubTokens(palabra) {
+  let subTokens = []; // Inicializa un array vacío para almacenar los subtokens generados.
+
+  // Genera subtokens de la palabra. La variable i representa la longitud del subtoken.
+  for (let i = 1; i <= palabra.length; i++) {
+    // Añade al array subTokens la parte de la palabra desde el inicio hasta el índice i.
+    subTokens.push(palabra.slice(0, i)); 
+  }
+  
+  // Devuelve el array de subtokens generados.
+  return subTokens;
+}
+
+
+
 /**
  * 
  * @param {object} newMessage 
@@ -21,18 +70,22 @@ import { db } from "./firebase";
  * Primero se toma la referencia de la collection 'chat' y después con addDoc() se crea el mensaje con el objeto pasado y 
  * algunos datos extras para su seguimiento.
  */
-
 export async function enviarMensajeAfirebase(newMessage) {
+  const post = newMessage.content;
+  const token = tokenizar(post); // Tokenizar el contenido del mensaje
+
   const chatRef = collection(db, "chat");
   await addDoc(chatRef, {
     ...newMessage,
     created_at: serverTimestamp(),
     likes: 0,
     likesBy: [],
+    tokens: token, // Guardar los tokens generados
     comentarios: 0,
     comentarios_text: [],
   });
 }
+
 
 /**
  * @param {*} id

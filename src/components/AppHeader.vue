@@ -1,12 +1,14 @@
 <script>
 import { RouterLink } from "vue-router";
 import { cerrarSesion, subscribeToAuth } from "@/service/auth";
+import { busqueda } from "@/service/search";
 
 export default {
   name: "AppHeader",
   components: { RouterLink },
   data() {
     return {
+      busqueda: '',
       userLogged: {
         id: "",
         email: "",
@@ -31,6 +33,10 @@ export default {
       cerrarSesion();
       this.$router.push("/");
     },
+    async buscar() {
+      this.$router.push(`/busqueda/${this.busqueda}`);
+}
+
   },
 };
 </script>
@@ -48,9 +54,9 @@ export default {
         </p>
       </div>
 
-      <div class="flex ml-11 w-full max-w-[600px]" >
-        <form action="" class="flex items-center container h-[35px]">
-          <input type="text"  class="rounded-bl block w-full rounded-tl  border border-cyan-950 h-[100%]"/>
+      <div class="flex ml-16 w-full max-w-[600px]" >
+        <form action="#" @submit.prevent="buscar()" class="flex items-center container h-[35px]">
+          <input type="text" v-model="busqueda" placeholder="Buscar..."  class="px-2 rounded-bl block w-full rounded-tl  border border-cyan-950 h-[100%]"/>
           <button class="rounded-br rounded-tr  bg-cyan-950 flex text-base justify-center items-center h-full px-2 ring-cyan-950/0  transition-all">
             <svg
               xmlns="http://www.w3.org/2000/svg"
