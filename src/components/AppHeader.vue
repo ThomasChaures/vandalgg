@@ -2,10 +2,12 @@
 import { RouterLink } from "vue-router";
 import { cerrarSesion, subscribeToAuth } from "@/service/auth";
 import { busqueda } from "@/service/search";
+import sButton from "./slot/sButton.vue";
+
 
 export default {
   name: "AppHeader",
-  components: { RouterLink },
+  components: { RouterLink, sButton },
   data() {
     return {
       busqueda: '',
@@ -81,14 +83,14 @@ export default {
           <li>
             <RouterLink
               to="/iniciar-sesion"
-              class="rounded bg-cyan-950 flex text-base max-[700px]:text-sm justify-center items-center py-1 px-4 ring-cyan-950 ring-offset-white ring hover:ring-offset-2 ring-offset-0 transition-all"
+               class="rounded flex text-base max-[700px]:text-sm justify-center items-center py-1 px-4  bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
               >Iniciar sesión</RouterLink
             >
           </li>
           <li>
             <RouterLink
               to="/registro"
-              class="rounded bg-cyan-950 flex text-base max-[700px]:text-sm justify-center items-center py-1 px-4 ring-cyan-950 ring-offset-white ring hover:ring-offset-2 ring-offset-0 transition-all"
+              class="rounded flex text-base max-[700px]:text-sm justify-center items-center py-1 px-4  bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
               >Registrarse</RouterLink
             >
           </li>
@@ -120,9 +122,8 @@ export default {
           </li>
           <li>
             <form action="#" @submit.prevent="logout()">
-              <button
-                type="submit"
-                class="rounded bg-cyan-950 flex text-base justify-center items-center py-2 px-2 ring-cyan-950 ring-offset-white ring hover:ring-offset-2 ring-offset-0 transition-all"
+              <sButton
+                class="!py-2 !px-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +139,7 @@ export default {
                     d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
                   />
                 </svg>
-              </button>
+              </sButton>
             </form>
           </li>
         </template>

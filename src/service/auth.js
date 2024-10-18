@@ -120,9 +120,14 @@ export async function register({ email, password }) {
     throw err;
   }
 }
-export async function editarMiFotoDePerfil(foto) {
+export async function editarMiFotoDePerfil(foto, param) {
   try {
-    const filePath = `users/${userLogged.id}/avatar.jpg`;
+    let filePath;
+    if (param === "avatar") {
+      filePath = `users/${userLogged.id}/avatar.jpg`;
+    } else if (param === "banner") {
+      filePath = `users/${userLogged.id}/banner.jpg`;
+    }
 
     // Subir el archivo
     console.log("Subiendo archivo a:", filePath);

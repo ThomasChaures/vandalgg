@@ -129,7 +129,8 @@ export async function crearDatosDeUsuario(id, username, usertag) {
     seguidos: 0,
     seguidos_cuentas: [],
     rango: "unranked",
-    photo: null
+    photo: null,
+    banner: null,
   });
 }
 

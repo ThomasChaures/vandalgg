@@ -1,11 +1,15 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
+import sButton from "../slot/sButton.vue";
+
 
 export default {
   name: "chatForm",
   emits: ["newMessages"],
+  components: {sButton},
   data() {
     return {
+  
       fecha: "",
       newMessage: {
         content: "",
@@ -41,6 +45,7 @@ export default {
           username: this.userLogged.username,
           usertag: this.userLogged.usertag,
           content: this.newMessage.content,
+          photo: this.userLogged.photo,
           date: new Date().toLocaleDateString(),
         });
         this.newMessage.content = "";
@@ -52,7 +57,7 @@ export default {
 
 <template>
   <div class="container-md bg-white p-5 mb-5 rounded-xl w-full">
-    <h2 class="font-bold">Crear Post</h2>
+    <h2 class="font-bold pb-2">Crear Publicacion</h2>
     <form action="#" @submit.prevent="handleSubmit()" class="">
       <div class="mb-1 mt-3 relative">
         <div
@@ -75,15 +80,8 @@ export default {
           placeholder="Que esta pasando en Valorant?"
         ></textarea>
       </div>
-      <div class="grid grid-cols-9 items-center border-t pt-5">
-    
-
-        <button
-          type="submit"
-          class="col-start-1 col-span-2 py-1 px-4 rounded bg-cyan-950 text-white ring-cyan-950 ring-offset-white ring hover:ring-offset-2 ring-offset-0 transition-all"
-        >
-          Postear
-        </button>
+      <div class="items-center border-t pt-5">
+        <sButton>Publicar</sButton>
       </div>
     </form>
   </div>

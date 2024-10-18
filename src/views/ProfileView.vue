@@ -23,6 +23,7 @@ export default {
   components: { chatList },
   data() {
     return {
+      usertag: this.$route.params.usertag,
       rangos: {
         unranked,
         hierro,
@@ -62,6 +63,10 @@ export default {
       },
       immediate: true,
     },
+    "$route.params.usertag": function(newUsertag){
+      this.usertag = newUsertag;
+      this.loadData();
+    }
   },
   async mounted() {
     subscribeToAuth((newUserData) => {
@@ -74,7 +79,7 @@ export default {
     async loadData() {
       try {
         await localizarLosDatosDelUsuarioLoggeadoByUsertag(
-          this.$route.params.usertag,
+          this.usertag,
           (userData) => {
             this.userProfile = userData;
             console.log(this.userProfile);
@@ -85,7 +90,7 @@ export default {
         console.log(this.userLogged.email);
 
         await obtenerPostsDeUsuarioById(
-          this.$route.params.usertag,
+          this.usertag,
           (messagees) => {
             this.messages = messagees;
           }
@@ -249,6 +254,7 @@ export default {
           </p>
         </div>
       </section>
+      
 
       <section>
         <chatList :messages="messages" />

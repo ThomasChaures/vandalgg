@@ -5,13 +5,11 @@ import {
   enviarComentarioAlPost,
   getComentariosDelPost,
 } from "@/service/chatGlobal";
-import {
-  localizarLosDatosDelUsuario,
-  localizarLosDatosDelUsuarioLoggeadoByUsertag,
-} from "@/service/users";
+import sButton from "../slot/sButton.vue";
 
 export default {
   name: "post",
+  components: {sButton},
   props: {
     message: {
       type: Object,
@@ -23,7 +21,6 @@ export default {
       flagComment: false,
       comentarios: [],
       comentario: "",
-      userData: {},
       userLogged: {
         id: "",
         email: "",
@@ -45,10 +42,6 @@ export default {
       console.log(comentariosPost);
       console.log(this.comentarios);
     });
-    localizarLosDatosDelUsuarioLoggeadoByUsertag(
-      this.message.usertag,
-      (data) => (this.userData = data)
-    );
   },
   methods: {
     like(id) {
@@ -91,11 +84,11 @@ export default {
           <div
             class="h-9 w-9 overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full"
           >
-            <i v-if="!userData.photo" class="fa-solid absolute bottom-[-2px] text-[27px] fa-user text-gray-500"></i>
+            <i v-if="!message.photo" class="fa-solid absolute bottom-[-2px] text-[27px] fa-user text-gray-500"></i>
             <img
               v-else
               class="h-full w-full"
-              :src="userData.photo"
+              :src="message.photo"
               alt="Foto de perfil"
             />
           </div>
@@ -167,9 +160,9 @@ export default {
       </div>
     </div>
     <template v-if="flagComment">
-      <div class="border-t mt-2 border-white/20">
-        <h3 class="text-lg py-2 text-cyan-950">Comentarios:</h3>
-        <div v-if="userLogged.id" class="border-b pt-2 pb-6 border-white/20">
+      <div class=" mt-2 rounded-xl">
+       
+        <div v-if="userLogged.id" class="border-b pt-2 pb-2 border-white/20">
           <form
             action="#"
             @submit.prevent="comentar()"
@@ -183,20 +176,17 @@ export default {
                 class="w-[98%] py-1 px-1 rounded"
               />
             </label>
-            <button
-              type="submit"
-              class="py-1 px-4 rounded bg-red-600 text-white ring-red-600 ring-offset-slate-900 ring hover:ring-offset-2 ring-offset-0 transition-all"
-            >
-              Comentar
-            </button>
+             <sButton>Comentar</sButton>
           </form>
         </div>
         <template v-if="comentarios.length !== 0">
+          <h3 class="text-lg text-cyan-950">Comentarios:</h3>
           <div
             class="border border-white/20 p-4 flex items-center justify-start"
             v-for="(comentarios, index) in comentarios"
             :key="index"
           >
+         
             <div>
               <div class="headerMessage flex items-center text-cyan-950">
                 <div

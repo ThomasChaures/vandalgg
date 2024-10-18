@@ -18,7 +18,7 @@ export default {
           throw new Error("No se ha seleccionado ninguna foto.");
         }
 
-        await editarMiFotoDePerfil(this.foto); // Llamar la función con la foto
+        await editarMiFotoDePerfil(this.foto, 'avatar'); // Llamar la función con la foto
       } catch (err) {
         console.error("Error al actualizar la foto:", err);
       }
