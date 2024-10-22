@@ -148,10 +148,10 @@ export default {
     </template>
     <template v-else>
       <section
-        class="relative bg-white rounded-xl overflow-hidden  min-h-[400px]"
+        class="relative  overflow-hidden border-b border-white/10 min-h-[400px]"
       >
         <div
-          class="banner overflow-hidden bg-black w-full object-contain border-b border-white/40"
+          class="banner overflow-hidden bg-black w-full object-contain border-b border-white/10"
         >
           <img
             class="w-full"
@@ -160,7 +160,7 @@ export default {
           />
         </div>
         <div
-          class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full border-2 overflow-hidden"
+          class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden"
         >
           <i
             v-if="!userProfile.photo"
@@ -179,7 +179,7 @@ export default {
         >
           <img :src="rangos[userProfile.rango]" :alt="userProfile.rango" />
 
-          <p class="text-cyan-950/50 pt-2">({{ userProfile.rango }})</p>
+          <p class="text-white/50 pt-2">({{ userProfile.rango }})</p>
         </div>
 
         <template v-if="myProfile">
@@ -229,28 +229,28 @@ export default {
         </template>
 
         <div class="data-name-user flex items-center pt-[110px] pl-[29px]">
-          <p class="text-2xl mr-2 text-cyan-950 font-bold">
+          <p class="text-2xl mr-2 text-white font-bold">
             {{ userProfile.username }}
           </p>
-          <span class="text-xl text-cyan-950/50">•</span>
-          <p class="ml-2 text-xl text-cyan-950/50 font-normal">
+          <span class="text-xl text-white/50">•</span>
+          <p class="ml-2 text-xl text-white/50 font-normal">
             @{{ userProfile.usertag }}
           </p>
         </div>
 
         <div class="data-name-user pt-[10px] pl-[29px] w-full text-wrap">
-          <p class="mr-4 text-[1.1rem] text-cyan-950/40">Biografía:</p>
-          <p class="mr-4 text-[1.1rem] text-cyan-950 break-all w-[60%]">
+          <p class="mr-4 text-[1.1rem] text-white/40">Biografía:</p>
+          <p class="mr-4 text-[1.1rem] text-white break-all w-[60%]">
             {{ userProfile.description }}
           </p>
         </div>
 
         <div
-          class="followers text-lg text-cyan-950 flex pt-[20px] pb-[16px] pl-[29px]"
+          class="followers text-lg text-white flex pt-[20px] pb-[16px] pl-[29px]"
         >
           <p class="mr-4">
             {{ userProfile.seguidores }}
-            <span class="text-cyan-950/50">Seguidores</span>
+            <span class="text-white/50">Seguidores</span>
           </p>
         </div>
       </section>

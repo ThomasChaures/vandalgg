@@ -57,9 +57,9 @@ export default {
       </div>
     </div>
   </section>
-  <section v-else-if="!loader">
-    <div class="px-2 py-4 mb-2 bg-white rounded-xl">
-      <h2 class="font-bold pb-2">Resultados de la busqueda: {{ contador }}</h2>
+  <section v-else-if="!loader" class="max-w-[600px]">
+    <div class="px-4 py-4 mb-2 flex items-center justify-start text-white pt-10 border-b border-white/10">
+      <h2 class="font-bold">Resultados de la busqueda: {{ contador }}</h2>
     </div>
 
     <div>

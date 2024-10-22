@@ -50,7 +50,7 @@ export default {
     <div
         class="w-full flex item-center justify-center"
       >
-        <h2 class="font-semibold text-2xl py-2 text-cyan-950">Editar Foto</h2>
+        <h2 class="font-semibold text-2xl py-2 text-white">Editar Foto</h2>
       </div>
     <div
       class="img-perfil bg-white w-[130px] h-[130px] flex items-center justify-center rounded-full border-2"

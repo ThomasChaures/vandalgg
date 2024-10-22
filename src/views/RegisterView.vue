@@ -93,69 +93,69 @@ export default {
 
 <template>
   <section
-    class="w-full max-w-[600px] bg-white rounded-xl shadow-sm"
+    class="w-full max-w-[600px]  shadow-sm"
   >
-  <div class="w-full flex item-center justify-center border-t border-b border-white/40 mb-2">
-        <h2 class="font-semibold text-2xl py-5 text-cyan-950">Registro de Cuenta</h2>
+  <div class="w-full flex item-center justify-center border-b border-white/10 mb-10">
+        <h2 class="font-semibold text-2xl py-5 text-white">Registro de Cuenta</h2>
       </div>
 
     <form action="#" class="px-8" @submit.prevent="envioDeFormulario()">
       <div class="mb-4">
-        <label for="username" class="text-cyan-950 block mb-2">Nombre</label>
+        <label for="username" class="text-white block mb-2">Nombre</label>
         <input
           type="text"
           name="username"
           v-model="collectionUser.username"
-          class="w-full p-2 border border-slate-950 rounded"
+          class="w-full p-2 border  rounded"
         />
         <template v-if="errors.username !== ''">
           <error>{{ errors.username }}</error>
         </template>
       </div>
       <div class="mb-4">
-        <label for="usertag" class="text-cyan-950 block mb-2">User tag</label>
+        <label for="usertag" class="text-white block mb-2">User tag</label>
         <input
           type="text"
           name="usertag"
           v-model="collectionUser.usertag"
-          class="w-full p-2 border border-slate-950 rounded"
+          class="w-full p-2 border  rounded"
         />
         <template v-if="errors.usertag !== ''">
           <error>{{ errors.usertag }}</error>
         </template>
       </div>
       <div class="mb-4">
-        <label for="email" class="text-cyan-950 block mb-2">E-mail</label>
+        <label for="email" class="text-white block mb-2">E-mail</label>
         <input
           type="mail"
           name="email"
           v-model="user.email"
-          class="w-full p-2 border border-slate-950 rounded"
+          class="w-full p-2 border  rounded"
         />
         <template v-if="errors.email !== ''">
           <error>{{ errors.email }}</error>
         </template>
       </div>
       <div class="mb-4">
-        <label for="password" class="text-cyan-950 block mb-2">Password</label>
+        <label for="password" class="text-white block mb-2">Password</label>
         <input
           type="password"
           name="password"
           v-model="user.password"
-          class="w-full p-2 border border-slate-950 rounded"
+          class="w-full p-2 border rounded"
         />
         <template v-if="errors.password !== ''">
           <error>{{ errors.password }}</error>
         </template>
       </div>
       <button
-        class="py-1 mt-8 w-full rounded bg-cyan-950 flex items-center justify-center ring-cyan-950 ring-offset-white ring hover:ring-offset-2 ring-offset-0 transition-all text-white"
+        class="py-2 mt-8 w-full rounded bg-blue-700 text-white hover:bg-blue-600 transition-all"
       >
         Enviar
       </button>
     </form>
 
-    <p class="py-7 text-center">
+    <p class="py-7 text-white text-center">
        Ya contas con una cuenta? <router-link to="/iniciar-sesion"><span class="text-blue-500 underline">Inicia sesion!</span></router-link>
     </p>
   </section>

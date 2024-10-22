@@ -76,9 +76,9 @@ export default {
 </script>
 
 <template>
-  <div class="bg-white p-4 border-b mb-2 rounded-xl">
+  <div class=" p-4 border-b border-white/10  mb-2">
     <div class="flex justify-between items-center">
-      <div class="headerMessage flex items-center text-cyan-950">
+      <div class="headerMessage flex items-center text-white">
         <!-- img -->
         <router-link :to="'/perfil/' + message.usertag">
           <div
@@ -104,19 +104,19 @@ export default {
         >
       </div>
 
-      <div class="message pt-4 pb-4 px-2 text-cyan-950/50 text-wrap">
+      <div class="message pt-4 pb-4 px-2 text-white/50 text-wrap">
         <p class="break-all">{{ message.date }}</p>
       </div>
     </div>
 
-    <div class="message pt-4 pb-8 pl-[50px] px-2 text-cyan-950text-wrap">
+    <div class="message pt-4 text-white pb-8 pl-[50px] px-2 text-wrap">
       <p class="break-all">{{ message.content }}</p>
     </div>
 
     <div class="interaccion pl-[50px] flex items-center">
       <div
         @click="like(message.id)"
-        class="like flex items-center  text-cyan-950/75 pr-2 text-lg cursor-pointer"
+        class="like flex items-center  text-white/70 pr-2 text-lg cursor-pointer"
       >
         <div class="hover:bg-blue-700/50 rounded-full">
           <svg
@@ -138,7 +138,7 @@ export default {
         <p class="ml-1">{{ message.likes }}</p>
       </div>
       <div
-        class="like flex items-center text-cyan-950/75 pl-2 text-lg cursor-pointer"
+        class="like flex items-center text-white/70 pr-2 pl-2 text-lg cursor-pointer"
         @click="verComentarios"
       >
         <svg

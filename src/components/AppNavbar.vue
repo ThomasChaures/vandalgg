@@ -31,22 +31,22 @@ export default {
 <template>
   <nav
     v-if="userLogged.id !== null"
-    class="max-w-[220px] bg-white fixed top-[130px] rounded-xl  left-[390px] max-[1820px]:left-[300px] max-[1720px]:left-[270px] max-[1520px]:left-[150px] max-[1620px]:left-[220px] p-6 w-full max-[1370px]:left-[100px] max-[1270px]:left-[20px] max-[1101px]:max-w-[160px] max-[1000px]:top-auto max-[1000px]:bottom-0 max-[1000px]:max-w-[100%] max-[1000px]:left-1/2 max-[1000px]:translate-x-[-50%] max-[1000px]:border z-30"
+    class="max-w-[220px] fixed top-[130px]  left-[390px] max-[1820px]:left-[300px] max-[1720px]:left-[270px] max-[1520px]:left-[150px] max-[1620px]:left-[220px] p-6 w-full max-[1370px]:left-[100px] max-[1270px]:left-[20px] max-[1101px]:max-w-[160px] max-[1000px]:top-auto max-[1000px]:bottom-0 max-[1000px]:max-w-[100%] max-[1000px]:left-1/2 max-[1000px]:translate-x-[-50%] max-[1000px]:bg-slate-950 max-[1000px]:border-t" 
   >
     <ul
-      class="flex flex-col justify-between h-full max-[1000px]:flex-row max-[1000px]:justify-around items-start gap-8 text-cyan-950"
+      class="flex flex-col justify-between h-full max-[1000px]:flex-row max-[1000px]:justify-between items-start gap-8 text-white"
     >
-      <li class="hover:text-red-600 block">
+      <li class="max-[1000px]:flex items-center  justify-center">
         <RouterLink
-          class="font-semibold text-base flex items-center justify-center tracking-wider w-full"
-          to="/"
+            class=" hover:bg-white/10 px-2 py-2   rounded-full  text-xl flex items-center justify-start tracking-wider "
+            :to="'/'"
           ><svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="2"
+            stroke-width="1.5"
             stroke="currentColor"
-            class="size-5"
+            class="size-7"
           >
             <path
               stroke-linecap="round"
@@ -58,18 +58,18 @@ export default {
         >
       </li>
       <template v-if="userLogged.id">
-        <li class="hover:text-red-600 flex items-center">
+        <li class="max-[1000px]:flex items-center justify-center">
           <RouterLink
-            class="font-semibold text-base flex items-center justify-center tracking-wider w-full"
+            class=" hover:bg-white/10 px-2 py-2 rounded-full text-xl flex items-center justify-start tracking-wider "
             :to="'/perfil/' + userLogged.usertag"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              stroke-width="1.5"
               stroke="currentColor"
-              class="size-5"
+              class="size-7"
             >
               <path
                 stroke-linecap="round"
@@ -80,18 +80,18 @@ export default {
             <span class="pl-2 max-[1000px]:hidden">Perfil</span></RouterLink
           >
         </li>
-        <li class="hover:text-red-600 flex items-center">
+        <li class="max-[1000px]:flex items-center justify-center">
           <RouterLink
-            class="font-semibold text-base flex items-center justify-center tracking-wider w-full"
+            class=" hover:bg-white/10 px-2 py-2 rounded-full  text-xl flex items-center justify-start tracking-wider "
             :to="'/perfil/' + userLogged.usertag"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              stroke-width="1.5"
               stroke="currentColor"
-              class="size-5"
+              class="size-7"
             >
               <path
                 stroke-linecap="round"
@@ -102,18 +102,18 @@ export default {
             <span class="pl-2 max-[1000px]:hidden">Menasjes</span></RouterLink
           >
         </li>
-        <li class="hover:text-red-600 flex items-center">
+        <li class="max-[1000px]:flex items-center justify-center">
           <RouterLink
-            class="font-semibold text-base flex items-center justify-center tracking-wider w-full"
+            class=" hover:bg-white/10 px-2 py-2 rounded-full text-xl flex items-center justify-start tracking-wider "
             :to="'/perfil/' + userLogged.usertag"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              stroke-width="1.5"
               stroke="currentColor"
-              class="size-5"
+              class="size-7"
             >
               <path
                 stroke-linecap="round"
@@ -129,3 +129,9 @@ export default {
     </ul>
   </nav>
 </template>
+
+<style scoped>
+   .router-link-exact-active {
+    @apply bg-white/10
+  }
+</style>

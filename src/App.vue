@@ -35,10 +35,10 @@ export default {
 <template>
   <div class="flex mx-auto max-w-[1200px] relative">
     <AppHeader />
-
-    <main class="container max-w-[600px] mt-[130px] mx-auto">
-      <AppNavbar />
-      <div class="max-[1000px]:px-8">
+    <AppNavbar class="z-50" />
+    <main class="container max-w-[600px] border-l  border-white/10 min-h-screen border-r pt-[80px] mx-auto">
+      
+      <div >
         <RouterView />
       </div>
     </main>

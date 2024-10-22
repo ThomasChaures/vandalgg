@@ -2,14 +2,12 @@
 import { subscribeToAuth } from "@/service/auth";
 import sButton from "../slot/sButton.vue";
 
-
 export default {
   name: "chatForm",
   emits: ["newMessages"],
-  components: {sButton},
+  components: { sButton },
   data() {
     return {
-  
       fecha: "",
       newMessage: {
         content: "",
@@ -34,6 +32,11 @@ export default {
     });
   },
   methods: {
+    adjustHeight(event) {
+      const textarea = event.target;
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px"; 
+    },
     async handleSubmit() {
       if (
         this.userLogged &&
@@ -56,14 +59,13 @@ export default {
 </script>
 
 <template>
-  <div class="container-md bg-white p-5 mb-5 rounded-xl w-full">
-    <h2 class="font-bold pb-2">Crear Publicacion</h2>
-    <form action="#" @submit.prevent="handleSubmit()" class="">
+  <div class="container p-5 pb-4 border-b border-white/10 mb-5 pt-10 w-full">
+    <form action="#" @submit.prevent="handleSubmit()" class="bg-slate-950">
       <div class="mb-1 mt-3 relative">
         <div
-          class="absolute h-9 w-9 bg-gray-200 border-cyan-950 border overflow-hidden flex items-center justify-center rounded-full"
+          class="absolute h-12 w-12 bg-gray-200 border-cyan-950 border overflow-hidden flex items-center justify-center rounded-full"
         >
-          <i v-if="!userLogged.photo" class="absolute bottom-[-2px] text-[27px] fa-solid fa-user text-gray-500"></i>
+          <i v-if="!userLogged.photo" class="absolute bottom-[-2px] text-[47px] fa-solid fa-user text-gray-500"></i>
           <img
             v-else
             class="h-full w-full"
@@ -76,11 +78,13 @@ export default {
           id="message"
           name="content"
           v-model="newMessage.content"
-          class="w-full h-20 resize-none rounded pt-2 pl-[50px] bg-slate-9000 outline-none placeholder-cyan-950/50 focus:placeholder-cyan-950 text-cyan-950"
+          @input="adjustHeight"  
+          class="w-full text-2xl bg-slate-950 resize-none rounded pt-2 pl-[65px] outline-none text-white"
           placeholder="Que esta pasando en Valorant?"
+          style="overflow:hidden"
         ></textarea>
       </div>
-      <div class="items-center border-t pt-5">
+      <div class="items-center flex justify-end border-t border-white/10 pt-4 mt-2">
         <sButton>Publicar</sButton>
       </div>
     </form>

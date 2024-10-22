@@ -33,32 +33,32 @@ export default {
 </script>
 
 <template>
-  <section class="w-full max-w-[600px] bg-white rounded-xl shadow-sm">
-    <div class="w-full flex item-center justify-center mb-2">
-        <h2 class="font-semibold text-2xl py-4 text-cyan-950">Ingresar Cuenta</h2>
+  <section class="w-full max-w-[600px] rounded-xl shadow-sm">
+    <div class="w-full flex item-center justify-center border-b border-white/10 mb-10">
+        <h2 class="font-semibold text-2xl py-4 text-white">Ingresar Cuenta</h2>
       </div>
 
     <form action="#" class="px-8" @submit.prevent="envioDeFormulario()">
       <div class="mb-4">
-        <label for="email" class="text-cyan-950 block mb-2">E-mail</label>
+        <label for="email" class="text-white block mb-2">E-mail</label>
         <input
           type="mail"
           name="email"
           v-model="user.email"
-          class="w-full p-2 border border-slate-950 rounded"
+          class="w-full p-2 border rounded"
         />
       </div>
       <div class="mb-4">
-        <label for="password" class="text-cyan-950 block mb-2">Password</label>
+        <label for="password" class="text-white block mb-2">Password</label>
         <input
           type="password"
           name="password"
           v-model="user.password"
-          class="w-full p-2 border border-slate-950 rounded"
+          class="w-full p-2 border  rounded"
         />
       </div>
       <button
-        class="py-1 mt-8 w-full rounded bg-cyan-950 flex items-center justify-center ring-cyan-950 ring-offset-white ring hover:ring-offset-2 ring-offset-0 transition-all text-white"
+        class="py-2 mt-8 w-full rounded bg-blue-700 text-white hover:bg-blue-600 transition-all"
       >
         Enviar
       </button>
@@ -67,7 +67,7 @@ export default {
         <error>Error al iniciar sesión. Credenciales incorrectas.</error>
     </template>
 
-    <p class="py-5 text-center">
+    <p class="py-5 text-white text-center">
        No contas con una cuenta? <router-link to="/registro"><span class="text-blue-500 underline">Registrate!</span></router-link>
     </p>
     </form>

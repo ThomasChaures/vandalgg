@@ -49,7 +49,7 @@ export default {
     </section>
     <section>
       <template v-if="messages.length === 0">
-         <p class='w-full flex item-center justify-center py-20 text-4xl text-white/60'>No hay posts publicados.</p>
+         <p class='w-full flex item-center justify-center py-20 text-4xl text-cyan-950'>No hay posts publicados.</p>
       </template>
       <template v-if="postCargados">
         <chatList :messages="messages" />
