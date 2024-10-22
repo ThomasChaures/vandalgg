@@ -46,10 +46,20 @@ const router = createRouter({
     },
     {
       path: "/busqueda/:search",
-      name: "buscador",
+      name: "buscador-param",
       component: SearchView,
       meta: { requiresAuth: true },
     },
+    {
+      path: "/busqueda",
+      name: "buscador",
+      component: HomeView,
+    },    
+    {
+      path: "/mensajes",
+      name: "mensajes",
+      component: HomeView,
+    },    
   ],
 });
 

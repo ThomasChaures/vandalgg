@@ -14,17 +14,17 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 
-
-
-export async function busqueda(param, referencia) {
-    const ref = collection(db, referencia);
-    const q = query(ref, where("tokens", "array-contains", param.toLowerCase()));
-    const querySnapshot = await getDocs(q);
-    
-    let search = [];
-    querySnapshot.forEach((doc) => {
-      search.push({ id: doc.id, ...doc.data() });
+export async function busqueda(param, referencia, callback) {
+  const ref = collection(db, referencia);
+  const q = query(ref, where("tokens", "array-contains", param.toLowerCase()));
+  onSnapshot(q, (snapshote) => {
+    const messages = snapshote.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
     });
-  
-    return search;
-  }
+
+    callback(messages);
+  });
+}

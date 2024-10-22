@@ -44,7 +44,7 @@ export default {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 z-30 w-full shadow-sm bg-white">
+  <header class="fixed top-0 left-0 z-40 w-full shadow-sm bg-white">
     <div
       class="max-w-[1360px] px-5 h-20 w-full mx-auto flex items-center justify-between"
     >
