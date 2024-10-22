@@ -7,7 +7,7 @@ export default {
 <template>
   <button
     type="submit"
-    class="py-2 px-4 rounded bg-blue-700 text-white hover:bg-blue-600 transition-all"
+    class="py-2 px-4 rounded bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
   >
   <slot></slot>
   </button>

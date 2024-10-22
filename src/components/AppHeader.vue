@@ -44,39 +44,19 @@ export default {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 z-40 w-full shadow-sm bg-white">
+  <header class="fixed top-0 left-0 z-40 w-full shadow-sm bg-slate-950 border-b border-white/10">
     <div
-      class="max-w-[1360px] px-5 h-20 w-full mx-auto flex items-center justify-between"
+      class="max-w-[1760px] px-5 h-20 w-full mx-auto flex items-center justify-between"
     >
       <div>
         <p
-          class="text-4xl max-[700px]:text-xl text-cyan-950 font-bold tracking-wider uppercase"
+          class="text-3xl max-[700px]:text-xl text-white font-bold"
         >
-          Vandal
+          DevLog
         </p>
       </div>
 
-      <div class="flex w-full max-w-[600px] ml-6" >
-        <form action="#" @submit.prevent="buscar()" class="flex items-center container h-[35px]">
-          <input type="text" v-model="busqueda" placeholder="Buscar..."  class="px-2 rounded-bl block w-full rounded-tl  border border-cyan-950 h-[100%]"/>
-          <button class="rounded-br rounded-tr  bg-cyan-950 flex text-base justify-center items-center h-full px-2 ring-cyan-950/0  transition-all">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              class="size-6 text-white"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-              />
-            </svg>
-          </button>
-        </form>
-      </div>
+
 
       <ul class="flex gap-5 items-center text-white text-xl">
         <template v-if="!userLogged.id">
@@ -101,7 +81,7 @@ export default {
               :to="`/perfil/${userLogged.usertag}`"
               class="flex items-center"
             >
-              <p class="text-cyan-950 mr-2 font-bold">
+              <p class="text-white mr-2 font-bold">
                 @{{ userLogged.usertag }}
               </p>
               <div

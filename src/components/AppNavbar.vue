@@ -31,15 +31,15 @@ export default {
 <template>
   <nav
     v-if="userLogged.id !== null"
-    class="max-w-[220px] fixed top-[130px]  left-[390px] max-[1820px]:left-[300px] max-[1720px]:left-[270px] max-[1520px]:left-[150px] max-[1620px]:left-[220px] p-6 w-full max-[1370px]:left-[100px] max-[1270px]:left-[20px] max-[1101px]:max-w-[160px] max-[1000px]:top-auto max-[1000px]:bottom-0 max-[1000px]:max-w-[100%] max-[1000px]:left-1/2 max-[1000px]:translate-x-[-50%] max-[1000px]:bg-slate-950 max-[1000px]:border-t" 
+    class="max-w-[220px] fixed top-[130px] left-[390px] max-[1820px]:left-[300px] max-[1720px]:left-[270px] max-[1520px]:left-[150px] max-[1620px]:left-[220px] p-6 w-full max-[1370px]:left-[100px] max-[1270px]:left-[20px] max-[1101px]:max-w-[160px] max-[1000px]:top-auto max-[1000px]:bottom-0 max-[1000px]:max-w-[100%] max-[1000px]:left-1/2 max-[1000px]:translate-x-[-50%] max-[1000px]:bg-slate-950 max-[1000px]:border-t"
   >
     <ul
       class="flex flex-col justify-between h-full max-[1000px]:flex-row max-[1000px]:justify-between items-start gap-8 text-white"
     >
-      <li class="max-[1000px]:flex items-center  justify-center">
+      <li class="max-[1000px]:flex items-center justify-center">
         <RouterLink
-            class=" hover:bg-white/10 px-2 py-2   rounded-full  text-xl flex items-center justify-start tracking-wider "
-            :to="'/'"
+          class="hover:bg-white/10 px-2 py-2 rounded-full text-xl flex items-center justify-start tracking-wider"
+          :to="'/'"
           ><svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -57,10 +57,34 @@ export default {
           <span class="pl-2 max-[1000px]:hidden">Inicio</span></RouterLink
         >
       </li>
+
+      <li class="max-[1000px]:flex items-center justify-center">
+        <RouterLink
+          class="hover:bg-white/10 px-2 py-2 rounded-full text-xl flex items-center justify-start tracking-wider"
+          :to="'/perfil/' + userLogged.usertag"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-7"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            />
+          </svg>
+
+          <span class="pl-2 max-[1000px]:hidden">Buscar</span></RouterLink
+        >
+      </li>
       <template v-if="userLogged.id">
         <li class="max-[1000px]:flex items-center justify-center">
           <RouterLink
-            class=" hover:bg-white/10 px-2 py-2 rounded-full text-xl flex items-center justify-start tracking-wider "
+            class="hover:bg-white/10 px-2 py-2 rounded-full text-xl flex items-center justify-start tracking-wider"
             :to="'/perfil/' + userLogged.usertag"
           >
             <svg
@@ -82,7 +106,7 @@ export default {
         </li>
         <li class="max-[1000px]:flex items-center justify-center">
           <RouterLink
-            class=" hover:bg-white/10 px-2 py-2 rounded-full  text-xl flex items-center justify-start tracking-wider "
+            class="hover:bg-white/10 px-2 py-2 rounded-full text-xl flex items-center justify-start tracking-wider"
             :to="'/perfil/' + userLogged.usertag"
           >
             <svg
@@ -104,7 +128,7 @@ export default {
         </li>
         <li class="max-[1000px]:flex items-center justify-center">
           <RouterLink
-            class=" hover:bg-white/10 px-2 py-2 rounded-full text-xl flex items-center justify-start tracking-wider "
+            class="hover:bg-white/10 px-2 py-2 rounded-full text-xl flex items-center justify-start tracking-wider"
             :to="'/perfil/' + userLogged.usertag"
           >
             <svg
@@ -131,7 +155,7 @@ export default {
 </template>
 
 <style scoped>
-   .router-link-exact-active {
-    @apply bg-white/10
-  }
+.router-link-exact-active {
+  @apply bg-white/10;
+}
 </style>

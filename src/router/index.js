@@ -1,4 +1,8 @@
-import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
@@ -33,6 +37,11 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: "/perfil/",
+      name: "perfil-2",
+      component: HomeView,
+    },
+    {
       path: "/perfil/edit/:id",
       name: "editar-perfil",
       component: EditProfileView,
@@ -48,18 +57,19 @@ const router = createRouter({
       path: "/busqueda/:search",
       name: "buscador-param",
       component: SearchView,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true},
     },
     {
       path: "/busqueda",
       name: "buscador",
       component: HomeView,
-    },    
+      meta: { requiresAuth: true},
+    },
     {
       path: "/mensajes",
       name: "mensajes",
       component: HomeView,
-    },    
+    },
   ],
 });
 
@@ -79,8 +89,8 @@ let userLogged = {
 subscribeToAuth((newUser) => (userLogged = newUser));
 
 router.beforeEach((to, from) => {
-  if(to.meta.requiresAuth && userLogged.id === null){
-    return '/iniciar-sesion'
+  if (to.meta.requiresAuth && userLogged.id === null) {
+    return "/iniciar-sesion";
   }
 });
 
