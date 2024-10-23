@@ -50,7 +50,7 @@ export default {
     <div
         class="w-full flex item-center justify-center"
       >
-        <h2 class="font-semibold text-2xl py-2 text-white">Editar Foto</h2>
+        <h2 class="font-semibold text-2xl pt-5 pb-10 py-2 text-white">Editar Foto</h2>
       </div>
     <div
       class="img-perfil bg-white w-[130px] h-[130px] flex items-center justify-center rounded-full border-2"
@@ -68,7 +68,8 @@ export default {
           @change="handleFileSelection"
         />
       </div>
-      <button type="submit">Cambiar foto</button>
+      <button  class="py-2 mt-8 w-full rounded bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
+       type="submit">Cambiar foto</button>
     </form>
 
     <!-- Previsualización de la imagen seleccionada -->

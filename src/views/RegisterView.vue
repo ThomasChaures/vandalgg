@@ -44,7 +44,7 @@ export default {
         if (this.collectionUser.username === "") {
           errorFlag = true;
           this.errors.username = "No puedes dejar este campo vacío.";
-        } else if (this.collectionUser.username.length > 10 ){
+        } else if (this.collectionUser.username.length > 10) {
           errorFlag = true;
           this.errors.username = "Debe tener menos de 10 caracteres.";
         }
@@ -57,12 +57,11 @@ export default {
         if (this.collectionUser.usertag === "") {
           errorFlag = true;
           this.errors.usertag = "No puedes dejar este campo vacío.";
-        }else if (this.collectionUser.usertag.length > 12 ){
+        } else if (this.collectionUser.usertag.length > 12) {
           errorFlag = true;
           this.errors.usertag = "Debe tener menos de 10 caracteres.";
         }
 
-    
         const unico = await esUnicoTag(this.collectionUser.usertag);
 
         if (!unico) {
@@ -92,12 +91,12 @@ export default {
 </script>
 
 <template>
-  <section
-    class="w-full max-w-[600px]  shadow-sm"
-  >
-  <div class="w-full flex item-center justify-center border-b border-white/10 mb-10">
-        <h2 class="font-semibold text-2xl py-5 text-white">Registro de Cuenta</h2>
-      </div>
+  <section class="w-full max-w-[600px] shadow-sm">
+    <div
+      class="w-full flex item-center justify-center border-b border-white/10 mb-10"
+    >
+      <h2 class="font-semibold text-2xl py-5 text-white">Registro de Cuenta</h2>
+    </div>
 
     <form action="#" class="px-8" @submit.prevent="envioDeFormulario()">
       <div class="mb-4">
@@ -106,7 +105,7 @@ export default {
           type="text"
           name="username"
           v-model="collectionUser.username"
-          class="w-full p-2 border  rounded"
+          class="w-full p-2 border rounded"
         />
         <template v-if="errors.username !== ''">
           <error>{{ errors.username }}</error>
@@ -118,7 +117,7 @@ export default {
           type="text"
           name="usertag"
           v-model="collectionUser.usertag"
-          class="w-full p-2 border  rounded"
+          class="w-full p-2 border rounded"
         />
         <template v-if="errors.usertag !== ''">
           <error>{{ errors.usertag }}</error>
@@ -130,7 +129,7 @@ export default {
           type="mail"
           name="email"
           v-model="user.email"
-          class="w-full p-2 border  rounded"
+          class="w-full p-2 border rounded"
         />
         <template v-if="errors.email !== ''">
           <error>{{ errors.email }}</error>
@@ -149,14 +148,19 @@ export default {
         </template>
       </div>
       <button
-        class="py-2 mt-8 w-full rounded bg-blue-700 text-white hover:bg-blue-600 transition-all"
+        class="py-2 mt-8 w-full rounded bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
       >
         Enviar
       </button>
     </form>
 
     <p class="py-7 text-white text-center">
-       Ya contas con una cuenta? <router-link to="/iniciar-sesion"><span class="text-blue-500 underline">Inicia sesion!</span></router-link>
+      Ya contas con una cuenta?
+      <router-link to="/iniciar-sesion"
+        ><span class="text-blue-500 underline"
+          >Inicia sesion!</span
+        ></router-link
+      >
     </p>
   </section>
 </template>

@@ -128,7 +128,7 @@ export async function crearDatosDeUsuario(id, username, usertag) {
     seguidores_cuentas: [],
     seguidos: 0,
     seguidos_cuentas: [],
-    rango: "unranked",
+    rango: "Sin rol",
     photo: null,
     banner: null,
   });

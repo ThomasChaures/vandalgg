@@ -71,7 +71,7 @@ export default {
         >
           <i
             v-if="!userLogged.photo"
-            class="absolute bottom-[-2px] text-[47px] fa-solid fa-user text-gray-500"
+            class="absolute bottom-[-2px] text-[40px] fa-solid fa-user text-gray-500"
           ></i>
           <img
             v-else

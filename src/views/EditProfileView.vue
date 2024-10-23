@@ -53,7 +53,6 @@ export default {
       let flag = false;
 
       if (!this.editProfile.username) {
-       
         flag = true;
         this.errors.username = "El nombre no puede estar vacío.";
       } else if (this.editProfile.username.length > 10) {
@@ -62,7 +61,6 @@ export default {
       }
 
       if (!this.editProfile.description) {
-        
         flag = true;
         this.errors.description = "La descripción no puede estar vacía.";
       } else if (this.editProfile.description.length > 150) {
@@ -90,65 +88,81 @@ export default {
 </script>
 
 <template>
- <section>
-  <div class="flex justify-between w-full rounded-xl  bg-white py-4">
-    <div class="w-[600px]">
-      <div
-        class="w-full flex item-center justify-center"
-      >
-        <h2 class="font-semibold text-2xl py-2 text-cyan-950">Editar Perfil</h2>
-      </div>
-      <form class="p-8" action="#" @submit.prevent="envioDeFormulario()">
-        <div class="mb-4">
-          <label for="username" class="text-cyan-950 block mb-2">Nombre</label>
-          <input
-            type="text"
-            name="username"
-            v-model="editProfile.username"
-            class="w-full p-2 border border-slate-950 rounded"
-          />
-          <template v-if="errors.username !== ''">
-            <error>{{ errors.username }}</error>
-          </template>
+  <section>
+    <div class="flex justify-between w-full py-4">
+      <div class="w-[600px]">
+        <div class="w-full flex item-center justify-center">
+          <h2 class="font-semibold text-2xl pt-5 py-2 text-white">
+            Editar Perfil
+          </h2>
         </div>
+        <form class="p-8" action="#" @submit.prevent="envioDeFormulario()">
+          <div class="mb-4">
+            <label for="username" class="text-white block mb-2"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              name="username"
+              v-model="editProfile.username"
+              class="w-full p-2 border rounded"
+            />
+            <template v-if="errors.username !== ''">
+              <error>{{ errors.username }}</error>
+            </template>
+          </div>
 
-        <div class="mb-4">
-          <label for="rango" class="text-cyan-950 block mb-2"
-            >Rango en Valorant</label
-          >
-          <select
-            name="rango"
-            v-model="editProfile.rango"
-            class="w-full p-2 border border-slate-950 rounded"
-          >
-            <option value="Front-end">Front-end</option>
-            <option value="Back-end">Back-end</option>
+          <div class="mb-4">
+            <label for="rango" class="text-white block mb-2">Rol</label>
+            <select
+              name="rango"
+              v-model="editProfile.rango"
+              class="w-full p-2 border rounded"
+            >
+              <option value="Fullstack">Fullstack</option>
+              <option value="Front-end">Front-end</option>
+              <option value="Back-end">Back-end</option>
+              <option value="DevOps">DevOps</option>
+              <option value="Mobile Developer">Mobile Developer</option>
+              <option value="Data Scientist">Data Scientist</option>
+              <option value="Data Engineer">Data Engineer</option>
+              <option value="Machine Learning Engineer">
+                Machine Learning Engineer
+              </option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="Web Developer">Web Developer</option>
+              <option value="Software Engineer">Software Engineer</option>
+              <option value="Game Developer">Game Developer</option>
+              <option value="Cloud Engineer">Cloud Engineer</option>
+              <option value="Blockchain Developer">Blockchain Developer</option>
+              <option value="Security Engineer">Security Engineer</option>
+              <option value="QA Engineer">QA Engineer</option>
+              <option value="Systems Architect">Systems Architect</option>
+            </select>
+          </div>
 
-          </select>
-        </div>
-
-        <div class="mb-4">
-          <label for="description" class="text-cyan-950 block mb-2"
-            >Descripción</label
-          >
-          <textarea
-            name="description"
-            v-model="editProfile.description"
-            class="w-full h-28 resize-none border-slate-900 border rounded py-2 px-4 text-slate-900 focus:border-slate-950"
-          >
+          <div class="mb-4">
+            <label for="description" class="text-white block mb-2"
+              >Descripción</label
+            >
+            <textarea
+              name="description"
+              v-model="editProfile.description"
+              class="w-full h-28 resize-none border-slate-900 border rounded py-2 px-4 text-slate-900 focus:border-slate-950"
+            >
 {{}}</textarea
+            >
+            <template v-if="errors.description !== ''">
+              <error>{{ errors.description }}</error>
+            </template>
+          </div>
+          <button
+        class="py-2 mt-8 w-full rounded bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
           >
-          <template v-if="errors.description !== ''">
-            <error>{{ errors.description }}</error>
-          </template>
-        </div>
-        <button
-          class="py-1 mt-8 w-full rounded bg-cyan-950 flex items-center justify-center ring-cyan-950 ring-offset-white ring hover:ring-offset-2 ring-offset-0 transition-all text-white disabled:opacity-50"
-        >
-          Enviar
-        </button>
-      </form>
+            Enviar
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
- </section>
+  </section>
 </template>
