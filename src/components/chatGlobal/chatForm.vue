@@ -13,7 +13,7 @@ export default {
       newMessage: {
         content: "",
         blockCode: "",
-        lenguaje: "",
+        lenguaje: "javascript",
       },
       userLogged: {
         id: "",
@@ -103,7 +103,7 @@ export default {
           style="overflow: hidden"
         ></textarea>
       </div>
-      <div v-if="flagBlockCode === true">
+      <div v-if="flagBlockCode === true" class="animate__animated animate__fadeIn ">
         <div class="bg-[#1e1e1e] rounded-lg shadow-xl overflow-hidden">
           <div class="bg-[#2d2d2d] px-4 py-2 flex items-center space-x-2">
             <div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -149,16 +149,20 @@ export default {
             </svg>
           </div>
 
+          <label for="lenguaje" class="sr-only">Lenguaje</label>
           <select
             v-if="flagBlockCode"
             name="lenguaje"
             v-model="newMessage.lenguaje"
-            class="p-2 border rounded"
+            class="p-1 animate__animated animate__fadeIn rounded-full bg-cyan-950 text-white"
           >
-            <option value="javascript">JavaScript</option>
+            <option value="javascript" selected>JavaScript</option>
             <option value="python">Python</option>
             <option value="html">HTML</option>
             <option value="css">CSS</option>
+            <option value="typescript">TypeScript</option>
+            <option value="go">Go</option>
+            <option value="rust">Rust</option>
             <option value="java">Java</option>
             <option value="csharp">C#</option>
           </select>

@@ -36,7 +36,6 @@ export async function checkFollow(myemail, useremail) {
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
-    console.log("Este usuario no existe.");
     return null;
   }
 
@@ -77,7 +76,6 @@ export async function darFollow(myemail, useremail) {
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
-    console.log("Este usuario no existe.");
     return null;
   }
 

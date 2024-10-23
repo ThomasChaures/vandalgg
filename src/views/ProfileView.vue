@@ -49,7 +49,6 @@ export default {
   async mounted() {
     subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
-      console.log(this.userLogged);
       this.cargado = true;
     });
   },
@@ -60,19 +59,14 @@ export default {
           this.usertag,
           (userData) => {
             this.userProfile = userData;
-            console.log(this.userProfile);
           }
         );
-
-        console.log(this.userProfile.id_m);
-        console.log(this.userLogged.email);
 
         await obtenerPostsDeUsuarioById(this.usertag, (messagees) => {
           this.messages = messagees;
         });
 
         if (this.userLogged.email === this.userProfile.id_m) {
-          console.log(this.userProfile.id_m);
           this.myProfile = true;
         } else {
           this.myProfile = false;
@@ -81,7 +75,7 @@ export default {
 
         this.cargado = false;
       } catch (err) {
-        console.log("Error al cargar los datos:", err);
+        throw err;
       }
     },
     async seguir() {
@@ -134,20 +128,23 @@ export default {
             alt="Banner de usuario"
           />
         </div>
-        <div
-          class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden"
-        >
-          <i
-            v-if="!userProfile.photo"
-            class="fa-solid text-4xl bottom-[30px] absolute text-[100px] fa-user text-gray-500"
-          ></i>
-          <img
-            v-else
-            class="h-full w-full"
-            :src="userProfile.photo"
-            alt="Foto de perfil"
-          />
-        </div>
+
+        <div v-if="!userProfile.photo"
+            class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden"
+          >
+            <i
+              
+              class="fa-solid absolute bottom-[-2px] text-[26px] fa-user text-gray-500"
+            ></i>
+            </div>
+            <div class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-gray-200 max-w-[130px] max-h-[130px] flex items-center justify-center rounded-full overflow-hidden" v-else>
+            <img
+              
+              class="h-full w-full"
+              :src="userProfile.photo"
+              alt="Foto de perfil"
+            />
+            </div>
 
         <template v-if="myProfile">
           <div
@@ -161,13 +158,13 @@ export default {
             </router-link>
           </div>
           <div
-            class="follow-button absolute top-[52%] left-[15%] transform -translate-x-1/2"
+            class="follow-button absolute top-[30%] left-[15%] opacity-0 hover:opacity-70 transform -translate-x-1/2"
           >
             <router-link
               :to="'/perfil/edit/img/' + this.userLogged.id"
-              class="border transition-all hover:border-white hover:bg-green-500 hover:text-white rounded-xl flex items-center top-[30%] left-[15%] justify-center text-white bg-cyan-950"
+              class="border transition-all w-[130px] h-[130px] hover:border-white hover:text-white rounded-full flex items-center top-[30%] left-[15%] justify-center text-white bg-cyan-950"
             >
-              Editar <i class="fa-solid fa-image ml-4"></i>
+              <i class="fa-solid fa-pen"></i>
             </router-link>
           </div>
         </template>
@@ -195,7 +192,7 @@ export default {
           </div>
         </template>
 
-        <div class="data-name-user flex items-center pt-[110px] pl-[29px]">
+        <div class="data-name-user flex items-center pt-[90px] pl-[29px]">
           <p class="text-2xl mr-2 text-white font-bold">
             {{ userProfile.username }}
           </p>
@@ -220,6 +217,10 @@ export default {
           <p class="mr-4">
             {{ userProfile.seguidores }}
             <span class="text-white/50">Seguidores</span>
+          </p>
+          <p class="mr-4">
+            {{ userProfile.seguidos }}
+            <span class="text-white/50">Seguidos</span>
           </p>
         </div>
       </section>

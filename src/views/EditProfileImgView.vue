@@ -13,7 +13,6 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        console.log("Foto seleccionada para subir:", this.foto); // Verificar si la foto se está pasando correctamente
         if (!this.foto) {
           throw new Error("No se ha seleccionado ninguna foto.");
         }
@@ -29,14 +28,10 @@ export default {
         console.error("No se ha seleccionado ningún archivo.");
         return;
       }
-
-      console.log("Archivo seleccionado:", this.foto);
-
       // Crear la previsualización de la imagen
       const reader = new FileReader();
       reader.addEventListener("load", () => {
         this.fotoPreview = reader.result; // Almacena el resultado para previsualización
-        console.log("Previsualización generada:", this.fotoPreview);
       });
 
       reader.readAsDataURL(this.foto); // Lee el archivo seleccionado para generar previsualización

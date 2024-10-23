@@ -2,15 +2,16 @@
 import { subscribeToAuth } from "@/service/auth";
 import {
   darLike,
-  enviarComentarioAlPost,
   getComentariosDelPost,
 } from "@/service/chatGlobal";
 import sButton from "../slot/sButton.vue";
-import blockCode from "../blockCode/blockCode.vue";
+import blockCode from "./blockCode/blockCode.vue";
+import comentario from "./comentarios/comentario.vue";
+import formComentario from "./comentarios/formComentario.vue";
 
 export default {
   name: "post",
-  components: {sButton, blockCode},
+  components: { sButton, blockCode, comentario, formComentario },
   props: {
     message: {
       type: Object,
@@ -21,7 +22,6 @@ export default {
     return {
       flagComment: false,
       comentarios: [],
-      comentario: "",
       userLogged: {
         id: "",
         email: "",
@@ -33,6 +33,7 @@ export default {
         seguidos: null,
         seguidos_cuentas: null,
         rango: null,
+        photo: null
       },
     };
   },
@@ -40,8 +41,6 @@ export default {
     subscribeToAuth((newUserData) => (this.userLogged = newUserData));
     getComentariosDelPost(this.message.id, (comentariosPost) => {
       this.comentarios = comentariosPost;
-      console.log(comentariosPost);
-      console.log(this.comentarios);
     });
   },
   methods: {
@@ -49,21 +48,6 @@ export default {
       if (this.userLogged.id !== null) {
         darLike(id, this.userLogged.id);
       }
-    },
-    comentar() {
-      if (
-        this.userLogged &&
-        this.userLogged.id &&
-        this.comentario.trim() !== ""
-      ) {
-        enviarComentarioAlPost(
-          this.comentario,
-          this.userLogged.usertag,
-          this.userLogged.username,
-          this.message.id
-        );
-      }
-      this.comentario = "";
     },
     verComentarios() {
       if (!this.flagComment) {
@@ -77,22 +61,27 @@ export default {
 </script>
 
 <template>
-  <div class="hover:bg-black/50 cursor-pointer  p-4 border-b border-white/10 ">
+  <div class="hover:bg-black/50 cursor-pointer p-4 border-b border-white/10">
     <div class="flex justify-between items-center">
       <div class="headerMessage flex items-center text-white">
         <!-- img -->
         <router-link :to="'/perfil/' + message.usertag">
-          <div
+          <div v-if="!message.photo"
             class="h-9 w-9 overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full"
           >
-            <i v-if="!message.photo" class="fa-solid absolute bottom-[-2px] text-[27px] fa-user text-gray-500"></i>
+            <i
+              
+              class="fa-solid absolute bottom-[-2px] text-[26px] fa-user text-gray-500"
+            ></i>
+            </div>
+            <div class="max-h-9 max-w-9 overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full" v-else>
             <img
-              v-else
+              
               class="h-full w-full"
               :src="message.photo"
               alt="Foto de perfil"
             />
-          </div>
+            </div>
         </router-link>
 
         <router-link
@@ -115,30 +104,29 @@ export default {
     </div>
 
     <template v-if="message.blockCode">
-      <blockCode :message="message" />
+      <blockCode class="max-w-[500px] ml-11" :message="message" />
     </template>
-
 
     <div class="interaccion pl-[50px] flex items-center">
       <div
         @click="like(message.id)"
-        class="like flex items-center  text-white/70 pr-2 text-lg cursor-pointer"
+        class="like flex items-center text-white/70 pr-2 text-lg cursor-pointer"
       >
         <div class="hover:bg-blue-700/50 rounded-full">
           <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          stroke="currentColor"
-          class="size-5 "
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-          />
-        </svg>
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="size-5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+            />
+          </svg>
         </div>
 
         <p class="ml-1">{{ message.likes }}</p>
@@ -165,56 +153,21 @@ export default {
         <p class="ml-1">{{ message.comentarios }}</p>
       </div>
     </div>
+
+    
     <template v-if="flagComment">
-      <div class=" mt-2 rounded-xl">
-       
+      <div class="mt-2 rounded-xl">
         <div v-if="userLogged.id" class="border-b pt-2 pb-2 border-white/20">
-          <form
-            action="#"
-            @submit.prevent="comentar()"
-            class="flex items-center justify-between"
-          >
-            <label for="content" class="block w-full">
-              <input
-                type="text"
-                name="content"
-                v-model="comentario"
-                class="w-[98%] py-1 px-1 rounded"
-              />
-            </label>
-             <sButton>Comentar</sButton>
-          </form>
+            <formComentario :id="message.id" />
         </div>
         <template v-if="comentarios.length !== 0">
-          <h3 class="text-lg text-cyan-950">Comentarios:</h3>
+          <h3 class="text-lg text-white py-2">Comentarios:</h3>
           <div
             class="border border-white/20 p-4 flex items-center justify-start"
-            v-for="(comentarios, index) in comentarios"
-            :key="index"
+            v-for="comentario in comentarios"
+            :key="comentario.id"
           >
-         
-            <div>
-              <div class="headerMessage flex items-center text-cyan-950">
-                <div
-                  class="h-9 w-9 bg-white flex items-center justify-center rounded-full"
-                >
-                  <i class="fa-solid fa-user text-black"></i>
-                </div>
-                <router-link
-                  :to="'/perfil/' + comentarios.usertag"
-                  class="pl-2 font-semibold text-lg"
-                  >@{{ comentarios.username }}</router-link
-                >
-                <router-link
-                  :to="'/perfil/' + comentarios.usertag"
-                  class="pl-2 font-semibold text-white/60"
-                  >@{{ comentarios.usertag }}</router-link
-                >
-              </div>
-              <div class="message pt-4 pb-4 text-white text-wrap">
-                <p class="break-all">{{ comentarios.comentario }}</p>
-              </div>
-            </div>
+            <comentario :comentario="comentario" />
           </div>
         </template>
         <template v-else>

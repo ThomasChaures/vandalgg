@@ -82,7 +82,6 @@ export default {
           this.$router.push("/");
         }
       } catch (err) {
-        console.log(err);
         this.errors.email = "El email es invalido o ya esta en uso.";
       }
     },

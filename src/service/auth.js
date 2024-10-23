@@ -84,9 +84,9 @@ function notifyAll() {
 export async function login({ email, password }) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    console.log("Logeado");
+    
   } catch (err) {
-    console.log(err);
+   
     throw err;
   }
 }
@@ -97,10 +97,9 @@ export async function login({ email, password }) {
 export async function cerrarSesion() {
   try {
     await signOut(auth);
-    console.log("Sesión cerrada con éxito");
     localStorage.removeItem("user");
   } catch (error) {
-    console.error("Error al cerrar sesión: ", error);
+    throw error;
   }
 }
 
@@ -116,7 +115,6 @@ export async function register({ email, password }) {
     await createUserWithEmailAndPassword(auth, email, password);
     return true;
   } catch (err) {
-    console.log(err);
     throw err;
   }
 }
@@ -128,16 +126,11 @@ export async function editarMiFotoDePerfil(foto, param) {
     } else if (param === "banner") {
       filePath = `users/${userLogged.id}/banner.jpg`;
     }
-
-    // Subir el archivo
-    console.log("Subiendo archivo a:", filePath);
     await fileUpload(filePath, foto);
 
-    // Obtener la URL del archivo subido
     const photoURL = await getFileURL(filePath);
-    console.log("URL generada de la imagen:", photoURL);
 
-    // Verificar si la URL es válida
+
     if (!photoURL) {
       throw new Error(
         "La URL de la imagen es inválida o no fue generada correctamente."

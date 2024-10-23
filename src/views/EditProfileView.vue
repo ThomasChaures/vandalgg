@@ -79,7 +79,7 @@ export default {
           );
           this.$router.push("/perfil/" + this.userLogged.usertag);
         } catch (err) {
-          console.log("Error al editar el perfil.");
+          throw err;
         }
       }
     },
@@ -98,9 +98,7 @@ export default {
         </div>
         <form class="p-8" action="#" @submit.prevent="envioDeFormulario()">
           <div class="mb-4">
-            <label for="username" class="text-white block mb-2"
-              >Nombre</label
-            >
+            <label for="username" class="text-white block mb-2">Nombre</label>
             <input
               type="text"
               name="username"
@@ -157,7 +155,7 @@ export default {
             </template>
           </div>
           <button
-        class="py-2 mt-8 w-full rounded bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
+            class="py-2 mt-8 w-full rounded bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
           >
             Enviar
           </button>
