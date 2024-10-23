@@ -9,7 +9,6 @@ export default {
     return {
       loader: true,
       busqueda: [],
-      contador: 0,
       searchParam: this.$route.params.search,
     };
   },
@@ -22,8 +21,6 @@ export default {
         this.busqueda = await busqueda(this.searchParam, "chat", (search) => {
           this.busqueda = search;
         });
-        this.contador = this.busqueda.length;
-        console.log(this.busqueda);
         this.loader = false;
       } catch (err) {
         this.loader = false;
@@ -59,7 +56,7 @@ export default {
   </section>
   <section v-else-if="!loader" class="max-w-[600px]">
     <div class="px-4 py-4 mb-2 flex items-center justify-start text-white pt-10 border-b border-white/10">
-      <h2 class="font-bold">Resultados de la busqueda: {{ contador }}</h2>
+      <h2 class="font-bold">Resultados de la busqueda:</h2>
     </div>
 
     <div>

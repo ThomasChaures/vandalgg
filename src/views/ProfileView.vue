@@ -165,7 +165,7 @@ export default {
           >
             <router-link
               :to="'/perfil/edit/img/' + this.userLogged.id"
-              class="border transition-all hover:border-white hover:bg-green-500 hover:text-white rounded-xl flex items-center h-[30px] w-[130px] justify-center text-white bg-cyan-950"
+              class="border transition-all hover:border-white hover:bg-green-500 hover:text-white rounded-xl flex items-center top-[30%] left-[15%] justify-center text-white bg-cyan-950"
             >
               Editar <i class="fa-solid fa-image ml-4"></i>
             </router-link>

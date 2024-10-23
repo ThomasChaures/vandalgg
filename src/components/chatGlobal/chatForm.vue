@@ -13,6 +13,7 @@ export default {
       newMessage: {
         content: "",
         blockCode: "",
+        lenguaje: "",
       },
       userLogged: {
         id: "",
@@ -39,6 +40,16 @@ export default {
       textarea.style.height = "auto";
       textarea.style.height = textarea.scrollHeight + "px";
     },
+    formaterData(data) {
+      const formater = new Intl.DateTimeFormat("es-AR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      return formater.format(data).replace(",", "");
+    },
     async handleSubmit() {
       if (
         this.userLogged &&
@@ -50,9 +61,10 @@ export default {
           username: this.userLogged.username,
           usertag: this.userLogged.usertag,
           content: this.newMessage.content,
-          blockCode: this.newMessage.blockCode,
+          blockCode: this.newMessage.blockCode || "",
+          lenguaje: this.newMessage.lenguaje,
           photo: this.userLogged.photo,
-          date: new Date().toLocaleDateString(),
+          date: this.formaterData(new Date()),
         });
         this.newMessage.content = "";
         this.newMessage.blockCode = "";
@@ -92,45 +104,64 @@ export default {
         ></textarea>
       </div>
       <div v-if="flagBlockCode === true">
-       
-    <div class="bg-[#1e1e1e] rounded-lg shadow-xl overflow-hidden">
-      <div class="bg-[#2d2d2d] px-4 py-2 flex items-center space-x-2">
-        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-        <span class="ml-2 text-gray-400 text-sm">untitled.dev</span>
-      </div>
-        <label for="code" class="sr-only">Code</label>
-        <textarea
-          id="codigo"
-          name="content"
-          v-model="newMessage.blockCode"
-          @input="adjustHeight"
-          class="w-full text-base bg-[#1e1e1e] resize-none rounded pt-2 p-2  outline-none text-white"
-          placeholder=""
-          style="overflow: hidden"
-        >
-      </textarea>
-      </div>
+        <div class="bg-[#1e1e1e] rounded-lg shadow-xl overflow-hidden">
+          <div class="bg-[#2d2d2d] px-4 py-2 flex items-center space-x-2">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            <span class="ml-2 text-gray-400 text-sm">untitled.dev</span>
+          </div>
+          <label for="code" class="sr-only">Code</label>
+          <textarea
+            id="codigo"
+            name="content"
+            v-model="newMessage.blockCode"
+            @input="adjustHeight"
+            class="w-full text-base bg-[#1e1e1e] resize-none rounded pt-2 p-2 outline-none text-white"
+            placeholder=""
+            style="overflow: hidden"
+          >
+          </textarea>
+        </div>
       </div>
       <div
         class="items-center flex justify-between border-t border-white/10 pt-4 mt-2"
       >
-      <div id="quoteCode" class="hover:bg-blue-700/50 rounded-full cursor-pointer" @click="flagBlockCode = !flagBlockCode">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-7 text-white"
+        <div class="flex items-center gap-3">
+          <div
+            id="quoteCode"
+            class="hover:bg-blue-700/50 w-7 rounded-full cursor-pointer"
+            @click="flagBlockCode = !flagBlockCode"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"
-            />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-7 text-white"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"
+              />
+            </svg>
+          </div>
+
+          <select
+            v-if="flagBlockCode"
+            name="lenguaje"
+            v-model="newMessage.lenguaje"
+            class="p-2 border rounded"
+          >
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="java">Java</option>
+            <option value="csharp">C#</option>
+          </select>
         </div>
         <sButton>Publicar</sButton>
       </div>
