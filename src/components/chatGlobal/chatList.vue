@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-  <div class="rounded">
+  <div>
     <div
       v-for="(messages, index) in messages"
       :key="index"

@@ -52,7 +52,7 @@ export default {
          <p class='w-full flex item-center justify-center py-20 text-4xl text-cyan-950'>No hay posts publicados.</p>
       </template>
       <template v-if="postCargados">
-        <chatList :messages="messages" />
+        <chatList class="border-t border-white/10"  :messages="messages" />
       </template>
       <template v-else>
         <div class="relative h-screen">

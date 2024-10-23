@@ -76,7 +76,7 @@ export default {
 </script>
 
 <template>
-  <div class=" p-4 border-b border-white/10  mb-2">
+  <div class="hover:bg-black/50 cursor-pointer  p-4 border-b border-white/10 ">
     <div class="flex justify-between items-center">
       <div class="headerMessage flex items-center text-white">
         <!-- img -->

@@ -151,10 +151,10 @@ export default {
         class="relative  overflow-hidden border-b border-white/10 min-h-[400px]"
       >
         <div
-          class="banner overflow-hidden bg-black w-full object-contain border-b border-white/10"
+          class="banner  overflow-hidden bg-black max-w-[600px] max-h-[210px] object-contain border-b border-white/10"
         >
           <img
-            class="w-full"
+            class="w-full h-full"
             src="../assets/img/banner-placeholder/banner-placeholder.jpeg"
             alt="Banner de usuario"
           />
