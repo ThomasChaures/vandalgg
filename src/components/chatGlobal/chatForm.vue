@@ -9,8 +9,10 @@ export default {
   data() {
     return {
       fecha: "",
+      flagBlockCode: false,
       newMessage: {
         content: "",
+        blockCode: "",
       },
       userLogged: {
         id: "",
@@ -48,10 +50,12 @@ export default {
           username: this.userLogged.username,
           usertag: this.userLogged.usertag,
           content: this.newMessage.content,
+          blockCode: this.newMessage.blockCode,
           photo: this.userLogged.photo,
           date: new Date().toLocaleDateString(),
         });
         this.newMessage.content = "";
+        this.newMessage.blockCode = "";
       }
     },
   },
@@ -87,10 +91,32 @@ export default {
           style="overflow: hidden"
         ></textarea>
       </div>
+      <div v-if="flagBlockCode === true">
+       
+    <div class="bg-[#1e1e1e] rounded-lg shadow-xl overflow-hidden">
+      <div class="bg-[#2d2d2d] px-4 py-2 flex items-center space-x-2">
+        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+        <span class="ml-2 text-gray-400 text-sm">untitled.dev</span>
+      </div>
+        <label for="code" class="sr-only">Code</label>
+        <textarea
+          id="codigo"
+          name="content"
+          v-model="newMessage.blockCode"
+          @input="adjustHeight"
+          class="w-full text-base bg-[#1e1e1e] resize-none rounded pt-2 p-2  outline-none text-white"
+          placeholder=""
+          style="overflow: hidden"
+        >
+      </textarea>
+      </div>
+      </div>
       <div
         class="items-center flex justify-between border-t border-white/10 pt-4 mt-2"
       >
-        <div id="quoteCode">
+      <div id="quoteCode" class="hover:bg-blue-700/50 rounded-full cursor-pointer" @click="flagBlockCode = !flagBlockCode">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

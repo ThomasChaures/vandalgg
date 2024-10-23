@@ -2,16 +2,6 @@
 import { subscribeToAuth } from "@/service/auth";
 import { obtenerPostsDeUsuarioById } from "@/service/chatGlobal";
 import chatList from "@/components/chatGlobal/chatList.vue";
-import unranked from "@/assets/img/rangos/unranked.png";
-import hierro from "@/assets/img/rangos/hierro.png";
-import bronce from "@/assets/img/rangos/bronce.png";
-import plata from "@/assets/img/rangos/plata.png";
-import oro from "@/assets/img/rangos/oro.png";
-import platino from "@/assets/img/rangos/platino.png";
-import diamante from "@/assets/img/rangos/diamante.png";
-import ascendant from "@/assets/img/rangos/ascendant.png";
-import inmortal from "@/assets/img/rangos/inmortal.png";
-import radiant from "@/assets/img/rangos/radiant.png";
 import {
   darFollow,
   localizarLosDatosDelUsuarioLoggeadoByUsertag,
@@ -24,18 +14,6 @@ export default {
   data() {
     return {
       usertag: this.$route.params.usertag,
-      rangos: {
-        unranked,
-        hierro,
-        bronce,
-        plata,
-        oro,
-        platino,
-        diamante,
-        ascendant,
-        inmortal,
-        radiant,
-      },
       myProfile: null,
       seguido: false,
       cargado: false,
@@ -63,10 +41,10 @@ export default {
       },
       immediate: true,
     },
-    "$route.params.usertag": function(newUsertag){
+    "$route.params.usertag": function (newUsertag) {
       this.usertag = newUsertag;
       this.loadData();
-    }
+    },
   },
   async mounted() {
     subscribeToAuth((newUserData) => {
@@ -89,12 +67,9 @@ export default {
         console.log(this.userProfile.id_m);
         console.log(this.userLogged.email);
 
-        await obtenerPostsDeUsuarioById(
-          this.usertag,
-          (messagees) => {
-            this.messages = messagees;
-          }
-        );
+        await obtenerPostsDeUsuarioById(this.usertag, (messagees) => {
+          this.messages = messagees;
+        });
 
         if (this.userLogged.email === this.userProfile.id_m) {
           console.log(this.userProfile.id_m);
@@ -148,10 +123,10 @@ export default {
     </template>
     <template v-else>
       <section
-        class="relative  overflow-hidden border-b border-white/10 min-h-[400px]"
+        class="relative overflow-hidden border-b border-white/10 min-h-[400px]"
       >
         <div
-          class="banner  overflow-hidden bg-black max-w-[600px] max-h-[210px] object-contain border-b border-white/10"
+          class="banner overflow-hidden bg-black max-w-[600px] max-h-[210px] object-contain border-b border-white/10"
         >
           <img
             class="w-full h-full"
@@ -174,14 +149,6 @@ export default {
           />
         </div>
 
-        <div
-          class="img-perfil absolute top-[70%] left-[85%] transform -translate-x-1/2 object-contain w-[90px] h-[90px] flex items-center flex-col justify-center rounded-full"
-        >
-          <img :src="rangos[userProfile.rango]" :alt="userProfile.rango" />
-
-          <p class="text-white/50 pt-2">({{ userProfile.rango }})</p>
-        </div>
-
         <template v-if="myProfile">
           <div
             class="follow-button absolute top-[48%] left-[85%] transform -translate-x-1/2"
@@ -190,7 +157,7 @@ export default {
               :to="'/perfil/edit/' + this.userLogged.id"
               class="border transition-all hover:border-white hover:bg-green-500 hover:text-white rounded-full flex items-center h-10 w-10 justify-center text-white bg-cyan-950"
             >
-              <i class="fa-solid fa-pen "></i>
+              <i class="fa-solid fa-pen"></i>
             </router-link>
           </div>
           <div
@@ -236,6 +203,8 @@ export default {
           <p class="ml-2 text-xl text-white/50 font-normal">
             @{{ userProfile.usertag }}
           </p>
+          <span class="text-xl ml-2 text-white/50">•</span>
+          <p class="text-white/50 ml-2 pt-1">{{ userProfile.rango }}</p>
         </div>
 
         <div class="data-name-user pt-[10px] pl-[29px] w-full text-wrap">
@@ -254,7 +223,6 @@ export default {
           </p>
         </div>
       </section>
-      
 
       <section>
         <chatList :messages="messages" />

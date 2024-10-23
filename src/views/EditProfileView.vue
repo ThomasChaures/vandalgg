@@ -121,16 +121,9 @@ export default {
             v-model="editProfile.rango"
             class="w-full p-2 border border-slate-950 rounded"
           >
-            <option value="unranked">Unranked</option>
-            <option value="hierro">Hierro</option>
-            <option value="bronce">Bronce</option>
-            <option value="plata">Plata</option>
-            <option value="oro">Oro</option>
-            <option value="platino">Platino</option>
-            <option value="diamante">Diamante</option>
-            <option value="ascendant">Ascendant</option>
-            <option value="inmortal">Inmortal</option>
-            <option value="radiant">Radiant</option>
+            <option value="Front-end">Front-end</option>
+            <option value="Back-end">Back-end</option>
+
           </select>
         </div>
 
