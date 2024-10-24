@@ -78,6 +78,7 @@ const router = createRouter({
       path: "/mensajes",
       name: "mensajes",
       component: HomeView,
+      meta: { requiresAuth: true},
     },
   ],
 });

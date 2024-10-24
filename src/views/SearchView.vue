@@ -69,13 +69,13 @@ export default {
   </section>
   <section v-else-if="!loader" class="max-w-[600px]">
     <div
-      class="px-4 py-4 mb-2 flex flex-col items-start gap-2 justify-start text-white pt-10 border-b border-white/10"
+      class=" py-4 mb-2 flex flex-col items-start gap-2 justify-start text-white pt-10 border-b border-white/10"
     >
-      <div class="flex justify-end items-center mr-0 w-full max-w-[600px]">
+      <div class="flex justify-end items-center mr-0 w-full h-20 bg-slate-950  px-4  rounded-xl mt-5 mb-5  max-w-[700px]">
         <form
           action="#"
           @submit.prevent="buscar()"
-          class="flex rounded-full items-center max-w-[100%] container h-[35px]"
+          class="flex rounded-full items-center w-[100%] container h-[35px]"
         >
           <input
             type="text"

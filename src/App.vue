@@ -3,11 +3,11 @@ import { RouterLink, RouterView } from "vue-router";
 import { subscribeToAuth } from "./service/auth";
 import AppFooter from "./components/AppFooter.vue";
 import AppHeader from "./components/AppHeader.vue";
-import AppNavbar from "./components/AppNavbar.vue";
+
 
 export default {
   name: "App",
-  components: { RouterLink, RouterView, AppNavbar, AppFooter, AppHeader },
+  components: { RouterLink, RouterView, AppFooter, AppHeader },
   data() {
     return {
       userLogged: {
@@ -35,8 +35,7 @@ export default {
 <template>
   <div class="flex mx-auto max-w-[1260px] relative">
     <AppHeader />
-    <AppNavbar class="z-50" />
-    <main class="container max-w-[600px] border-l  border-white/10 min-h-screen border-r pt-[80px] mx-auto">   
+    <main class="container max-w-[600px] min-h-screen  pt-[70px] mx-auto">   
       <div >
         <RouterView />
       </div>
