@@ -210,6 +210,22 @@ export function cambiosEnElChat(callback) {
   });
 }
 
+export function obtenerPost(callback, id) {
+  const chatRef = doc(db, "chat", id);
+  onSnapshot(chatRef, (doc) => {
+    if (doc.exists()) {
+      const post = {
+        id: doc.id,
+        ...doc.data()
+      };
+      callback(post);
+    } else {
+      console.log("El documento no existe");
+    }
+  });
+  
+}
+
 /**
  *
  * @param {string} usertag

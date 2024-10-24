@@ -105,6 +105,9 @@ export default {
       </div>
     </div>
 
+   
+  </section>
+  <section>
     <div
       class="flex items-center justify-center pt-20 text-white text-2xl"
       v-if="Array.isArray(busqueda) && busqueda.length === 0"

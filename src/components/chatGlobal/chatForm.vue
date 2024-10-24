@@ -38,7 +38,7 @@ export default {
     adjustHeight(event) {
       const textarea = event.target;
       textarea.style.height = "auto";
-      textarea.style.height = textarea.scrollHeight + "px";
+      textarea.style.height = `${textarea.scrollHeight}px`;
     },
     formaterData(data) {
       const formater = new Intl.DateTimeFormat("es-AR", {
@@ -75,27 +75,29 @@ export default {
 </script>
 
 <template>
-  <div class="container p-5 pb-4 mb-1 pt-10 w-full">
+  <div class="container p-5 pt-2 pb-4 mb-1 w-full">
     <form action="#" @submit.prevent="handleSubmit()" class="bg-slate-950">
-      <div class="mb-1 mt-3 relative ">
+      <div class="mb-1 mt-3 relative">
         <div class="absolute">
           <div
-          v-if="!userLogged.photo"
-          class="h-12 w-12 mr-[15px] relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full  overflow-hidden"
-        >
-          <i class="fa-solid fa-user absolute bottom-[-3px] text-gray-500 text-[36px]"></i>
-        </div>
+            v-if="!userLogged.photo"
+            class="h-12 w-12 mr-[15px] relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full overflow-hidden"
+          >
+            <i
+              class="fa-solid fa-user absolute bottom-[-3px] text-gray-500 text-[36px]"
+            ></i>
+          </div>
 
-        <div
-          class="max-h-12 max-w-12 mr-[15px] object-contain overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full"
-          v-else
-        >
-          <img
-            class="h-full w-full"
-            :src="userLogged.photo"
-            alt="Foto de perfil"
-          />
-        </div>
+          <div
+            class="h-12 w-12 mr-[15px] object-contain overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full"
+            v-else
+          >
+            <img
+              class="h-full w-full"
+              :src="userLogged.photo"
+              alt="Foto de perfil"
+            />
+          </div>
         </div>
         <label for="message" class="sr-only">Mensaje</label>
         <textarea
@@ -103,7 +105,7 @@ export default {
           name="content"
           v-model="newMessage.content"
           @input="adjustHeight"
-          class="w-full text-2xl pl-[60px] bg-slate-950 resize-none rounded pt-2 outline-none text-white"
+          class="w-full text-2xl h-10 pl-[60px] bg-slate-950 resize-none rounded pt-2 outline-none text-white"
           placeholder="Que programaste hoy?"
           style="overflow: hidden"
         ></textarea>
@@ -138,9 +140,7 @@ export default {
           </textarea>
         </div>
       </div>
-      <div
-        class="items-center flex justify-between border-t border-white/10 pt-4 mt-2"
-      >
+      <div class="items-center flex justify-between pt-4 mt-2">
         <div class="flex items-center gap-3">
           <div
             id="quoteCode"
@@ -184,7 +184,7 @@ export default {
         <sButton
           :disabled="newMessage.content === ''"
           :class="{
-            'bg-cyan-700 cursor-not-allowed': newMessage.content === '',
+            '!bg-cyan-700 !cursor-not-allowed': newMessage.content === '',
           }"
         >
           Publicar

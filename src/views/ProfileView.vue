@@ -137,10 +137,10 @@ export default {
               class="fa-solid absolute bottom-[-2px] text-[106px] fa-user text-gray-500"
             ></i>
             </div>
-            <div class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-gray-200 max-w-[130px] max-h-[130px] flex items-center justify-center rounded-full overflow-hidden" v-else>
+            <div class="img-perfil absolute top-[30%] left-[15%] object-contain transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden" v-else>
             <img
               
-              class="h-full w-full"
+              class="w-full h-full"
               :src="userProfile.photo"
               alt="Foto de perfil"
             />

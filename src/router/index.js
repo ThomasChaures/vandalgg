@@ -10,6 +10,7 @@ import ProfileView from "@/views/ProfileView.vue";
 import EditProfileView from "@/views/EditProfileView.vue";
 import EditProfileImgView from "@/views/EditProfileImgView.vue";
 import SearchView from "@/views/SearchView.vue";
+import PublicacionView from "@/views/PublicacionView.vue";
 import { subscribeToAuth } from "@/service/auth";
 
 const router = createRouter({
@@ -19,6 +20,13 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/publicacion/:id",
+      name: "publicacion",
+      component: PublicacionView,
+      meta: { requiresAuth: true },
     },
     {
       path: "/iniciar-sesion",
@@ -40,6 +48,7 @@ const router = createRouter({
       path: "/perfil/",
       name: "perfil-2",
       component: HomeView,
+      meta: { requiresAuth: true },
     },
     {
       path: "/perfil/edit/:id",

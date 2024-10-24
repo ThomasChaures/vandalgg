@@ -43,7 +43,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col  w-[100%]">
+  <div class="flex flex-col min-h-screen  w-[100%]">
     <section v-if="this.userLogged.id">
       <chatForm @new-messages="sendMessage" />
     </section>

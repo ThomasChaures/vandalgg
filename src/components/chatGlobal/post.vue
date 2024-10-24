@@ -39,9 +39,6 @@ export default {
   },
   async mounted() {
     subscribeToAuth((newUserData) => (this.userLogged = newUserData));
-    getComentariosDelPost(this.message.id, (comentariosPost) => {
-      this.comentarios = comentariosPost;
-    });
   },
   methods: {
     like(id) {
@@ -61,8 +58,11 @@ export default {
 </script>
 
 <template>
-  <div class="hover:bg-black/50 cursor-pointer p-4 border-b border-white/10">
-    <div class="flex justify-between items-center">
+
+    <div class="hover:bg-black/50 relative cursor-pointer overflow-hidden p-4 border-b border-white/10">
+      <RouterLink class="z-0 absolute top-1/2 left-1/2 translate-x-[-50%]   translate-y-[-50%]  w-full h-full" :to="'/publicacion/' + message.id">
+      </RouterLink>
+    <div class="flex justify-between items-center z-10">
       <div class="headerMessage flex items-center text-white">
         <!-- img -->
         <router-link :to="'/perfil/' + message.usertag">
@@ -74,7 +74,7 @@ export default {
               class="fa-solid absolute bottom-[-2px] text-[26px] fa-user text-gray-500"
             ></i>
             </div>
-            <div class="max-h-9 max-w-9 overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full" v-else>
+            <div class="h-9 w-9 overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full" v-else>
             <img
               
               class="h-full w-full"
@@ -86,31 +86,31 @@ export default {
 
         <router-link
           :to="'/perfil/' + message.usertag"
-          class="pl-3 font-semibold text-lg"
+          class="pl-3 z-10 font-semibold text-lg"
           >{{ message.username }}</router-link
         >
-        <router-link :to="'/perfil/' + message.usertag" class="pl-2 opacity-60"
+        <router-link :to="'/perfil/' + message.usertag" class=" z-10 pl-2 opacity-60"
           >@{{ message.usertag }}</router-link
         >
       </div>
 
-      <div class="message pt-4 pb-4 px-2 text-white/50 text-wrap">
+      <div class="message pt-4 z-10 pb-4 px-2 text-white/50 text-wrap">
         <p class="break-all">{{ message.date }}</p>
       </div>
     </div>
 
-    <div class="message pt-4 text-white pb-8 pl-[50px] px-2 text-wrap">
+    <div class="message pt-4 z-10 text-white pb-8  text-wrap">
       <p class="break-all">{{ message.content }}</p>
     </div>
 
     <template v-if="message.blockCode">
-      <blockCode class="max-w-[500px] ml-11" :message="message" />
+      <blockCode class="z-10" :message="message" />
     </template>
 
-    <div class="interaccion pl-[50px] flex items-center">
+    <div class="interaccion z-20 flex items-center">
       <div
         @click="like(message.id)"
-        class="like flex items-center text-white/70 pr-2 text-lg cursor-pointer"
+        class="like z-20 flex items-center text-white/70 pr-2 text-lg cursor-pointer"
       >
         <div class="hover:bg-blue-700/50 rounded-full">
           <svg
@@ -132,7 +132,7 @@ export default {
         <p class="ml-1">{{ message.likes }}</p>
       </div>
       <div
-        class="like flex items-center text-white/70 pr-2 pl-2 text-lg cursor-pointer"
+        class="like z-20 flex items-center text-white/70 pr-2 pl-2 text-lg cursor-pointer"
         @click="verComentarios"
       >
         <svg
@@ -157,23 +157,11 @@ export default {
     
     <template v-if="flagComment">
       <div class="mt-2 rounded-xl">
-        <div v-if="userLogged.id" class="border-b pt-2 pb-2 border-white/20">
+        <div v-if="userLogged.id" class=" pt-2 pb-2">
             <formComentario :id="message.id" />
         </div>
-        <template v-if="comentarios.length !== 0">
-          <h3 class="text-lg text-white py-2">Comentarios:</h3>
-          <div
-            class="border border-white/20 p-4 flex items-center justify-start"
-            v-for="comentario in comentarios"
-            :key="comentario.id"
-          >
-            <comentario :comentario="comentario" />
-          </div>
-        </template>
-        <template v-else>
-          <p class="text-cyan-950">Este post no tiene ningún comentario.</p>
-        </template>
       </div>
     </template>
   </div>
+  
 </template>
