@@ -134,7 +134,7 @@ export default {
           >
             <i
               
-              class="fa-solid absolute bottom-[-2px] text-[26px] fa-user text-gray-500"
+              class="fa-solid absolute bottom-[-2px] text-[106px] fa-user text-gray-500"
             ></i>
             </div>
             <div class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-gray-200 max-w-[130px] max-h-[130px] flex items-center justify-center rounded-full overflow-hidden" v-else>

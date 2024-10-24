@@ -57,13 +57,13 @@ const router = createRouter({
       path: "/busqueda/:search",
       name: "buscador-param",
       component: SearchView,
-      meta: { requiresAuth: true},
+      meta: { requiresAuth: true, buscador: false},
     },
     {
       path: "/busqueda",
       name: "buscador",
-      component: HomeView,
-      meta: { requiresAuth: true},
+      component: SearchView,
+      meta: { requiresAuth: true, buscador: false},
     },
     {
       path: "/mensajes",

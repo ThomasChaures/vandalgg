@@ -1,13 +1,15 @@
 <script>
 import { busqueda } from "@/service/search";
 import post from "@/components/chatGlobal/post.vue";
+import sButton from "@/components/slot/sButton.vue";
 
 export default {
   name: "SearchView",
-  components: { post },
+  components: { post, sButton },
   data() {
     return {
       loader: true,
+      search: "",
       busqueda: [],
       searchParam: this.$route.params.search,
     };
@@ -19,6 +21,17 @@ export default {
     async buscador() {
       try {
         this.busqueda = await busqueda(this.searchParam, "chat", (search) => {
+          this.busqueda = search;
+        });
+        this.loader = false;
+      } catch (err) {
+        this.loader = false;
+        throw "No se pudo realizar la busqueda.";
+      }
+    },
+    async buscar() {
+      try {
+        this.busqueda = await busqueda(this.search, "chat", (search) => {
           this.busqueda = search;
         });
         this.loader = false;
@@ -55,11 +68,50 @@ export default {
     </div>
   </section>
   <section v-else-if="!loader" class="max-w-[600px]">
-    <div class="px-4 py-4 mb-2 flex items-center justify-start text-white pt-10 border-b border-white/10">
-      <h2 class="font-bold">Resultados de la busqueda:</h2>
+    <div
+      class="px-4 py-4 mb-2 flex flex-col items-start gap-2 justify-start text-white pt-10 border-b border-white/10"
+    >
+      <div class="flex justify-end items-center mr-0 w-full max-w-[600px]">
+        <form
+          action="#"
+          @submit.prevent="buscar()"
+          class="flex rounded-full items-center max-w-[100%] container h-[35px]"
+        >
+          <input
+            type="text"
+            v-model="search"
+            placeholder="Buscar..."
+            class="px-2 bg-white/10 text-white rounded-bl-xl block w-full outline-none rounded-tl-xl border border-cyan-950 h-[100%]"
+          />
+          <button
+            class="rounded-br-xl rounded-tr-xl bg-cyan-950 hover:bg-cyan-700 flex text-base justify-center items-center h-full px-2 ring-cyan-950/0 transition-all"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              class="size-6 text-white"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
     </div>
 
-    <div>
+    <div
+      class="flex items-center justify-center pt-20 text-white text-2xl"
+      v-if="Array.isArray(busqueda) && busqueda.length === 0"
+    >
+      <p>No se encontraron resultados para la búsqueda.</p>
+    </div>
+    <div v-else>
       <div v-for="(message, index) in busqueda" :key="index">
         <post :message="message" />
       </div>

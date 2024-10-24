@@ -77,20 +77,25 @@ export default {
 <template>
   <div class="container p-5 pb-4 mb-1 pt-10 w-full">
     <form action="#" @submit.prevent="handleSubmit()" class="bg-slate-950">
-      <div class="mb-1 mt-3 relative">
-        <div
-          class="absolute h-12 w-12 bg-gray-200 border-cyan-950 border overflow-hidden flex items-center justify-center rounded-full"
+      <div class="mb-1 mt-3 relative ">
+        <div class="absolute">
+          <div
+          v-if="!userLogged.photo"
+          class="h-12 w-12 mr-[15px] relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full  overflow-hidden"
         >
-          <i
-            v-if="!userLogged.photo"
-            class="absolute bottom-[-2px] text-[40px] fa-solid fa-user text-gray-500"
-          ></i>
+          <i class="fa-solid fa-user absolute bottom-[-3px] text-gray-500 text-[36px]"></i>
+        </div>
+
+        <div
+          class="max-h-12 max-w-12 mr-[15px] object-contain overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full"
+          v-else
+        >
           <img
-            v-else
             class="h-full w-full"
             :src="userLogged.photo"
             alt="Foto de perfil"
           />
+        </div>
         </div>
         <label for="message" class="sr-only">Mensaje</label>
         <textarea
@@ -98,17 +103,26 @@ export default {
           name="content"
           v-model="newMessage.content"
           @input="adjustHeight"
-          class="w-full text-2xl bg-slate-950 resize-none rounded pt-2 pl-[55px] outline-none text-white"
+          class="w-full text-2xl pl-[60px] bg-slate-950 resize-none rounded pt-2 outline-none text-white"
           placeholder="Que programaste hoy?"
           style="overflow: hidden"
         ></textarea>
       </div>
-      <div v-if="flagBlockCode === true" class="animate__animated animate__fadeIn ">
-        <div class="bg-[#1e1e1e] rounded-lg shadow-xl overflow-hidden">
-          <div class="bg-[#2d2d2d] px-4 py-2 flex items-center space-x-2">
-            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+      <div
+        v-if="flagBlockCode === true"
+        class="animate__animated animate__fadeIn"
+      >
+        <div
+          class="bg-[#1e1e1e] mt-[20px] rounded-lg shadow-xl overflow-hidden"
+        >
+          <div
+            class="bg-[#2d2d2d] px-4 py-2 flex items-center justify-between space-x-2"
+          >
+            <div class="flex items-center space-x-2">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
             <span class="ml-2 text-gray-400 text-sm">untitled.dev</span>
           </div>
           <label for="code" class="sr-only">Code</label>
@@ -154,7 +168,7 @@ export default {
             v-if="flagBlockCode"
             name="lenguaje"
             v-model="newMessage.lenguaje"
-            class="p-1 animate__animated animate__fadeIn rounded-full bg-cyan-950 text-white"
+            class="p-1 cursor-pointer animate__animated animate__fadeIn rounded-full bg-cyan-950 text-white"
           >
             <option value="javascript" selected>JavaScript</option>
             <option value="python">Python</option>
@@ -167,7 +181,14 @@ export default {
             <option value="csharp">C#</option>
           </select>
         </div>
-        <sButton>Publicar</sButton>
+        <sButton
+          :disabled="newMessage.content === ''"
+          :class="{
+            'bg-cyan-700 cursor-not-allowed': newMessage.content === '',
+          }"
+        >
+          Publicar
+        </sButton>
       </div>
     </form>
   </div>

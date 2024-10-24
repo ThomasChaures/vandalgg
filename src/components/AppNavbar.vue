@@ -57,7 +57,7 @@ export default {
       </li>
 
       <li class="max-[1000px]:flex items-center justify-center">
-        <Router :link="'/perfil/' + userLogged.usertag">
+        <Router :link="'/busqueda'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

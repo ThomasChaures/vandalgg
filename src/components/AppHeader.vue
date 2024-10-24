@@ -37,9 +37,13 @@ export default {
     },
     async buscar() {
       this.$router.push(`/busqueda/${this.busqueda}`);
-}
-
+    }
   },
+  computed: {
+    mostrarBuscador() {
+      return this.$route.meta.buscador !== false;
+    }
+  }
 };
 </script>
 
@@ -56,9 +60,10 @@ export default {
         </p>
       </div>
 
-      <div v-if="userLogged?.id" class="flex justify-end items-center mr-10  w-full max-w-[600px]">
+      <div v-if="userLogged?.id" class="flex max-[1060px]:hidden justify-end items-center mr-0  w-full max-w-[600px]">
     <form
       action="#"
+      v-if="mostrarBuscador"
       @submit.prevent="buscar()"
       class="flex rounded-full items-center max-w-[80%] container h-[35px]"
     >

@@ -12,19 +12,41 @@ export default {
   },
   methods: {
     loadPrism() {
-      const prismScript = document.createElement("script");
-      prismScript.src =
-        "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js";
-      prismScript.onload = () => {
+      const prismScriptExists = document.querySelector(
+        'script[src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"]'
+      );
+
+      if (!prismScriptExists) {
+        const prismScript = document.createElement("script");
+        prismScript.src =
+          "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js";
+        prismScript.onload = () => {
+          this.loadLanguage(this.message.lenguaje);
+          this.highlightCode();
+        };
+        document.head.appendChild(prismScript);
+      } else {
+        // Si Prism.js ya está cargado, simplemente cargamos el lenguaje
         this.loadLanguage(this.message.lenguaje);
         this.highlightCode();
-      };
-      document.head.appendChild(prismScript);
+      }
     },
     loadLanguage(language) {
-      const languageScript = document.createElement("script");
-      languageScript.src = `https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-${language.toLowerCase()}.min.js`;
-      document.head.appendChild(languageScript);
+      const languageScriptExists = document.querySelector(
+        `script[src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-${language.toLowerCase()}.min.js"]`
+      );
+
+      // Verifica si el lenguaje ya está cargado
+      if (!languageScriptExists) {
+        const languageScript = document.createElement("script");
+        languageScript.src = `https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-${language.toLowerCase()}.min.js`;
+        languageScript.onload = () => {
+          this.highlightCode();
+        };
+        document.head.appendChild(languageScript);
+      } else {
+        this.highlightCode();
+      }
     },
     highlightCode() {
       if (typeof Prism !== "undefined") {
@@ -33,6 +55,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <template>
@@ -46,7 +69,7 @@ export default {
       <span class="ml-2 text-gray-400 text-sm">{{ message.lenguaje }}.dev</span>
     </div>
     <pre class="text-white bg-[#1e1e1e]  rounded whitespace-pre-wrap" >
-  <code :class="`language-${message.lenguaje} block !bg-[#1e1e1e]`" v-html="message.blockCode"></code>
+  <code :class="`language-${message.lenguaje} block !bg-[#1e1e1e]`">{{ message.blockCode }}</code>
 </pre>
 
   </div>
