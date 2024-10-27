@@ -34,7 +34,7 @@ export default {
 
 <template>
   <div class="flex mx-auto max-w-[1260px] relative">
-    <AppHeader />
+    <AppHeader v-if="userLogged.id" />
     <main class="container max-w-[600px] min-h-screen  pt-[70px] mx-auto">   
       <div >
         <RouterView />

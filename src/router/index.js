@@ -23,6 +23,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: "/home",
+      name: "home2",
+      component: HomeView,
+      meta: { requiresAuth: true },
+    },
+    {
       path: "/publicacion/:id",
       name: "publicacion",
       component: PublicacionView,
@@ -98,9 +104,11 @@ let userLogged = {
 
 subscribeToAuth((newUser) => (userLogged = newUser));
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && userLogged.id === null) {
-    return "/iniciar-sesion";
+    next("/iniciar-sesion");
+  } else {
+    next();
   }
 });
 

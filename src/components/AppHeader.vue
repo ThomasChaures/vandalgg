@@ -33,7 +33,7 @@ export default {
   methods: {
     logout() {
       cerrarSesion();
-      this.$router.push("/");
+      this.$router.push("/iniciar-sesion");
     },
     async buscar() {
       this.$router.push(`/busqueda/${this.busqueda}`);

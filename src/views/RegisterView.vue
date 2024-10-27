@@ -90,11 +90,12 @@ export default {
 </script>
 
 <template>
-  <section class="w-full max-w-[600px] shadow-sm">
+  <section class="w-full fixed h-full  animate__animated animate__fadeInLeft  top-[0%] left-[0%] translate-y-[-50%] max-w-[50%]  bg-slate-950 shadow-sm">
+   <div class="absolute top-[50%] left-[50%] translate-x-[-50%] max-w-[600px] w-full translate-y-[-50%]"> 
     <div
-      class="w-full flex item-center justify-center border-b border-white/10 mb-10"
+      class="w-full flex item-center justify-center mb-10"
     >
-      <h2 class="font-semibold text-2xl py-5 text-white">Registro de Cuenta</h2>
+      <h2 class="font-semibold text-2xl mt-5 py-5 text-white">Registro de Cuenta</h2>
     </div>
 
     <form action="#" class="px-8" @submit.prevent="envioDeFormulario()">
@@ -153,7 +154,7 @@ export default {
       </button>
     </form>
 
-    <p class="py-7 text-white text-center">
+    <p class="py-7 mt-5 mb-5 text-white text-center">
       Ya contas con una cuenta?
       <router-link to="/iniciar-sesion"
         ><span class="text-blue-500 underline"
@@ -161,5 +162,6 @@ export default {
         ></router-link
       >
     </p>
+   </div>
   </section>
 </template>
