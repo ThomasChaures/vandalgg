@@ -12,6 +12,7 @@ import EditProfileImgView from "@/views/EditProfileImgView.vue";
 import SearchView from "@/views/SearchView.vue";
 import PublicacionView from "@/views/PublicacionView.vue";
 import { subscribeToAuth } from "@/service/auth";
+import MessagesView from "@/views/MessagesView.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -19,12 +20,6 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView,
-      meta: { requiresAuth: true },
-    },
-    {
-      path: "/home",
-      name: "home2",
       component: HomeView,
       meta: { requiresAuth: true },
     },
@@ -48,12 +43,6 @@ const router = createRouter({
       path: "/perfil/:usertag",
       name: "perfil",
       component: ProfileView,
-      meta: { requiresAuth: true },
-    },
-    {
-      path: "/perfil/",
-      name: "perfil-2",
-      component: HomeView,
       meta: { requiresAuth: true },
     },
     {
@@ -83,7 +72,7 @@ const router = createRouter({
     {
       path: "/mensajes",
       name: "mensajes",
-      component: HomeView,
+      component: MessagesView,
       meta: { requiresAuth: true},
     },
   ],

@@ -75,7 +75,7 @@ export default {
 
       <template v-if="userLogged.id">
         <li class="max-[1000px]:flex h-full items-center justify-center">
-          <Router :link="'/'">
+          <Router :link="'/mensajes'">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
