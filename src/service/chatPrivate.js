@@ -11,51 +11,66 @@ import {
   doc,
   where,
   setDoc,
+  getDocs,
+  limit,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
-export async function seguimientoDeChat(mytag, usertag) {
-  const emails = [mytag, usertag].sort();
-  const listChatRef = doc(db, "chatNotify", `${emails[0]}-to-${emails[1]}`);
+async function getPrivateChat(senderTag, receiverTag) {
+  const chatRef = collection(db, "private-chats");
 
-  await setDoc(
-    listChatRef,
-    {
-      participants: emails,
-      last_updated: serverTimestamp(),
-      new_message: true,
-    },
-    { merge: true }
+  const q = query(
+    chatRef,
+    where("users", "==", {
+      [senderTag]: true,
+      [receiverTag]: true,
+    }),
+    limit(1)
   );
+
+  const chatSnap = await getDocs(q);
+  let chatDoc;
+
+  if (chatSnap.empty) {
+    chatDoc = await addDoc(chatRef, {
+      users: {
+        [senderTag]: true,
+        [receiverTag]: true,
+      },
+    });
+  } else {
+    chatDoc = chatSnap.docs[0];
+  }
+
+  return chatDoc;
 }
 
-export async function enviarPrivateMessage(newMessage, mytag, usertag) {
-  const emails = [mytag, usertag].sort();
-  const chatPrivateRef = collection(
-    db,
-    `chat/private-${emails[0]}-to-${emails[1]}`
-  );
+export async function savePrivateChatMessage(senderTag, receiverTag, text) {
+  const chatDoc = await getPrivateChat(senderTag, receiverTag);
 
-  await addDoc(chatPrivateRef, {
-    ...newMessage,
+  const messagesRef = collection(db, `private-chats/${chatDoc.id}/messages`);
+
+  await addDoc(messagesRef, {
+    user: senderTag,
+    content: text,
     created_at: serverTimestamp(),
   });
 }
 
-export async function obtenerChatPrivado(mytag, usertag, callback) {
-  const emails = [mytag, usertag].sort();
-  const chatPrivateRef = collection(
-    db,
-    `chat/private-${emails[0]}-to-${emails[1]}`
-  );
-  const q = query(chatPrivateRef, orderBy("created_at"));
+export async function subscribeToPrivateChat(senderTag, receiverTag, callback) {
+  const chatDoc = await getPrivateChat(senderTag, receiverTag);
+  const messagesRef = collection(db, `private-chats/${chatDoc.id}/messages`);
+
+  const q = query(messagesRef, orderBy("created_at"));
   onSnapshot(q, (snap) => {
-    const chat = snap.docs.map((doc) => {
+    const messages = snap.docs.map((doc) => {
       return {
         id: doc.id,
-        ...doc.data(),
+        user_id: doc.data().user,
+        content: doc.data().content,
+        created_at: doc.data().created_at,
       };
     });
-    callback(chat);
+    callback(messages);
   });
 }

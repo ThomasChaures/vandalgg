@@ -21,7 +21,6 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
-      meta: { requiresAuth: true },
     },
     {
       path: "/publicacion/:id",
@@ -70,7 +69,7 @@ const router = createRouter({
       meta: { requiresAuth: true, buscador: false},
     },
     {
-      path: "/mensajes",
+      path: "/mensajes/:usertag",
       name: "mensajes",
       component: MessagesView,
       meta: { requiresAuth: true},
