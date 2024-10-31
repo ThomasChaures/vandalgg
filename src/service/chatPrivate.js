@@ -36,7 +36,10 @@ async function getPrivateChat(senderTag, receiverTag) {
       users: {
         [senderTag]: true,
         [receiverTag]: true,
+        
       },
+      usersArray: [senderTag, receiverTag]
+
     });
   } else {
     chatDoc = chatSnap.docs[0];
@@ -74,3 +77,62 @@ export async function subscribeToPrivateChat(senderTag, receiverTag, callback) {
     callback(messages);
   });
 }
+
+
+
+
+async function getDocIds(usertag, callback) {
+  const chatRef = collection(db, "private-chats");
+
+  console.log(usertag)
+
+  const q = query(chatRef, where("usersArray", "array-contains", usertag));
+
+  try {
+    const querySnapshot = await getDocs(q);
+    const chats = querySnapshot.docs.map((doc) => {
+      console.log(doc)
+      return {
+        id: doc.id,
+      };
+    });
+
+  
+    callback(chats);
+  } catch (error) {
+    console.error("Error al obtener los documentos: ", error);
+    callback([]); 
+  }
+}
+
+
+
+export async function getListadoDeChats(usertag) {
+  const docsC = [];
+
+  await getDocIds(usertag, async (chats) => {
+
+    for (const chat of chats) {
+      console.log(chat)
+      const messagesRef = collection(db, `private-chats/${chat.id}/messages`);
+      
+
+      const q = query(messagesRef, orderBy("created_at", "desc"), limit(1));
+      const messageSnap = await getDocs(q);
+      
+
+      messageSnap.forEach((doc) => {
+        docsC.push({
+          chatId: chat.id,
+          nombre: doc.data().user,
+          contenido: doc.data().content,
+          fecha: doc.data().created_at,
+        });
+      });
+    }
+  });
+
+  return docsC;
+}
+
+

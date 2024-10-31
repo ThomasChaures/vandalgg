@@ -5,11 +5,16 @@ import AppFooter from "./components/AppFooter.vue";
 import AppHeader from "./components/AppHeader.vue";
 
 
+import { getListadoDeChats } from "./service/chatPrivate";
+
+
+
 export default {
   name: "App",
   components: { RouterLink, RouterView, AppFooter, AppHeader },
   data() {
     return {
+      chats: [],
       userLogged: {
         id: "",
         email: "",
@@ -28,6 +33,9 @@ export default {
     subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
     });
+
+    let chats = await getListadoDeChats(this.userLogged.usertag)
+    console.log(chats)
   },
 };
 </script>
