@@ -4,11 +4,6 @@ import { subscribeToAuth } from "./service/auth";
 import AppFooter from "./components/AppFooter.vue";
 import AppHeader from "./components/AppHeader.vue";
 
-
-import { getListadoDeChats } from "./service/chatPrivate";
-
-
-
 export default {
   name: "App",
   components: { RouterLink, RouterView, AppFooter, AppHeader },
@@ -25,17 +20,12 @@ export default {
         seguidores_cuentas: null,
         seguidos: null,
         seguidos_cuentas: null,
-        rango: null
+        rango: null,
       },
     };
   },
- async mounted() {
-    subscribeToAuth((newUserData) => {
-      this.userLogged = newUserData;
-    });
-
-    let chats = await getListadoDeChats(this.userLogged.usertag)
-    console.log(chats)
+  async mounted() {
+    subscribeToAuth((newUserData) => {this.userLogged = newUserData;});
   },
 };
 </script>
@@ -43,8 +33,8 @@ export default {
 <template>
   <div class="flex mx-auto max-w-[1260px] relative">
     <AppHeader v-if="userLogged.id" />
-    <main class="container max-w-[600px] min-h-screen  pt-[70px] mx-auto">   
-      <div >
+    <main class="container max-w-[600px] min-h-screen pt-[70px] mx-auto">
+      <div>
         <RouterView />
       </div>
     </main>
