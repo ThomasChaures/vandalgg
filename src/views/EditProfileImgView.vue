@@ -47,17 +47,18 @@ export default {
 </script>
 
 <template>
-  <section class="bg-slate-950 py-5 px-5 mt-10 rounded-xl">
-    <div class="w-full flex item-center justify-center">
+  <section class="bg-slate-950/20 fixed w-[100%] top-0 h-screen left-1/2 translate-x-[-50%] py-5 px-2 mt-10 rounded-xl ">
+    <div class="bg-slate-950 absolute w-[600px] top-20 left-1/2 translate-x-[-50%] py-5 px-2 mt-10 rounded-xl ">
+      <div class="w-full flex item-center justify-center">
       <h2 class="font-semibold text-2xl pt-5 pb-10 py-2 text-white">
         Editar Foto
       </h2>
     </div>
 
-    <div class="flex justify-between">
+    <div class="flex justify-center gap-10">
       <div
         v-if="!userLogged.photo"
-        class="img-perfil bg-gray-200 relative w-[330px] overflow-hidden h-[330px] flex items-center justify-center rounded-full border-2"
+        class="img-perfil bg-gray-200 relative w-[250px] overflow-hidden h-[250px] flex items-center justify-center rounded-full border-2"
       >
         <i
           class="fa-solid text-[200px] absolute bottom-[-5px] fa-user text-gray-500"
@@ -65,17 +66,17 @@ export default {
       </div>
       <div
         v-else
-        class="img-perfil bg-gray-200 relative w-[250px] overflow-hidden h-[250px] flex items-center justify-center rounded-full border-2"
+        class="img-perfil bg-gray-200 relative w-[100px] overflow-hidden h-[100px] flex items-center justify-center rounded-full border-2"
       >
         <img
           :src="userLogged.photo"
-          class="h-[250px] w-[250px]"
+          class="h-[100px] w-[100px]"
           alt="Foto de perfil"
         />
       </div>
 
       <div
-        class="img-perfil bg-gray-200 relative h-[250px] w-[250px] overflow-hidden flex items-center justify-center rounded-full border-2"
+        class="img-perfil bg-gray-200 relative h-[100px] w-[100px] overflow-hidden flex items-center justify-center rounded-full border-2"
       >
         <!-- Previsualización de la imagen seleccionada -->
         <img
@@ -87,9 +88,9 @@ export default {
       </div>
     </div>
 
-    <form action="#" class="w-full mt-5 text-center" @submit.prevent="handleSubmit">
-      <div>
-        <label for="foto" class="bg-cyan-950 cursor-pointer hover:bg-cyan-700 transition-all py-3 px-2 rounded-sm text-white">Seleccionar imagen</label>
+    <form action="#" class="w-full flex items-center gap-4 mt-5" @submit.prevent="handleSubmit">
+      <div class="relative">
+        <label for="foto" class="flex bg-cyan-950 cursor-pointer hover:bg-cyan-700 transition-all py-2 px-2 rounded-sm text-white">Seleccionar imagen</label>
         <input
           class="sr-only"
           type="file"
@@ -99,11 +100,12 @@ export default {
         />
       </div>
       <button
-        class="py-2 mt-14 w-full rounded bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
+        class="py-2 w-[70%] rounded bg-cyan-950 text-white hover:bg-cyan-700 transition-all"
         type="submit"
       >
         Cambiar foto
       </button>
     </form>
+    </div>
   </section>
 </template>
