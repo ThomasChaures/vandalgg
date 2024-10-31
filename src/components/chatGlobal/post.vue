@@ -59,10 +59,10 @@ export default {
 
 <template>
 
-    <div class="hover:bg-black/50 relative cursor-pointer overflow-hidden p-4 border-b border-white/10">
+    <div class="hover:bg-black/50 bg-slate-950 rounded-xl relative cursor-pointer mb-2 overflow-hidden p-4">
       <RouterLink class="z-0 absolute top-1/2 left-1/2 translate-x-[-50%]   translate-y-[-50%]  w-full h-full" :to="'/publicacion/' + message.id">
       </RouterLink>
-    <div class="flex justify-between items-center z-10">
+    <div class="flex justify-between items-center pb-5 z-10">
       <div class="headerMessage flex items-center text-white">
         <!-- img -->
         <router-link :to="'/perfil/' + message.usertag">
@@ -84,22 +84,24 @@ export default {
             </div>
         </router-link>
 
-        <router-link
+        <div class="flex items-center">
+          <router-link
           :to="'/perfil/' + message.usertag"
           class="pl-3 z-10 font-semibold text-lg"
           >{{ message.username }}</router-link
         >
-        <router-link :to="'/perfil/' + message.usertag" class=" z-10 pl-2 opacity-60"
+        <router-link :to="'/perfil/' + message.usertag" class="text-sm z-10 pl-2 opacity-60"
           >@{{ message.usertag }}</router-link
         >
+        </div>
       </div>
 
-      <div class="message pt-4 z-10 pb-4 px-2 text-white/50 text-wrap">
+      <div class="message text-sm z-10  px-2 text-white/50 text-wrap">
         <p class="break-all">{{ message.date }}</p>
       </div>
     </div>
 
-    <div class="message pt-4 z-10 text-white pb-8  text-wrap">
+    <div class="message pt-4 ml-1 z-10 text-white pb-8  text-wrap">
       <p class="break-all">{{ message.content }}</p>
     </div>
 

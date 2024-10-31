@@ -5,12 +5,12 @@ import {
   subscribeToPrivateChat,
 } from "@/service/chatPrivate";
 import { localizarLosDatosDelUsuarioLoggeadoByUsertag } from "@/service/users";
-import ListChats from "@/components/chatPrivado/listChats.vue";
+// import ListChats from "@/components/chatPrivado/listChats.vue";
 let unsubscribeFromAuth = () => {};
 
 export default {
   name: "MessagesView",
-  components: {ListChats},
+  // components: {ListChats},
   data() {
     return {
       // datos de usuarios
@@ -84,7 +84,7 @@ export default {
       </ul>
     </div>
   </section>
-  <section>
+  <!-- <section>
      <ListChats/>
-  </section>
+  </section> -->
 </template>

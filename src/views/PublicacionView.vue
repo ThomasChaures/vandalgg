@@ -39,7 +39,7 @@ export default{
 
 <template>
     <div>
-        <section>
+        <section class="mt-10">
             <Post v-if="post" :message="post" />
         <div v-else>
             <p>Cargando publicación...</p>
@@ -47,7 +47,7 @@ export default{
         </section>
 
         <ComentariosList v-if="comentarios.length" :comentarios="comentarios"/>
-        <div v-else>
+        <div class="text-white/20 flex justify-center py-8 text-xl" v-else>
             <p>No hay comentarios disponibles.</p>
         </div>
     </div>

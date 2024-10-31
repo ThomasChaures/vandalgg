@@ -69,7 +69,7 @@ export default {
   </section>
   <section v-else-if="!loader" class="max-w-[600px]">
     <div
-      class=" py-4 mb-2 flex flex-col items-start gap-2 justify-start text-white pt-10 border-b border-white/10"
+      class=" py-1 mb-2 flex flex-col items-start gap-2 justify-start text-white pt-10 border-b border-white/10"
     >
       <div class="flex justify-end items-center mr-0 w-full h-20 bg-slate-950  px-4  rounded-xl mt-5 mb-5  max-w-[700px]">
         <form
@@ -115,7 +115,7 @@ export default {
       <p>No se encontraron resultados para la búsqueda.</p>
     </div>
     <div v-else>
-      <div v-for="(message, index) in busqueda" :key="index">
+      <div class="mt-5" v-for="(message, index) in busqueda" :key="index">
         <post :message="message" />
       </div>
     </div>

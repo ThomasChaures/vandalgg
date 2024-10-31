@@ -75,7 +75,7 @@ export default {
 </script>
 
 <template>
-  <div class="container p-5 pt-2 bg-slate-950 rounded-xl mt-10 mb-10 pb-4 w-full">
+  <div class="container p-5 pt-2 bg-slate-950 rounded-xl mt-10 mb-5 pb-4 w-full">
     <form action="#" @submit.prevent="handleSubmit()" class="bg-slate-950">
       <div class="mb-1 mt-3 relative">
         <div class="absolute">

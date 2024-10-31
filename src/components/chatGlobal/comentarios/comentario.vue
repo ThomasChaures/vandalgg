@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-    <div class="hover:bg-black/50 relative w-full ">
+    <div class="hover:bg-black/50 rounded-xl relative w-full ">
       <div class="linia absolute  bg-white/20 h-full w-[1px] mt-4 mb-4 top-[20px] left-8"></div>
       <div class="headerMessage  p-4 w-full flex justify-between items-center text-cyan-950">
 

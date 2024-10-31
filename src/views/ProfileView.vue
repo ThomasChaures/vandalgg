@@ -96,7 +96,7 @@ export default {
 </script>
 
 <template>
-  <div class="min-h-screen max-w-[600px] w-full flex flex-col gap-2">
+  <div class="min-h-screen mt-10 max-w-[600px] w-full flex flex-col gap-2">
     <template v-if="this.cargado">
       <div class="relative h-screen">
         <div
@@ -117,7 +117,7 @@ export default {
     </template>
     <template v-else>
       <section
-        class="relative overflow-hidden border-b border-white/10 min-h-[400px]"
+        class="bg-slate-950 mb-5 pb-1 relative rounded-xl overflow-hidden min-h-[400px]"
       >
         <div
           class="banner overflow-hidden bg-black max-w-[600px] max-h-[210px] object-contain border-b border-white/10"
@@ -225,7 +225,7 @@ export default {
         </div>
       </section>
 
-      <section>
+      <section class="border-t border-white/10 pt-5">
         <chatList :messages="messages" />
       </section>
     </template>

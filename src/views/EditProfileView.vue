@@ -88,7 +88,7 @@ export default {
 </script>
 
 <template>
-  <section>
+  <section class="bg-slate-950 mt-10 rounded-xl">
     <div class="flex justify-between w-full py-4">
       <div class="w-[600px]">
         <div class="w-full flex item-center justify-center">
