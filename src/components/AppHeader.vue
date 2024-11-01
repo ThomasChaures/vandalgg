@@ -53,11 +53,11 @@ export default {
       class=" h-20 w-[1460px] mx-auto flex items-center justify-between"
     >
       <div class="flex gap-4 items-center">
-        <p
+        <h1
           class="text-4xl mb-2 max-[700px]:text-xl text-white font-bold"
         >
           DevLog
-        </p>
+        </h1>
 
         <div v-if="userLogged?.id" class="flex  max-[1060px]:hidden justify-end items-center mr-0  w-full max-w-[600px]">
     <form

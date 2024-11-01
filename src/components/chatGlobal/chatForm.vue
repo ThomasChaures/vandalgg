@@ -127,7 +127,7 @@ export default {
             </div>
             <span class="ml-2 text-gray-400 text-sm">untitled.dev</span>
           </div>
-          <label for="code" class="sr-only">Code</label>
+          <label for="code" class="sr-only">Bloque de codigo</label>
           <textarea
             id="codigo"
             name="content"

@@ -45,9 +45,11 @@ export default {
 <template>
   <div class="flex flex-col min-h-screen  w-[100%]">
     <section v-if="this.userLogged.id">
+      <h2 class="sr-only">Nueva publicacion</h2>
       <chatForm @new-messages="sendMessage" />
     </section>
     <section>
+      <h2 class="sr-only">Publicaciones</h2>
       <template v-if="messages.length === 0">
          <p class='min-h-screen w-full flex item-center justify-center py-20 text-4xl text-cyan-950'>No hay posts publicados.</p>
       </template>

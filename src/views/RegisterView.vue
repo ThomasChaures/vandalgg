@@ -95,7 +95,7 @@ export default {
     <div
       class="w-full flex item-center justify-center mb-10"
     >
-      <h2 class="font-semibold text-2xl mt-5 py-5 text-white">Registro de Cuenta</h2>
+      <h1 class="font-semibold text-2xl mt-5 py-5 text-white">Registro de Cuenta</h1>
     </div>
 
     <form action="#" class="px-8" @submit.prevent="envioDeFormulario()">
@@ -104,6 +104,7 @@ export default {
         <input
           type="text"
           name="username"
+          autocomplete="username"
           v-model="collectionUser.username"
           class="w-full p-2 border rounded"
         />
@@ -116,6 +117,7 @@ export default {
         <input
           type="text"
           name="usertag"
+           autocomplete="usertag"
           v-model="collectionUser.usertag"
           class="w-full p-2 border rounded"
         />
@@ -128,6 +130,7 @@ export default {
         <input
           type="mail"
           name="email"
+           autocomplete="email"
           v-model="user.email"
           class="w-full p-2 border rounded"
         />
@@ -140,6 +143,7 @@ export default {
         <input
           type="password"
           name="password"
+          autocomplete="new-password"
           v-model="user.password"
           class="w-full p-2 border rounded"
         />

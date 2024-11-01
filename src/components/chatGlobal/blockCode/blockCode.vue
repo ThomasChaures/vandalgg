@@ -26,7 +26,7 @@ export default {
         };
         document.head.appendChild(prismScript);
       } else {
-        // Si Prism.js ya está cargado, simplemente cargamos el lenguaje
+  
         this.loadLanguage(this.message.lenguaje);
         this.highlightCode();
       }
@@ -36,7 +36,7 @@ export default {
         `script[src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-${language.toLowerCase()}.min.js"]`
       );
 
-      // Verifica si el lenguaje ya está cargado
+      
       if (!languageScriptExists) {
         const languageScript = document.createElement("script");
         languageScript.src = `https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-${language.toLowerCase()}.min.js`;

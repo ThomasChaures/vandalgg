@@ -40,6 +40,7 @@ export default{
 <template>
     <div>
         <section class="mt-10">
+            <h2 class="sr-only">Publicacion</h2>
             <Post v-if="post" :message="post" />
         <div v-else>
             <p>Cargando publicación...</p>

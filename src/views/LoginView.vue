@@ -28,14 +28,12 @@ export default {
           (this.confirm = true)
         );
 
-
-          this.$router.push("/");
-          this.$router.push("/");
-          this.$router.push("/");
-  
+        this.$router.push("/");
+        this.$router.push("/");
+        this.$router.push("/");
       } catch (err) {
         this.error = `${err}`;
-        console.log(err)
+        console.log(err);
       }
     },
   },
@@ -50,7 +48,7 @@ export default {
       class="absolute top-[50%] left-[50%] translate-x-[-50%] max-w-[600px] w-full translate-y-[-50%]"
     >
       <div class="w-full flex item-center justify-center mt-5 mb-10">
-        <h2 class="font-semibold text-2xl py-4 text-white">Ingresar Cuenta</h2>
+        <h1 class="font-semibold text-2xl py-4 text-white">Ingresar Cuenta</h1>
       </div>
 
       <form action="#" class="px-8" @submit.prevent="envioDeFormulario()">
@@ -59,15 +57,21 @@ export default {
           <input
             type="mail"
             name="email"
+            autocomplete="email"
             v-model="user.email"
             class="w-full p-2 border rounded"
           />
+        </div>
+        <div class="hidden">
+          <label for="username">Username</label>
+          <input type="text" name="username" autocomplete="username" />
         </div>
         <div class="mb-4">
           <label for="password" class="text-white block mb-2">Password</label>
           <input
             type="password"
             name="password"
+            autocomplete="new-password"
             v-model="user.password"
             class="w-full p-2 border rounded"
           />
