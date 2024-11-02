@@ -16,7 +16,26 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 
+let chatDocCache = {};
+
+function getCacheKey(senderTag, receiverTag){
+  return [senderTag, receiverTag].sort().join("_")
+}
+function getPrivateChatDocFromCache(key){
+  return chatDocCache[key] || null
+}
+
+function addPrivateChatDocToCache(key, doc){
+  chatDocCache[key] = doc
+}
 async function getPrivateChat(senderTag, receiverTag) {
+
+
+  const cacheKey = getCacheKey(senderTag, receiverTag);
+  const cacheDoc = getPrivateChatDocFromCache(cacheKey);
+
+  if(cacheDoc) return cacheDoc
+
   const chatRef = collection(db, "private-chats");
 
   const q = query(
@@ -36,14 +55,14 @@ async function getPrivateChat(senderTag, receiverTag) {
       users: {
         [senderTag]: true,
         [receiverTag]: true,
-        
       },
-      usersArray: [senderTag, receiverTag]
-
+      usersArray: [senderTag, receiverTag],
     });
   } else {
     chatDoc = chatSnap.docs[0];
   }
+
+  addPrivateChatDocToCache(cacheKey, chatDoc)
 
   return chatDoc;
 }
@@ -78,48 +97,39 @@ export async function subscribeToPrivateChat(senderTag, receiverTag, callback) {
   });
 }
 
-
-
-
 async function getDocIds(usertag, callback) {
   const chatRef = collection(db, "private-chats");
 
-  console.log(usertag)
+  console.log(usertag);
 
   const q = query(chatRef, where("usersArray", "array-contains", usertag));
 
   try {
     const querySnapshot = await getDocs(q);
     const chats = querySnapshot.docs.map((doc) => {
-      console.log(doc)
+      console.log(doc);
       return {
         id: doc.id,
       };
     });
 
-  
     callback(chats);
   } catch (error) {
     console.error("Error al obtener los documentos: ", error);
-    callback([]); 
+    callback([]);
   }
 }
-
-
 
 export async function getListadoDeChats(usertag) {
   const docsC = [];
 
   await getDocIds(usertag, async (chats) => {
-
     for (const chat of chats) {
-      console.log(chat)
+      console.log(chat);
       const messagesRef = collection(db, `private-chats/${chat.id}/messages`);
-      
 
       const q = query(messagesRef, orderBy("created_at", "desc"), limit(1));
       const messageSnap = await getDocs(q);
-      
 
       messageSnap.forEach((doc) => {
         docsC.push({
@@ -134,5 +144,3 @@ export async function getListadoDeChats(usertag) {
 
   return docsC;
 }
-
-

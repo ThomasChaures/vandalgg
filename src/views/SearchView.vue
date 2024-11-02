@@ -29,17 +29,6 @@ export default {
         throw "No se pudo realizar la busqueda.";
       }
     },
-    async buscar() {
-      try {
-        this.busqueda = await busqueda(this.search, "chat", (search) => {
-          this.busqueda = search;
-        });
-        this.loader = false;
-      } catch (err) {
-        this.loader = false;
-        throw "No se pudo realizar la busqueda.";
-      }
-    },
   },
   watch: {
     "$route.params.search": function (newSearch) {
@@ -75,12 +64,12 @@ export default {
       <div class="flex justify-end items-center mr-0 w-full h-20 bg-slate-950  px-4  rounded-xl mt-5 mb-5  max-w-[700px]">
         <form
           action="#"
-          @submit.prevent="buscar()"
+          @submit.prevent="buscador(), this.$router.push(`/busqueda/${this.searchParam}`)"
           class="flex rounded-full items-center w-[100%] container h-[35px]"
         >
           <input
             type="text"
-            v-model="search"
+            v-model="searchParam"
             placeholder="Buscar..."
             class="px-2 bg-white/10 text-white rounded-bl-xl block w-full outline-none rounded-tl-xl border border-cyan-950 h-[100%]"
           />

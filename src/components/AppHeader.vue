@@ -48,16 +48,18 @@ export default {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 z-50 w-full flex  shadow-sm bg-slate-950 border-b border-white/10">
+  <header class="fixed top-0 left-0 z-[2000] w-full flex  shadow-sm bg-slate-950 border-b border-white/10">
     <div
       class=" h-20 w-[1460px] mx-auto flex items-center justify-between"
     >
       <div class="flex gap-4 items-center">
-        <h1
+        <router-link :to="'/'">
+          <h1
           class="text-4xl mb-2 max-[700px]:text-xl text-white font-bold"
         >
           DevLog
         </h1>
+        </router-link>
 
         <div v-if="userLogged?.id" class="flex  max-[1060px]:hidden justify-end items-center mr-0  w-full max-w-[600px]">
     <form

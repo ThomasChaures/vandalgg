@@ -8,7 +8,7 @@ import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import EditProfileView from "@/views/EditProfileView.vue";
-import EditProfileImgView from "@/views/EditProfileImgView.vue";
+import EditProfileImgView from "@/components/Profile/EditProfileImg.vue";
 import SearchView from "@/views/SearchView.vue";
 import PublicacionView from "@/views/PublicacionView.vue";
 import { subscribeToAuth } from "@/service/auth";
@@ -51,20 +51,8 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/perfil/edit/img/:id",
-      name: "editar-perfil-img",
-      component: EditProfileImgView,
-      meta: { requiresAuth: true },
-    },
-    {
       path: "/busqueda/:search",
       name: "buscador-param",
-      component: SearchView,
-      meta: { requiresAuth: true, buscador: false},
-    },
-    {
-      path: "/busqueda",
-      name: "buscador",
       component: SearchView,
       meta: { requiresAuth: true, buscador: false},
     },

@@ -2,6 +2,7 @@
 import { subscribeToAuth } from "@/service/auth";
 import { obtenerPostsDeUsuarioById } from "@/service/chatGlobal";
 import chatList from "@/components/chatGlobal/chatList.vue";
+import EditProfileImgView from "../components/Profile/EditProfileImg.vue";
 import {
   darFollow,
   localizarLosDatosDelUsuarioLoggeadoByUsertag,
@@ -10,9 +11,10 @@ import {
 
 export default {
   name: "ProfileView",
-  components: { chatList },
+  components: { chatList, EditProfileImgView },
   data() {
     return {
+      modalEdit: false,
       usertag: this.$route.params.usertag,
       myProfile: null,
       seguido: false,
@@ -53,6 +55,9 @@ export default {
     });
   },
   methods: {
+    closeModal(){
+        this.modalEdit = false
+    },
     async loadData() {
       try {
         await localizarLosDatosDelUsuarioLoggeadoByUsertag(
@@ -160,14 +165,22 @@ export default {
           <div
             class="follow-button absolute top-[30%] left-[15%] opacity-0 hover:opacity-70 transform -translate-x-1/2"
           >
-            <router-link
-              :to="'/perfil/edit/img/' + this.userLogged.id"
+            <button
+              @click="modalEdit = true"
               class="border transition-all w-[130px] h-[130px] hover:border-white hover:text-white rounded-full flex items-center top-[30%] left-[15%] justify-center text-white bg-cyan-950"
             >
               <i class="fa-solid fa-pen"></i>
-            </router-link>
+            </button>
           </div>
         </template>
+
+        <!-- Modal para editar foto -->
+
+        <template v-if="modalEdit">
+          <EditProfileImgView @close-modal="closeModal" class="z-50" />
+        </template>
+
+        <!--  -->
 
         <template v-if="!myProfile">
           <div
