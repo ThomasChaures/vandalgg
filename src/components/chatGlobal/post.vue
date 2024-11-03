@@ -77,7 +77,7 @@ export default {
             <div class="h-9 w-9 overflow-hidden relative bg-gray-200 border border-cyan-950 flex items-center justify-center rounded-full" v-else>
             <img
               
-              class="h-full w-full"
+              class="w-full h-full object-cover"
               :src="message.photo"
               alt="Foto de perfil"
             />

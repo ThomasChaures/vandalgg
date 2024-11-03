@@ -97,7 +97,7 @@ export default {
         >
           <img
             :src="userLogged.photo"
-            class="h-[200px] w-[200px]"
+            class="w-full h-full object-cover"
             alt="Foto de perfil"
           />
         </div>
@@ -107,7 +107,7 @@ export default {
         >
           <!-- Previsualización de la imagen seleccionada -->
           <img
-            class="h-[200px] w-[200px]"
+            class="w-full h-full object-cover"
             v-if="fotoPreview"
             :src="fotoPreview"
             alt="Previsualización de la foto de perfil"

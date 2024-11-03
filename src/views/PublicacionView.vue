@@ -38,7 +38,7 @@ export default{
 </script>
 
 <template>
-    <div>
+    <div class="mx-auto max-w-[600px]">
         <section class="mt-10">
             <h2 class="sr-only">Publicacion</h2>
             <Post v-if="post" :message="post" />

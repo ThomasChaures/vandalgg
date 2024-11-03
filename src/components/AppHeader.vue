@@ -42,7 +42,7 @@ export default {
   computed: {
     mostrarBuscador() {
       return this.$route.meta.buscador !== false;
-    }
+    },
   }
 };
 </script>
@@ -128,7 +128,7 @@ export default {
            ></i>
            <img
              v-else
-             class="h-full w-full"
+            class="w-full h-full object-cover"
              :src="userLogged.photo"
              alt="Foto de perfil"
            />

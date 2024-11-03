@@ -21,17 +21,17 @@ import { db } from "./firebase";
  * Esto devuelve true o false, asegurado que lo devuelve asi debido a que en el return utilizo un doble !. El cual obliga digamos a devolver ese resultado.
  *
  */
-export async function checkFollow(myemail, useremail) {
-  if (!myemail || !useremail) {
-    console.error("Los emails proporcionados no son válidos.", {
-      myemail,
-      useremail,
+export async function checkFollow(mytag, usertag) {
+  if (!mytag || !usertag) {
+    console.error("Los tags proporcionados no son válidos.", {
+      mytag,
+      usertag,
     });
     return null;
   }
 
   const usersRef = collection(db, "usuario");
-  const q = query(usersRef, where("id_m", "==", useremail));
+  const q = query(usersRef, where("usertag", "==", usertag));
 
   const querySnapshot = await getDocs(q);
 
@@ -43,7 +43,7 @@ export async function checkFollow(myemail, useremail) {
   const userData = userDoc.data();
 
   const siguiendo = userData.seguidores_cuentas.find(
-    (seguidor) => seguidor === myemail
+    (seguidor) => seguidor.usertag === mytag
   );
   return !!siguiendo;
 }
@@ -65,7 +65,7 @@ export async function checkFollow(myemail, useremail) {
  * se deja de seguir.
  */
 
-export async function darFollow(myemail, useremail) {
+export async function darFollow(myemail, useremail, usertag, username, photo) {
   if (!myemail || !useremail) {
     return null;
   }
@@ -85,18 +85,18 @@ export async function darFollow(myemail, useremail) {
   try {
     if (
       !userData.seguidores_cuentas ||
-      !userData.seguidores_cuentas.includes(myemail)
+      !userData.seguidores_cuentas?.some((cuenta) => cuenta.usertag = usertag)
     ) {
       await updateDoc(userDoc.ref, {
         seguidores: increment(1),
-        seguidores_cuentas: [...(userData.seguidores_cuentas || []), myemail],
+        seguidores_cuentas: [...(userData.seguidores_cuentas || []), {usertag, photo, username}],
       });
       return true;
     } else {
       await updateDoc(userDoc.ref, {
         seguidores: increment(-1),
         seguidores_cuentas: userData.seguidores_cuentas.filter(
-          (mail) => mail !== myemail
+          (cuenta) => cuenta.usertag !== usertag
         ),
       });
       return false;

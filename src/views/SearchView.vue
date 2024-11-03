@@ -56,7 +56,7 @@ export default {
       </div>
     </div>
   </section>
-  <section v-else-if="!loader" class="max-w-[600px]">
+  <section v-else-if="!loader" class="mx-auto max-w-[600px]">
     <h2 class="sr-only">Buscador</h2>
     <div
       class=" py-1 mb-2 flex flex-col items-start gap-2 justify-start text-white pt-10 border-b border-white/10"
@@ -97,7 +97,7 @@ export default {
 
    
   </section>
-  <section>
+  <section class="mx-auto max-w-[600px]">
     <h2 class="sr-only">Publicaciones encontradas</h2>
     <div
       class="flex items-center justify-center pt-20 text-white text-2xl"

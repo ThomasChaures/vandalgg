@@ -8,12 +8,14 @@ import {
   localizarLosDatosDelUsuarioLoggeadoByUsertag,
   checkFollow,
 } from "@/service/users";
+import ListaSeguidores from "@/components/Profile/ListaSeguidores.vue";
 
 export default {
   name: "ProfileView",
-  components: { chatList, EditProfileImgView },
+  components: { chatList, EditProfileImgView, ListaSeguidores },
   data() {
     return {
+      modalSeguidores: false,
       modalEdit: false,
       usertag: this.$route.params.usertag,
       myProfile: null,
@@ -57,6 +59,8 @@ export default {
   methods: {
     closeModal(){
         this.modalEdit = false
+        this.modalSeguidores = false
+        console.log(this.modalSeguidores)
     },
     async loadData() {
       try {
@@ -86,14 +90,17 @@ export default {
     async seguir() {
       const estado = await darFollow(
         this.userLogged.email,
-        this.userProfile.id_m
+        this.userProfile.id_m,
+        this.userLogged.usertag,
+        this.userLogged.username,
+        this.userLogged.photo,
       );
       this.seguido = estado;
     },
     async checkFollowStatus() {
       this.seguido = await checkFollow(
-        this.userLogged.email,
-        this.userProfile.id_m
+        this.userLogged.usertag,
+        this.userProfile.usertag
       );
     },
   },
@@ -101,7 +108,22 @@ export default {
 </script>
 
 <template>
-  <div class="min-h-screen mt-10 max-w-[600px] w-full flex flex-col gap-2">
+
+ <template v-if="modalSeguidores">
+  <div
+    @click.self="closeModal"
+    class="fixed top-0 left-1/2 z-20 translate-x-[-50%] w-full bg-white/20 min-h-screen"
+  >
+    <!-- Escucha el evento `close-modal` en el componente ListaSeguidores -->
+    <ListaSeguidores
+      @close-modal="closeModal"
+      class="fixed top-[20%] left-1/2 translate-x-[-50%] w-[300px] bg-slate-950 min-h-[400px]"
+      :seguidores="userProfile.seguidores_cuentas"
+    />
+  </div>
+ </template>
+
+  <div class="min-h-screen mt-10 mx-auto max-w-[600px] w-full flex flex-col gap-2">
     <template v-if="this.cargado">
       <div class="relative h-screen">
         <div
@@ -145,25 +167,27 @@ export default {
             <div class="img-perfil absolute top-[30%] left-[15%] object-contain transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden" v-else>
             <img
               
-              class="w-full h-full"
+              class="w-full h-full object-cover"
               :src="userProfile.photo"
               alt="Foto de perfil"
             />
             </div>
 
+
         <template v-if="myProfile">
           <div
-            class="follow-button absolute top-[48%] left-[85%] transform -translate-x-1/2"
+            class=" absolute top-[48%] left-[85%] flex justify-center transform -translate-x-1/2"
           >
+          <!-- editar perfil -->
             <router-link
               :to="'/perfil/edit/' + this.userLogged.id"
-              class="border transition-all hover:border-white hover:bg-green-500 hover:text-white rounded-full flex items-center h-10 w-10 justify-center text-white bg-cyan-950"
+              class="border transition-all hover:border-white w-[130px] hover:bg-green-500 hover:text-white rounded-xl  flex items-center justify-evenly  text-white bg-cyan-950"
             >
-              <i class="fa-solid fa-pen"></i>
+              Editar perfil <i class="fa-solid fa-pen"></i>
             </router-link>
           </div>
           <div
-            class="follow-button absolute top-[30%] left-[15%] opacity-0 hover:opacity-70 transform -translate-x-1/2"
+            class=" absolute top-[30%] left-[15%] opacity-0 hover:opacity-70 transform -translate-x-1/2"
           >
             <button
               @click="modalEdit = true"
@@ -227,7 +251,7 @@ export default {
         <div
           class="followers text-lg text-white flex pt-[20px] pb-[16px] pl-[29px]"
         >
-          <p class="mr-4">
+          <p class="mr-4 cursor-pointer" @click="modalSeguidores = true">
             {{ userProfile.seguidores }}
             <span class="text-white/50">Seguidores</span>
           </p>

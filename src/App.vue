@@ -27,13 +27,18 @@ export default {
   async mounted() {
     subscribeToAuth((newUserData) => {this.userLogged = newUserData;});
   },
+  computed: {
+    mostrarHeader(){
+      return !!this.userLogged.id || this.$route.meta.nav !== false;
+    }
+  }
 };
 </script>
 
 <template>
   <div class="flex mx-auto max-w-[1260px] relative">
-    <AppHeader v-if="userLogged.id" />
-    <main class="container max-w-[600px] min-h-screen pt-[70px] mx-auto">
+    <AppHeader v-if="mostrarHeader" />
+    <main class="container min-h-screen pt-[70px] mx-auto">
       <div>
         <RouterView />
       </div>

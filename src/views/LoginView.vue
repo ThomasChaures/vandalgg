@@ -28,9 +28,7 @@ export default {
           (this.confirm = true)
         );
 
-        this.$router.push("/");
-        this.$router.push("/");
-        this.$router.push("/");
+        
       } catch (err) {
         this.error = `${err}`;
         console.log(err);

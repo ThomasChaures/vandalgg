@@ -21,6 +21,7 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      meta: { requiresAuth: true },
     },
     {
       path: "/publicacion/:id",
@@ -32,11 +33,13 @@ const router = createRouter({
       path: "/iniciar-sesion",
       name: "iniciar-sesion",
       component: LoginView,
+      meta: {nav: false}
     },
     {
       path: "/registro",
       name: "registro",
       component: RegisterView,
+      meta: {nav: false}
     },
     {
       path: "/perfil/:usertag",
