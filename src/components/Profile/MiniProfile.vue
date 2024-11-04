@@ -27,7 +27,7 @@ export default {
 
 <template>
   <aside
-    class="bg-slate-950 relative max-h-[330px] mt-[40px] max-w-[300px] overflow-hidden rounded-xl"
+    class="bg-slate-950 relative max-h-[300px] mt-[40px] max-w-[300px] overflow-hidden rounded-xl"
   >
     <router-link :to="'/perfil/' + userLogged.usertag">
       <!-- banner -->
@@ -61,13 +61,14 @@ export default {
       </div>
 
       <div
-        class="pt-[70px] pb-5 w-full flex flex-col justify-center items-center"
+        class="pt-[60px] pb-5 w-full flex flex-col justify-center items-center"
       >
+       <div class="flex items-center gap-2 ">
         <p class="text-white text-2xl font-semibold first-letter:uppercase">
           {{ userLogged.username }}
         </p>
-        <p class="text-white/70">@{{ userLogged.usertag }}</p>
-        <p class="text-white/70">{{ userLogged.rango }}</p>
+       </div>
+        <p class="text-white/70 text-xl">{{ userLogged.rango }}</p>
       </div>
 
       <div

@@ -47,6 +47,8 @@ export default {
     },
     "$route.params.usertag": function (newUsertag) {
       this.usertag = newUsertag;
+      this.modalEdit = false;
+      this.modalSeguidores = false;
       this.loadData();
     },
   },
@@ -57,10 +59,10 @@ export default {
     });
   },
   methods: {
-    closeModal(){
-        this.modalEdit = false
-        this.modalSeguidores = false
-        console.log(this.modalSeguidores)
+    closeModal() {
+      this.modalEdit = false;
+      this.modalSeguidores = false;
+      console.log(this.modalSeguidores);
     },
     async loadData() {
       try {
@@ -93,7 +95,7 @@ export default {
         this.userProfile.id_m,
         this.userLogged.usertag,
         this.userLogged.username,
-        this.userLogged.photo,
+        this.userLogged.photo
       );
       this.seguido = estado;
     },
@@ -108,22 +110,23 @@ export default {
 </script>
 
 <template>
+  <template v-if="modalSeguidores">
+    <div
+      @click.self="closeModal"
+      class="fixed top-0 left-1/2 z-20 translate-x-[-50%] w-full bg-white/20 min-h-screen"
+    >
+      <!-- Escucha el evento `close-modal` en el componente ListaSeguidores -->
+      <ListaSeguidores
+        @close-modal="closeModal"
+        class="fixed top-[20%] left-1/2 translate-x-[-50%] w-[300px] bg-slate-950 min-h-[400px]"
+        :seguidores="userProfile.seguidores_cuentas"
+      />
+    </div>
+  </template>
 
- <template v-if="modalSeguidores">
   <div
-    @click.self="closeModal"
-    class="fixed top-0 left-1/2 z-20 translate-x-[-50%] w-full bg-white/20 min-h-screen"
+    class="min-h-screen mt-10 max-w-[800px] w-full flex flex-col gap-2"
   >
-    <!-- Escucha el evento `close-modal` en el componente ListaSeguidores -->
-    <ListaSeguidores
-      @close-modal="closeModal"
-      class="fixed top-[20%] left-1/2 translate-x-[-50%] w-[300px] bg-slate-950 min-h-[400px]"
-      :seguidores="userProfile.seguidores_cuentas"
-    />
-  </div>
- </template>
-
-  <div class="min-h-screen mt-10 mx-auto max-w-[600px] w-full flex flex-col gap-2">
     <template v-if="this.cargado">
       <div class="relative h-screen">
         <div
@@ -147,7 +150,7 @@ export default {
         class="bg-slate-950 mb-5 pb-1 relative rounded-xl overflow-hidden min-h-[400px]"
       >
         <div
-          class="banner overflow-hidden bg-black max-w-[600px] max-h-[210px] object-contain border-b border-white/10"
+          class="banner overflow-hidden bg-black  max-h-[210px] object-contain border-b border-white/10"
         >
           <img
             class="w-full h-full"
@@ -156,38 +159,39 @@ export default {
           />
         </div>
 
-        <div v-if="!userProfile.photo"
-            class="img-perfil absolute top-[30%] left-[15%] transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden"
-          >
-            <i
-              
-              class="fa-solid absolute bottom-[-2px] text-[106px] fa-user text-gray-500"
-            ></i>
-            </div>
-            <div class="img-perfil absolute top-[30%] left-[15%] object-contain transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden" v-else>
-            <img
-              
-              class="w-full h-full object-cover"
-              :src="userProfile.photo"
-              alt="Foto de perfil"
-            />
-            </div>
-
+        <div
+          v-if="!userProfile.photo"
+          class="img-perfil absolute top-[30%] left-[10%] transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden"
+        >
+          <i
+            class="fa-solid absolute bottom-[-2px] text-[106px] fa-user text-gray-500"
+          ></i>
+        </div>
+        <div
+          class="img-perfil absolute top-[30%] left-[10%] object-contain transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden"
+          v-else
+        >
+          <img
+            class="w-full h-full object-cover"
+            :src="userProfile.photo"
+            alt="Foto de perfil"
+          />
+        </div>
 
         <template v-if="myProfile">
           <div
-            class=" absolute top-[48%] left-[85%] flex justify-center transform -translate-x-1/2"
+            class="absolute top-[48%] left-[85%] flex justify-center transform -translate-x-1/2"
           >
-          <!-- editar perfil -->
+            <!-- editar perfil -->
             <router-link
               :to="'/perfil/edit/' + this.userLogged.id"
-              class="border transition-all hover:border-white w-[130px] hover:bg-green-500 hover:text-white rounded-xl  flex items-center justify-evenly  text-white bg-cyan-950"
+              class="border transition-all hover:border-white w-[130px] hover:bg-green-500 hover:text-white rounded-xl flex items-center justify-evenly text-white bg-cyan-950"
             >
               Editar perfil <i class="fa-solid fa-pen"></i>
             </router-link>
           </div>
           <div
-            class=" absolute top-[30%] left-[15%] opacity-0 hover:opacity-70 transform -translate-x-1/2"
+            class="absolute top-[30%] left-[10%] opacity-0 hover:opacity-70 transform -translate-x-1/2"
           >
             <button
               @click="modalEdit = true"

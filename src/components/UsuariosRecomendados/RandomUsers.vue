@@ -31,7 +31,7 @@ export default {
 
       <ul class="h-full flex flex-col gap-5 mt-6">
        <li v-for="(user, index) in users" class="text-white flex items-center gap-2" :key="index">
-          <router-link :to="'/perfil/' + user.usertag"  class="text-white flex items-center rounded-xl w-full hover:bg-cyan-950 px-1 py-1 gap-2">
+          <router-link :to="'/perfil/' + user.usertag"  class="text-white flex items-center rounded-xl w-full bg-cyan-950/50 transition-all hover:bg-cyan-950 px-1 py-1 gap-2">
             <div
         v-if="!user.photo"
         class="img-perfil relative bg-gray-200 w-[40px] h-[40px] flex items-center justify-center rounded-full overflow-hidden"

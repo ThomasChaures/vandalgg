@@ -287,7 +287,7 @@ export async function editarPerfilImg(email, photo) {
 }
 
 export async function getRandomsUser(mytag, callback) {
-  console.log(mytag)
+  console.log(mytag);
 
   let indexUsers = 3;
   const userRef = collection(db, "usuario");
@@ -295,26 +295,26 @@ export async function getRandomsUser(mytag, callback) {
   const qSnap = await getDocs(q);
   if (!qSnap.empty) {
     const allUsers = qSnap.docs.map((doc) => doc.data());
-    console.log(allUsers)
+    console.log(allUsers);
+    
+    // Filtrar usuarios excluyendo el usuario con el mytag especificado
     const usersNotMe = allUsers.filter(user => user.usertag !== mytag);
-    console.log(usersNotMe)
+    console.log(usersNotMe);
 
-    const count = Math.min(indexUsers, usersNotMe.length)
+    const count = Math.min(indexUsers, usersNotMe.length);
 
     let randomUsers = [];
-    while(randomUsers.length < count){
-      const randomIndex = Math.floor(Math.random() * usersNotMe.length)
-      const user = usersNotMe[randomIndex]
+    while(randomUsers.length < count) {
+      const randomIndex = Math.floor(Math.random() * usersNotMe.length);
+      const user = usersNotMe[randomIndex];
 
       if (!randomUsers.includes(user)) {
         randomUsers.push(user);
       }
     }
-   
+
     console.log(randomUsers);
     callback(randomUsers);
   }
-  
-  callback(randomUsers);
-  
 }
+

@@ -58,6 +58,7 @@ export default {
       ) {
         this.$emit("newMessages", {
           user_id: this.userLogged.id,
+          email: this.userLogged.email,
           username: this.userLogged.username,
           usertag: this.userLogged.usertag,
           content: this.newMessage.content,
