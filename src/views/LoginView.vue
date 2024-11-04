@@ -21,17 +21,15 @@ export default {
       this.loading = true;
 
       try {
-        await login(
-          {
-            ...this.user,
-          },
-          (this.confirm = true)
-        );
-
-        
+        await login(this.user);
+        this.loading = false;
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 2000);
       } catch (err) {
         this.error = `${err}`;
         console.log(err);
+        this.loading = false;
       }
     },
   },

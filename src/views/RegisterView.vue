@@ -79,7 +79,9 @@ export default {
             this.collectionUser.usertag,
             1
           );
+          setTimeout(() => {
           this.$router.push("/");
+        }, 2000);
         }
       } catch (err) {
         this.errors.email = "El email es invalido o ya esta en uso.";

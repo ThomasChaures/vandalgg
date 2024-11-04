@@ -48,7 +48,6 @@ export async function checkFollow(mytag, usertag) {
   return !!siguiendo;
 }
 
-
 /**
  * @param { string } myemail
  * @param { string } useremail
@@ -85,11 +84,14 @@ export async function darFollow(myemail, useremail, usertag, username, photo) {
   try {
     if (
       !userData.seguidores_cuentas ||
-      !userData.seguidores_cuentas?.some((cuenta) => cuenta.usertag = usertag)
+      !userData.seguidores_cuentas?.some((cuenta) => (cuenta.usertag = usertag))
     ) {
       await updateDoc(userDoc.ref, {
         seguidores: increment(1),
-        seguidores_cuentas: [...(userData.seguidores_cuentas || []), {usertag, photo, username}],
+        seguidores_cuentas: [
+          ...(userData.seguidores_cuentas || []),
+          { usertag, photo, username },
+        ],
       });
       return true;
     } else {
@@ -169,7 +171,7 @@ export async function localizarLosDatosDelUsuario(email) {
       seguidos: userData.seguidos,
       seguidos_cuentas: userData.seguidos_cuentas,
       rango: userData.rango,
-      photo: userData.photo
+      photo: userData.photo,
     };
   } catch (error) {
     console.error("Error buscando los datos del usuario:", error);
@@ -215,16 +217,15 @@ export async function localizarLosDatosDelUsuarioLoggeadoByUsertag(
   }
 }
 
-
 /**
- * @param {string} usertag 
- * 
- * Esta función lo que hace es hacer la búsqueda cotidiana para localizar algún dato y verifica que nadie tenga 
- * el usertag que se introdujo. 
- * 
+ * @param {string} usertag
+ *
+ * Esta función lo que hace es hacer la búsqueda cotidiana para localizar algún dato y verifica que nadie tenga
+ * el usertag que se introdujo.
+ *
  * Por ejemplo, al crear la cuenta esta verifica que no exista el tag que se pondrá al usuario para permitírselo a la cuenta.
- * 
- * Para empezar, se llama a la collection "usuario", después con query se hace una búsqueda la cual después con el querySnapshot localizaremos 
+ *
+ * Para empezar, se llama a la collection "usuario", después con query se hace una búsqueda la cual después con el querySnapshot localizaremos
  * el documento. Si esta vació devuelve true, si existe devuelve false.
  */
 export async function esUnicoTag(usertag) {
@@ -239,17 +240,15 @@ export async function esUnicoTag(usertag) {
   }
 }
 
-
-
 /**
- * 
- * @param {string} email 
- * @param {string} description 
- * @param {string} username 
- * @param {string} rango 
- * 
+ *
+ * @param {string} email
+ * @param {string} description
+ * @param {string} username
+ * @param {string} rango
+ *
  * Esta función lo que hace es buscar el perfil del usuario mediante el mail y si existe, permite cambiar los valores.
- * Estos son el username, descripción y rango. 
+ * Estos son el username, descripción y rango.
  */
 export async function editarPerfil(email, description, username, rango) {
   const userRef = collection(db, "usuario");
@@ -264,17 +263,15 @@ export async function editarPerfil(email, description, username, rango) {
   }
 }
 
-
-
 /**
- * 
- * @param {string} email 
- * @param {string} description 
- * @param {string} username 
- * @param {string} rango 
- * 
+ *
+ * @param {string} email
+ * @param {string} description
+ * @param {string} username
+ * @param {string} rango
+ *
  * Esta función lo que hace es buscar el perfil del usuario mediante el mail y si existe, permite cambiar los valores.
- * Estos son el username, descripción y rango. 
+ * Estos son el username, descripción y rango.
  */
 export async function editarPerfilImg(email, photo) {
   const userRef = collection(db, "usuario");
@@ -287,4 +284,37 @@ export async function editarPerfilImg(email, photo) {
   } else {
     throw new Error("No se encontró el usuario con ese email.");
   }
+}
+
+export async function getRandomsUser(mytag, callback) {
+  console.log(mytag)
+
+  let indexUsers = 3;
+  const userRef = collection(db, "usuario");
+  const q = query(userRef);
+  const qSnap = await getDocs(q);
+  if (!qSnap.empty) {
+    const allUsers = qSnap.docs.map((doc) => doc.data());
+    console.log(allUsers)
+    const usersNotMe = allUsers.filter(user => user.usertag !== mytag);
+    console.log(usersNotMe)
+
+    const count = Math.min(indexUsers, usersNotMe.length)
+
+    let randomUsers = [];
+    while(randomUsers.length < count){
+      const randomIndex = Math.floor(Math.random() * usersNotMe.length)
+      const user = usersNotMe[randomIndex]
+
+      if (!randomUsers.includes(user)) {
+        randomUsers.push(user);
+      }
+    }
+   
+    console.log(randomUsers);
+    callback(randomUsers);
+  }
+  
+  callback(randomUsers);
+  
 }

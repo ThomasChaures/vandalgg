@@ -4,12 +4,14 @@ import { subscribeToAuth } from "./service/auth";
 import AppFooter from "./components/AppFooter.vue";
 import AppHeader from "./components/AppHeader.vue";
 
+
 export default {
   name: "App",
   components: { RouterLink, RouterView, AppFooter, AppHeader },
   data() {
     return {
       chats: [],
+      randoms: {},
       userLogged: {
         id: "",
         email: "",
@@ -25,18 +27,20 @@ export default {
     };
   },
   async mounted() {
-    subscribeToAuth((newUserData) => {this.userLogged = newUserData;});
+    subscribeToAuth((newUserData) => {
+      this.userLogged = newUserData;
+    });
   },
   computed: {
-    mostrarHeader(){
+    mostrarHeader() {
       return !!this.userLogged.id || this.$route.meta.nav !== false;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <template>
-  <div class="flex mx-auto max-w-[1260px] relative">
+  <div class="flex mx-auto max-w-[1360px] relative">
     <AppHeader v-if="mostrarHeader" />
     <main class="container min-h-screen pt-[70px] mx-auto">
       <div>

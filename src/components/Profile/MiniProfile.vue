@@ -43,10 +43,10 @@ export default {
 
       <div
         v-if="!userLogged.photo"
-        class="img-perfil absolute top-[35%] left-[50%] transform -translate-x-1/2 bg-gray-200 w-[130px] h-[130px] flex items-center justify-center rounded-full overflow-hidden"
+        class="img-perfil absolute top-[15%] left-[50%] transform -translate-x-1/2 bg-gray-200 w-[100px] h-[100px] flex items-center justify-center rounded-full overflow-hidden"
       >
         <i
-          class="fa-solid absolute bottom-[-2px] text-[106px] fa-user text-gray-500"
+          class="fa-solid absolute bottom-[-2px] text-[87px] fa-user text-gray-500"
         ></i>
       </div>
       <div
