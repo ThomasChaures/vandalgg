@@ -15,7 +15,7 @@ export default{
 </script>
 
 <template>
-    <section class="min-h-screen">
+    <section >
         <h2 class="sr-only">Comentarios</h2>
         <div v-for="(comentario, index) in comentarios" :key="index">
             <Comentario :comentario="comentario"/>

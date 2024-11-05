@@ -11,8 +11,9 @@ export default {
 </script>
 
 <template>
-    <div class="hover:bg-black/50 rounded-xl relative w-full ">
-      <div class="linia absolute  bg-white/20 h-full w-[1px] mt-4 mb-4 top-[20px] left-8"></div>
+  
+    <div class="hover:bg-black/50 bg-slate-950 mb-4 rounded-xl relative w-full ">
+      <div class="linia absolute  z-50 bg-white/10 h-full w-[1px] mt-4 mb-4 top-[20px] left-8"></div>
       <div class="headerMessage  p-4 w-full flex justify-between items-center text-cyan-950">
 
         <div class="flex items-center">
@@ -42,11 +43,11 @@ export default {
             @{{ comentario.usertag }}
           </router-link>
         </div>
-        <div class="message pt-4 pb-4 px-2 text-white/50 text-wrap">
+        <div class="message text-white/50 text-wrap">
           <p class="break-all">{{ comentario.fecha }}</p>
         </div>
       </div>
-      <div class="message pt-4 max-w-[550px] pl-[66px] pb-4 text-white text-wrap">
+      <div class="message pt-2 max-w-[550px] pl-[66px] pb-4 text-white text-wrap">
         <p class="break-all">{{ comentario.comentario }}</p>
       </div>
     </div>

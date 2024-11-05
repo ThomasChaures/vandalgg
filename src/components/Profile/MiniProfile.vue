@@ -27,7 +27,7 @@ export default {
 
 <template>
   <aside
-    class="bg-slate-950 relative max-h-[300px] mt-[40px] max-w-[300px] overflow-hidden rounded-xl"
+    class="bg-slate-950 relative mt-[40px] max-w-[250px] overflow-hidden rounded-xl"
   >
     <router-link :to="'/perfil/' + userLogged.usertag">
       <!-- banner -->

@@ -40,7 +40,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex mx-auto max-w-[1360px] relative">
+  <div class="flex mx-auto max-w-[1250px] relative">
     <AppHeader v-if="mostrarHeader" />
     <main class="container pt-[70px] mx-auto">
       <div>
@@ -48,4 +48,5 @@ export default {
       </div>
     </main>
   </div>
+  <AppFooter/>
 </template>

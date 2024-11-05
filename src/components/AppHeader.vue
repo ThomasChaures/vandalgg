@@ -50,7 +50,7 @@ export default {
 <template>
   <header class="fixed top-0 left-0 z-[2000] w-full flex  shadow-sm bg-slate-950 border-b border-white/10">
     <div
-      class=" h-20 w-[1460px] mx-auto flex items-center justify-between"
+      class=" h-20 w-[1250px] mx-auto flex items-center justify-between"
     >
       <div class="flex gap-4 items-center">
         <router-link :to="'/'">

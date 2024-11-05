@@ -70,18 +70,19 @@ export default {
         }
 
         if (!errorFlag) {
-          await register({
+         const uid = await register({
             ...this.user,
           });
           await crearDatosDeUsuario(
+            uid,
             this.user.email,
             this.collectionUser.username,
             this.collectionUser.usertag,
             1
           );
-          setTimeout(() => {
+          
           this.$router.push("/");
-        }, 2000);
+      
         }
       } catch (err) {
         this.errors.email = "El email es invalido o ya esta en uso.";

@@ -112,8 +112,10 @@ export async function cerrarSesion() {
  */
 export async function register({ email, password }) {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    return true;
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const uid = userCredential.user.uid
+    console.log(uid)
+    return uid;
   } catch (err) {
     throw err;
   }

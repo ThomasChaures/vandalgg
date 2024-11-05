@@ -38,8 +38,8 @@ export default{
 </script>
 
 <template>
-    <div class="mx-auto min-h-screen max-w-[600px]">
-        <section class="mt-10">
+    <div class="mx-auto max-w-[600px]">
+        <section class="mt-10 border-b border-white/20 mb-5 pb-3">
             <h2 class="sr-only">Publicacion</h2>
             <Post v-if="post" :message="post" />
         <div v-else>

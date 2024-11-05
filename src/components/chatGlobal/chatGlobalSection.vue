@@ -43,21 +43,21 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen  w-[100%]">
+  <div class="flex flex-col max-w-[600px]  w-[100%]">
     <section v-if="this.userLogged.id">
       <h2 class="sr-only">Nueva publicacion</h2>
       <chatForm @new-messages="sendMessage" />
     </section>
-    <section>
+    <section class="max-w-[600px] ">
       <h2 class="sr-only">Publicaciones</h2>
       <template v-if="messages.length === 0">
-         <p class='min-h-screen w-full flex item-center justify-center py-20 text-4xl text-cyan-950'>No hay posts publicados.</p>
+         <p class=' w-full flex item-center justify-center py-20 text-4xl text-cyan-950'>No hay posts publicados.</p>
       </template>
       <template v-if="postCargados">
         <chatList class="border-t border-white/10 pt-5"  :messages="messages" />
       </template>
       <template v-else>
-        <div class="relative h-screen">
+        <div class="relative">
           <div class="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <div class="animate-spin rounded-full h-20 w-20  border-t-2 border-b-2 border-blue-500"></div>
           </div>

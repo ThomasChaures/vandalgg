@@ -22,10 +22,12 @@ export default {
 
 <template>
   <div class="flex w-full">
+
+    <div class="w-full justify-between flex items-start ">
       <MiniProfile/>
-    <div class="w-full max-w-[600px]">
-      <chatGlobalSection class="ml-8 mr-8" />
+      <chatGlobalSection/>
+      <RandomUsers :usertag="usertag"/>
     </div>
-       <RandomUsers :usertag="usertag"/>
+      
   </div>
 </template>

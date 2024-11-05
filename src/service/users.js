@@ -117,10 +117,11 @@ export async function darFollow(myemail, useremail, usertag, username, photo) {
  * cual permite mantener las cuentas con mas información.
  */
 
-export async function crearDatosDeUsuario(id, username, usertag) {
+export async function crearDatosDeUsuario(u_id, mail, username, usertag) {
   const userRef = collection(db, "usuario");
   await addDoc(userRef, {
-    id_m: id,
+    u_id: u_id,
+    id_m: mail,
     username: username,
     usertag: usertag,
     description: "Este usuario aun no tiene descripción.",
