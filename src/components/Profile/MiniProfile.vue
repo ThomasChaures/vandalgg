@@ -1,10 +1,14 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
+import ProfileLoaders from "../Loaders/ProfileLoaders.vue";
+let unsubscribeFromAuth = () => {};
 
 export default {
   name: "MiniProfile",
+  components: { ProfileLoaders },
   data() {
     return {
+      loader: false,
       userLogged: {
         id: "",
         email: "",
@@ -20,13 +24,20 @@ export default {
     };
   },
   async mounted() {
-    subscribeToAuth((data) => (this.userLogged = data));
+    unsubscribeFromAuth = subscribeToAuth((data) => {
+      this.userLogged = data;
+      this.loader = true;
+    });
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
 };
 </script>
 
 <template>
   <aside
+    v-if="loader"
     class="bg-slate-950 relative mt-[40px] max-w-[250px] overflow-hidden rounded-xl"
   >
     <router-link :to="'/perfil/' + userLogged.usertag">
@@ -63,11 +74,11 @@ export default {
       <div
         class="pt-[60px] pb-5 w-full flex flex-col justify-center items-center"
       >
-       <div class="flex items-center gap-2 ">
-        <p class="text-white text-2xl font-semibold first-letter:uppercase">
-          {{ userLogged.username }}
-        </p>
-       </div>
+        <div class="flex items-center gap-2">
+          <p class="text-white text-2xl font-semibold first-letter:uppercase">
+            {{ userLogged.username }}
+          </p>
+        </div>
         <p class="text-white/70 text-xl">{{ userLogged.rango }}</p>
       </div>
 
@@ -84,4 +95,7 @@ export default {
       </div>
     </router-link>
   </aside>
+  <div v-else>
+    <ProfileLoaders />
+  </div>
 </template>

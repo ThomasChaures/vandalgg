@@ -1,6 +1,8 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
 import sButton from "../slot/sButton.vue";
+let unsubscribeFromAuth = () => {};
+
 
 export default {
   name: "chatForm",
@@ -30,9 +32,12 @@ export default {
     };
   },
   mounted() {
-    subscribeToAuth((newUserData) => {
+    unsubscribeFromAuth = subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
     });
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
   methods: {
     adjustHeight(event) {

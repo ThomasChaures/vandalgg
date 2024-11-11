@@ -1,6 +1,8 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
 import { getListadoDeChats } from "@/service/chatPrivate";
+let unsubscribeFromAuth = () => {};
+
 
 export default {
   name: "listChats",
@@ -22,10 +24,13 @@ export default {
     };
   },
   async mounted() {
-    subscribeToAuth(newUserData => {
+    unsubscribeFromAuth = subscribeToAuth(newUserData => {
       this.userLogged = newUserData;
       this.loadChats(); 
     });
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
   methods: {
     async loadChats() {

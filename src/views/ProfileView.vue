@@ -9,6 +9,7 @@ import {
   checkFollow,
 } from "@/service/users";
 import ListaSeguidores from "@/components/Profile/ListaSeguidores.vue";
+let unsubscribeFromAuth = () => {};
 
 export default {
   name: "ProfileView",
@@ -53,10 +54,13 @@ export default {
     },
   },
   async mounted() {
-    subscribeToAuth((newUserData) => {
+    unsubscribeFromAuth = subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
       this.cargado = true;
     });
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
   methods: {
     closeModal() {

@@ -3,6 +3,9 @@ import sButton from "@/components/slot/sButton.vue";
 import { subscribeToAuth } from "@/service/auth";
 import { enviarComentarioAlPost } from "@/service/chatGlobal";
 
+let unsubscribeFromAuth = () => {};
+
+
 export default {
   name: "formComentario",
   components: { sButton },
@@ -20,9 +23,12 @@ export default {
   },
 
   mounted() {
-    subscribeToAuth((newUserData) => {
+    unsubscribeFromAuth = subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
     });
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
   methods: {
     formaterData(data) {

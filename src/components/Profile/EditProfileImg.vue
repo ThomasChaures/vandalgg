@@ -1,6 +1,7 @@
 <script>
 import { editarMiFotoDePerfil } from "@/service/auth";
 import { subscribeToAuth } from "@/service/auth";
+let unsubscribeFromAuth = () => {};
 
 export default {
   name: "EditProfileImg",
@@ -13,7 +14,10 @@ export default {
     };
   },
   mounted() {
-    subscribeToAuth((data) => (this.userLogged = data));
+    unsubscribeFromAuth = subscribeToAuth((data) => (this.userLogged = data));
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
   methods: {
     async handleSubmit() {

@@ -4,6 +4,8 @@ import { cerrarSesion, subscribeToAuth } from "@/service/auth";
 import { busqueda } from "@/service/search";
 import sButton from "./slot/sButton.vue";
 import AppNavbar from "./AppNavbar.vue";
+let unsubscribeFromAuth = () => {};
+
 
 export default {
   name: "AppHeader",
@@ -26,9 +28,12 @@ export default {
     };
   },
   async mounted() {
-    subscribeToAuth((newUserData) => {
+    unsubscribeFromAuth = subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
     });
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
   methods: {
     logout() {

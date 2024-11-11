@@ -2,6 +2,7 @@
 import { subscribeToAuth } from "@/service/auth";
 import { editarPerfil } from "@/service/users";
 import error from "@/components/slot/error.vue";
+let unsubscribeFromAuth = () => {};
 
 export default {
   name: "EditProfileView",
@@ -34,7 +35,7 @@ export default {
     };
   },
   mounted() {
-    subscribeToAuth((newUserData) => {
+    unsubscribeFromAuth = subscribeToAuth((newUserData) => {
       if (newUserData) {
         this.userLogged = newUserData;
         this.editProfile.username = this.userLogged.username || "";
@@ -47,7 +48,9 @@ export default {
       }
     });
   },
-
+  async unmounted() {
+    unsubscribeFromAuth();
+  },
   methods: {
     async envioDeFormulario() {
       let flag = false;

@@ -1,6 +1,8 @@
 <script>
 import { cerrarSesion, subscribeToAuth } from "@/service/auth";
 import Router from "./slot/router.vue";
+let unsubscribeFromAuth = () => {};
+
 export default {
   name: "AppNavbar",
   components: { Router },
@@ -21,9 +23,12 @@ export default {
     };
   },
   async mounted() {
-    subscribeToAuth((newUserData) => {
+    unsubscribeFromAuth = subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
     });
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
 };
 </script>

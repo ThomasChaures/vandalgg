@@ -8,6 +8,8 @@ import sButton from "../slot/sButton.vue";
 import blockCode from "./blockCode/blockCode.vue";
 import comentario from "./comentarios/comentario.vue";
 import formComentario from "./comentarios/formComentario.vue";
+let unsubscribeFromAuth = () => {};
+
 
 export default {
   name: "post",
@@ -38,7 +40,10 @@ export default {
     };
   },
   async mounted() {
-    subscribeToAuth((newUserData) => (this.userLogged = newUserData));
+    unsubscribeFromAuth = subscribeToAuth((newUserData) => (this.userLogged = newUserData));
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
   methods: {
     like(id) {
@@ -116,6 +121,7 @@ export default {
       >
         <div class="hover:bg-blue-700/50 rounded-full">
           <svg
+
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

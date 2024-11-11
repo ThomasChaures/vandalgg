@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 import { subscribeToAuth } from "./service/auth";
 import AppFooter from "./components/AppFooter.vue";
 import AppHeader from "./components/AppHeader.vue";
+let unsubscribeFromAuth = () => {};
 
 
 export default {
@@ -27,9 +28,12 @@ export default {
     };
   },
   async mounted() {
-    subscribeToAuth((newUserData) => {
+    unsubscribeFromAuth = subscribeToAuth((newUserData) => {
       this.userLogged = newUserData;
     });
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
   computed: {
     mostrarHeader() {

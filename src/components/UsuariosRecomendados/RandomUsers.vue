@@ -1,8 +1,10 @@
 <script>
 import { getRandomsUser } from "../../service/users";
+import LiLoaders from "../Loaders/LiLoaders.vue";
 
 export default {
   name: "RandomUsers",
+  components: {LiLoaders},
   props: {
     usertag: {
       type: String,
@@ -11,6 +13,7 @@ export default {
   },
   data() {
     return {
+      loader: false,
       users: [],
     };
   },
@@ -19,6 +22,7 @@ export default {
     const tag = this.usertag
     await getRandomsUser(tag, (data) => {
       this.users = data;
+      this.loader = true;
     });
     this.users.forEach((element) => {
       console.log(element.usertag);
@@ -31,7 +35,7 @@ export default {
     <aside class="bg-slate-950  overflow-hidden px-5 py-5 rounded-xl mt-[40px]">
       <p class="text-white font-semibold">Sugerencias</p>
 
-      <ul class="h-full flex flex-col gap-5 mt-6">
+      <ul v-if="loader" class="h-full flex flex-col gap-5 mt-6">
        <li v-for="(user, index) in users" class="text-white flex items-center gap-2" :key="index">
           <router-link :to="'/perfil/' + user.usertag"  class="text-white flex items-center rounded-xl w-full bg-cyan-950/50 transition-all hover:bg-cyan-950 px-1 py-1 gap-2">
             <div
@@ -59,6 +63,11 @@ export default {
           <p class="text-white/50">{{ user.rango }}</p>
           </router-link>
        </li>
+    </ul>
+    <ul class="h-full w-[300px] flex flex-col gap-5 mt-6" v-else>
+      <LiLoaders/>
+      <LiLoaders/>
+      <LiLoaders/>
     </ul>
     </aside>
 </template>

@@ -2,6 +2,8 @@
 import { subscribeToAuth } from "@/service/auth";
 import { RouterLink } from "vue-router";
 import post from "./post.vue";
+let unsubscribeFromAuth = () => {};
+
 
 export default {
   name: "chatList",
@@ -29,7 +31,10 @@ export default {
     };
   },
   mounted() {
-    subscribeToAuth((newUserData) => (this.userLogged = newUserData));
+    unsubscribeFromAuth =  subscribeToAuth((newUserData) => (this.userLogged = newUserData));
+  },
+  async unmounted() {
+    unsubscribeFromAuth();
   },
 };
 </script>
