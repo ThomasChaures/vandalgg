@@ -84,9 +84,7 @@ function notifyAll() {
 export async function login({ email, password }) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    
   } catch (err) {
-   
     throw err;
   }
 }
@@ -112,9 +110,13 @@ export async function cerrarSesion() {
  */
 export async function register({ email, password }) {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const uid = userCredential.user.uid
-    console.log(uid)
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const uid = userCredential.user.uid;
+    console.log(uid);
     return uid;
   } catch (err) {
     throw err;
@@ -131,7 +133,6 @@ export async function editarMiFotoDePerfil(foto, param) {
     await fileUpload(filePath, foto);
 
     const photoURL = await getFileURL(filePath);
-
 
     if (!photoURL) {
       throw new Error(

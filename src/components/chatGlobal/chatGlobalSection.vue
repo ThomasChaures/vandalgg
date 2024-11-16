@@ -37,9 +37,7 @@ export default {
     })
   },
   methods: {
-    sendMessage(newMessage) {
-      enviarMensajeAfirebase(newMessage)
-    }
+  
   }
 }
 </script>
@@ -48,7 +46,7 @@ export default {
   <div class="flex flex-col max-w-[600px]  w-[100%]">
     <section v-if="this.userLogged.id">
       <h2 class="sr-only">Nueva publicacion</h2>
-      <chatForm @new-messages="sendMessage" />
+      <chatForm />
     </section>
     <section class="max-w-[600px] ">
       <h2 class="sr-only">Publicaciones</h2>

@@ -119,7 +119,6 @@ export default {
       @click.self="closeModal"
       class="fixed top-0 left-1/2 z-20 translate-x-[-50%] w-full bg-white/20 min-h-screen"
     >
-      <!-- Escucha el evento `close-modal` en el componente ListaSeguidores -->
       <ListaSeguidores
         @close-modal="closeModal"
         class="fixed top-[20%] left-1/2 translate-x-[-50%] w-[300px] bg-slate-950 min-h-[400px]"
@@ -129,7 +128,7 @@ export default {
   </template>
 
   <div
-    class="min-h-screen mt-10 max-w-[800px] w-full flex flex-col gap-2"
+    class="min-h-screen mt-10 max-w-[800px] mx-auto w-full flex flex-col gap-2"
   >
     <template v-if="this.cargado">
       <div class="relative h-screen">

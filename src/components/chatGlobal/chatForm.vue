@@ -1,17 +1,23 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
+import { addPhotoToChat } from "@/service/chatGlobal";
 import sButton from "../slot/sButton.vue";
+import { enviarMensajeAfirebase } from "@/service/chatGlobal";
+import SubmitPostLoaders from "../Loaders/SubmitPostLoaders.vue";
 let unsubscribeFromAuth = () => {};
-
 
 export default {
   name: "chatForm",
-  emits: ["newMessages"],
-  components: { sButton },
+  components: { sButton, SubmitPostLoaders },
   data() {
     return {
+      modalDelete: false,
+      loaderSubmit: false,
+      message: {},
       fecha: "",
       flagBlockCode: false,
+      photoChat: "",
+      photoPreview: "",
       newMessage: {
         content: "",
         blockCode: "",
@@ -40,10 +46,17 @@ export default {
     unsubscribeFromAuth();
   },
   methods: {
+    deleteImage() {
+      this.photoPreview = "";
+      this.photoChat = "";
+    },
     adjustHeight(event) {
       const textarea = event.target;
       textarea.style.height = "auto";
       textarea.style.height = `${textarea.scrollHeight}px`;
+    },
+    sendMessage(newMessage) {
+      enviarMensajeAfirebase(newMessage);
     },
     formaterData(data) {
       const formater = new Intl.DateTimeFormat("es-AR", {
@@ -55,13 +68,28 @@ export default {
       });
       return formater.format(data).replace(",", "");
     },
+    async handleFileSelection(e) {
+      this.photoChat = e.target.files[0]; // El archivo seleccionado
+      if (!this.photoChat) {
+        console.error("No se ha seleccionado ningún archivo.");
+        return;
+      }
+      // Crear la previsualización de la imagen
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        this.photoPreview = reader.result; // Almacena el resultado para previsualización
+      });
+
+      reader.readAsDataURL(this.photoChat); // Lee el archivo seleccionado para generar previsualización
+    },
     async handleSubmit() {
       if (
         this.userLogged &&
         this.userLogged.id &&
         this.newMessage.content.trim() !== ""
       ) {
-        this.$emit("newMessages", {
+        this.loaderSubmit = true;
+        this.message = {
           user_id: this.userLogged.id,
           email: this.userLogged.email,
           username: this.userLogged.username,
@@ -71,9 +99,16 @@ export default {
           lenguaje: this.newMessage.lenguaje,
           photo: this.userLogged.photo,
           date: this.formaterData(new Date()),
-        });
+          photoChat: "",
+        };
         this.newMessage.content = "";
         this.newMessage.blockCode = "";
+        let chatId = await enviarMensajeAfirebase(this.message);
+        if (this.photoChat) {
+          await addPhotoToChat(this.photoChat, chatId, this.userLogged.id);
+        }
+        this.deleteImage();
+        this.loaderSubmit = false;
       }
     },
   },
@@ -82,8 +117,11 @@ export default {
 
 <template>
   <div
-    class="container p-5 pt-2 bg-slate-950 rounded-xl mt-10 mb-5 pb-4 w-full"
+    class="relative container p-5 pt-2 bg-slate-950 rounded-xl mt-10 mb-5 pb-4 w-full"
   >
+    <template v-if="loaderSubmit">
+      <SubmitPostLoaders />
+    </template>
     <form action="#" @submit.prevent="handleSubmit()" class="bg-slate-950">
       <div class="mb-1 mt-3 relative">
         <div class="absolute">
@@ -148,6 +186,39 @@ export default {
           </textarea>
         </div>
       </div>
+
+      <div
+        v-if="photoPreview"
+        @mouseleave="modalDelete = false"
+        @mouseenter="modalDelete = true"
+        class="relative mt-5 overflow-hidden rounded-xl"
+      >
+        <div
+          v-if="modalDelete"
+          class="absolute duration-150 animate__animated animate__fadeIn bg-slate-800/70 w-full h-full flex items-center justify-center"
+        >
+          <div
+            class="flex items-center bg-red-500 text-white px-4 py-4 rounded-md cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+            <p>Eliminar</p>
+          </div>
+        </div>
+        <img :src="photoPreview" class="object-cover w-full" alt="" />
+      </div>
       <div class="items-center flex justify-between pt-4 mt-2">
         <div class="flex items-center gap-3">
           <div
@@ -188,6 +259,36 @@ export default {
             <option value="java">Java</option>
             <option value="csharp">C#</option>
           </select>
+
+          <div>
+            <label for="image">
+              <div class="hover:bg-blue-700/50 w-7 rounded-full cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-7 text-white"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                  />
+                </svg>
+              </div>
+            </label>
+
+            <input
+              class="hidden"
+              type="file"
+              name="image"
+              id="image"
+              @change="handleFileSelection"
+              accept="image/*"
+            />
+          </div>
         </div>
         <sButton
           :disabled="newMessage.content === ''"

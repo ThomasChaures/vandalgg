@@ -10,8 +10,11 @@ import {
   increment,
   doc,
   where,
+  deleteDoc,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "./firebase";
+import { getFileURL, fileUpload } from "./file-storage";
 
 function tokenizar(contenido) {
   // Convierte el contenido a minúsculas y lo divide en palabras usando espacios como separador.
@@ -70,15 +73,103 @@ export async function enviarMensajeAfirebase(newMessage) {
   const token = tokenizar(post); // Tokenizar el contenido del mensaje
 
   const chatRef = collection(db, "chat");
-  await addDoc(chatRef, {
+  const docRef = await addDoc(chatRef, {
     ...newMessage,
     created_at: serverTimestamp(),
     likes: 0,
     likesBy: [],
-    tokens: token, // Guardar los tokens generados
+    tokens: token, 
     comentarios: 0,
     comentarios_text: [],
   });
+
+  console.log(docRef.id)
+  return docRef.id;
+}
+
+export async function addPhotoToChat(foto, chatId, userId) {
+  try {
+    let filePath = `post/${userId}/${chatId}/imgChat.jpg`;
+    console.log(filePath)
+
+    await fileUpload(filePath, foto);
+
+    const photoURL = await getFileURL(filePath);
+    console.log('url', photoURL)
+    if (!photoURL) {
+      throw new Error(
+        "La URL de la imagen es inválida o no fue generada correctamente."
+      );
+    }
+ 
+
+
+   let editado = await editarImgChat(chatId, photoURL);
+   console.log(editado)
+  } catch (error) {
+    throw new Error("No se pudo subir la imagen. Inténtalo de nuevo.");
+  }
+}
+
+
+export async function editarChat(id, content, blockCode, lenguaje, photoChat) {
+    const docRef = doc(db, "chat", id);
+    const qSnap = await getDoc(docRef);
+
+    if(!qSnap.empty){
+      await updateDoc(docRef, {content, blockCode, lenguaje})
+    } else {
+      throw new Error("No se pudo encontrar la publicacion.");
+    }
+}
+
+export async function editarImgChat(id, photoChat) {
+  console.log('chatId',id)
+  console.log('photo', photoChat)
+  const docRef = doc(db, "chat", id);
+  const qSnap = await getDoc(docRef);
+
+
+  if (!qSnap.empty) {
+    console.log(docRef)
+    console.log('foto subida')
+    return await updateDoc(docRef, { photoChat });
+  } else {
+    throw new Error("No se pudo encontrar la publicacion.");
+  }
+}
+
+export default async function eliminarMensaje(id, userId) {
+  try {
+    const docRef = doc(db, "chat", id);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      console.error(`No existe un documento con ID ${id}`);
+      return;
+    }
+
+    const data = docSnap.data();
+    if (userId === data.user_id) {
+      const comentariosRef = collection(db, "comentario");
+      const comentariosQuery = query(comentariosRef, where("post", "==", id));
+      const comentariosSnap = await getDocs(comentariosQuery);
+
+      const deletePromise = [];
+      comentariosSnap.forEach((comentario) => {
+        deletePromise.push(deleteDoc(doc(db, "comentario", comentario.id)));
+      });
+
+      await Promise.all(deletePromise);
+
+      await deleteDoc(docRef);
+      console.log(`Mensaje con ID ${id} eliminado exitosamente.`);
+    } else {
+      console.warn("No tienes permiso para eliminar este mensaje.");
+    }
+  } catch (error) {
+    console.error("Error al eliminar el mensaje:", error);
+  }
 }
 
 /**
@@ -216,14 +307,13 @@ export function obtenerPost(callback, id) {
     if (doc.exists()) {
       const post = {
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       };
       callback(post);
     } else {
       console.log("El documento no existe");
     }
   });
-  
 }
 
 /**

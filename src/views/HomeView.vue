@@ -23,8 +23,8 @@ export default {
 <template>
   <div class="flex w-full">
 
-    <div class="w-full justify-between flex items-start ">
-      <MiniProfile/>
+    <div class="w-full justify-between max-xl:flex-col flex items-start ">
+      <MiniProfile class="max-xl:hidden" />
       <chatGlobalSection/>
       <RandomUsers :usertag="usertag"/>
     </div>
