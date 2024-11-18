@@ -81,6 +81,7 @@ export async function enviarMensajeAfirebase(newMessage) {
     tokens: token, 
     comentarios: 0,
     comentarios_text: [],
+    editado: false,
   });
 
   console.log(docRef.id)
@@ -112,12 +113,12 @@ export async function addPhotoToChat(foto, chatId, userId) {
 }
 
 
-export async function editarChat(id, content, blockCode, lenguaje, photoChat) {
+export async function editarChat(id, content, blockCode, editado) {
     const docRef = doc(db, "chat", id);
     const qSnap = await getDoc(docRef);
 
     if(!qSnap.empty){
-      await updateDoc(docRef, {content, blockCode, lenguaje})
+      await updateDoc(docRef, {content, blockCode, editado})
     } else {
       throw new Error("No se pudo encontrar la publicacion.");
     }

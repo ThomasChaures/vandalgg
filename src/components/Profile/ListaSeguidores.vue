@@ -5,6 +5,10 @@ export default {
         seguidores: {
             type: Array,
             required: true
+        },
+        type:{
+          type: String,
+          required: true
         }
     }
 }
@@ -35,7 +39,7 @@ export default {
       </div>
       
       <!-- Título -->
-      <p class="py-3 border-b border-white/20 px-10 font-semibold text-center text-xl text-white">Seguidores</p>
+      <p class="py-3 border-b border-white/20 px-10 font-semibold text-center text-xl text-white">{{ type }}</p>
       
       <!-- Lista de Seguidores -->
       <ul class="mt-4 px-10 flex flex-col gap-2">

@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       modalSeguidores: false,
+      modalSeguidos: false,
       modalEdit: false,
       usertag: this.$route.params.usertag,
       myProfile: null,
@@ -66,6 +67,7 @@ export default {
     closeModal() {
       this.modalEdit = false;
       this.modalSeguidores = false;
+      this.modalSeguidos = false;
       console.log(this.modalSeguidores);
     },
     async loadData() {
@@ -121,11 +123,26 @@ export default {
     >
       <ListaSeguidores
         @close-modal="closeModal"
+         :type="'Seguidores'"
         class="fixed top-[20%] left-1/2 translate-x-[-50%] w-[300px] bg-slate-950 min-h-[400px]"
         :seguidores="userProfile.seguidores_cuentas"
       />
     </div>
   </template>
+  <template v-if="modalSeguidos">
+    <div
+      @click.self="closeModal"
+      class="fixed top-0 left-1/2 z-20 translate-x-[-50%] w-full bg-white/20 min-h-screen"
+    >
+      <ListaSeguidores
+        @close-modal="closeModal"
+        :type="'Seguidos'"
+        class="fixed top-[20%] left-1/2 translate-x-[-50%] w-[300px] bg-slate-950 min-h-[400px]"
+        :seguidores="userProfile.seguidos_cuentas"
+      />
+    </div>
+  </template>
+
 
   <div
     class="min-h-screen mt-10 max-w-[800px] mx-auto w-full flex flex-col gap-2"
@@ -214,8 +231,9 @@ export default {
         <!--  -->
 
         <template v-if="!myProfile">
+          
           <div
-            class="follow-button absolute top-[48%] left-[85%] transform -translate-x-1/2"
+            class="follow-button flex gap-x-2 absolute top-[48%] left-[85%] transform -translate-x-1/2"
           >
             <form action="#" @submit.prevent="seguir()">
               <template v-if="!seguido">
@@ -233,6 +251,8 @@ export default {
                 </button>
               </template>
             </form>
+
+            <router-link :to="`/mensajes/${userProfile.usertag}`"  class="border transition-all hover:border-white w-[130px] hover:bg-green-500 hover:text-white rounded-xl flex items-center justify-evenly text-white bg-cyan-950">Mensaje privado</router-link>
           </div>
         </template>
 
@@ -262,7 +282,7 @@ export default {
             {{ userProfile.seguidores }}
             <span class="text-white/50">Seguidores</span>
           </p>
-          <p class="mr-4">
+          <p class="mr-4 cursor-pointer"   @click="modalSeguidos = true">
             {{ userProfile.seguidos }}
             <span class="text-white/50">Seguidos</span>
           </p>

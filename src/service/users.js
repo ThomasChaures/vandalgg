@@ -70,8 +70,18 @@ export async function darFollow(myemail, useremail, usertag, username, photo) {
   }
 
   const usersRef = collection(db, "usuario");
-  const q = query(usersRef, where("id_m", "==", useremail));
 
+  const qYo = query(usersRef, where("id_m", "==", myemail));
+  const qSnapYo = await getDocs(qYo);
+
+  if (qSnapYo.empty) {
+    return null;
+  }
+
+  const yoDoc = qSnapYo.docs[0];
+  const yoData = yoDoc.data();
+
+  const q = query(usersRef, where("id_m", "==", useremail));
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
@@ -82,15 +92,27 @@ export async function darFollow(myemail, useremail, usertag, username, photo) {
   const userData = userDoc.data();
 
   try {
-    if (
-      !userData.seguidores_cuentas ||
-      !userData.seguidores_cuentas?.some((cuenta) => (cuenta.usertag = usertag))
-    ) {
+    const alreadyFollowing = userData.seguidores_cuentas?.some(
+      (cuenta) => cuenta.usertag === usertag
+    );
+
+    if (!alreadyFollowing) {
       await updateDoc(userDoc.ref, {
         seguidores: increment(1),
         seguidores_cuentas: [
           ...(userData.seguidores_cuentas || []),
           { usertag, photo, username },
+        ],
+      });
+      await updateDoc(yoDoc.ref, {
+        seguidos: increment(1),
+        seguidos_cuentas: [
+          ...(yoData.seguidos_cuentas || []),
+          {
+            usertag: userData.usertag,
+            photo: userData.photo,
+            username: userData.username,
+          },
         ],
       });
       return true;
@@ -101,12 +123,20 @@ export async function darFollow(myemail, useremail, usertag, username, photo) {
           (cuenta) => cuenta.usertag !== usertag
         ),
       });
+      await updateDoc(yoDoc.ref, {
+        seguidos: increment(-1),
+        seguidos_cuentas: yoData.seguidos_cuentas.filter(
+          (cuenta) => cuenta.usertag !== userData.usertag
+        ),
+      });
       return false;
     }
   } catch (err) {
     console.error("Error al actualizar el documento:", err);
+    return null;
   }
 }
+
 
 /**
  *  @param {string} id
@@ -288,34 +318,37 @@ export async function editarPerfilImg(email, photo) {
 }
 
 export async function getRandomsUser(mytag, callback) {
-  console.log(mytag);
+  console.log(`Mytag recibido: ${mytag}`);
 
   let indexUsers = 3;
   const userRef = collection(db, "usuario");
   const q = query(userRef);
   const qSnap = await getDocs(q);
+
   if (!qSnap.empty) {
     const allUsers = qSnap.docs.map((doc) => doc.data());
-    console.log(allUsers);
-    
-    // Filtrar usuarios excluyendo el usuario con el mytag especificado
-    const usersNotMe = allUsers.filter(user => user.usertag !== mytag);
-    console.log(usersNotMe);
+    console.log("Todos los usuarios:", allUsers);
+
+    // Filtrar usuarios excluyendo al usuario con el mytag especificado
+    const usersNotMe = allUsers.filter((user) => {
+      console.log(`Comparando ${user.usertag} con ${mytag}`);
+      return user.usertag.trim().toLowerCase() !== mytag.trim().toLowerCase();
+    });
+    console.log("Usuarios sin incluirme:", usersNotMe);
 
     const count = Math.min(indexUsers, usersNotMe.length);
 
     let randomUsers = [];
-    while(randomUsers.length < count) {
+    while (randomUsers.length < count) {
       const randomIndex = Math.floor(Math.random() * usersNotMe.length);
       const user = usersNotMe[randomIndex];
 
-      if (!randomUsers.includes(user)) {
+      if (!randomUsers.some((u) => u.usertag === user.usertag)) {
         randomUsers.push(user);
       }
     }
 
-    console.log(randomUsers);
+    console.log("Usuarios aleatorios seleccionados:", randomUsers);
     callback(randomUsers);
   }
 }
-

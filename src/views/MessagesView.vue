@@ -5,19 +5,15 @@ import {
   subscribeToPrivateChat,
 } from "@/service/chatPrivate";
 import { localizarLosDatosDelUsuarioLoggeadoByUsertag } from "@/service/users";
-// import ListChats from "@/components/chatPrivado/listChats.vue";
+
 let unsubscribeFromAuth = () => {};
 
 export default {
   name: "MessagesView",
-  // components: {ListChats},
   data() {
     return {
-      // datos de usuarios
       userChat: {},
       userLogged: {},
-
-      // datos de chat
 
       messages: [],
       newMessage: {
@@ -61,30 +57,29 @@ export default {
 </script>
 
 <template>
-  <section>
-    <form @submit.prevent="handleSubmite">
-      <input type="text" v-model="newMessage.text" />
-      <button type="submit">enviar</button>
-    </form>
-  </section>
-  <section class="mt-20 text-white text-4xl">
-    <h1>Chat con {{ userChat.id_m }}</h1>
+
+  <section class="mt-20 text-white max-w-[600px] container mx-auto text-4xl">
+    <h2>Chat con {{ userChat.usertag}}</h2>
 
     <div>
-      <ul class="flex flex-col items-start gap-4">
+      <ul class="flex flex-col items-start rounded-xl h-[500px]  py-2 bg-slate-700 gap-4">
         <li
           v-for="(m, index) in messages"
           :key="index"
           :class="{ 
             'bg-gray-600': m.user_id !== userLogged.usertag ,
-            'bg-green-600 self-end': m.user_id === userLogged.usertag 
+            'bg-green-600 text-2xl px-2 mx-2 rounded-xl self-end': m.user_id === userLogged.usertag 
           }">
           {{ m.content }}
         </li>
       </ul>
     </div>
   </section>
-  <!-- <section>
-     <ListChats/>
-  </section> -->
+  <section>
+    <h2 class="sr-only">Enviar mensaje</h2>
+    <form @submit.prevent="handleSubmite">
+      <input type="text" v-model="newMessage.text" />
+      <button type="submit">enviar</button>
+    </form>
+  </section>
 </template>

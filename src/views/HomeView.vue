@@ -6,17 +6,6 @@ import RandomUsers from '@/components/UsuariosRecomendados/RandomUsers.vue';
 export default {
   name: 'HomeView',
   components: { chatGlobalSection, MiniProfile, RandomUsers },
-  data(){
-    return{
-        usertag: ''
-    }
-  },
-  mounted(){
-    let local = localStorage.getItem('user')
-    let usuario = JSON.parse(local)
-    this.usertag = usuario.usertag
-    console.log(this.usertag)
-  }
 }
 </script>
 
@@ -26,7 +15,7 @@ export default {
     <div class="w-full justify-between max-xl:flex-col flex items-start ">
       <MiniProfile class="max-xl:hidden" />
       <chatGlobalSection/>
-      <RandomUsers :usertag="usertag"/>
+      <RandomUsers/>
     </div>
       
   </div>

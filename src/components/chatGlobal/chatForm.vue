@@ -191,13 +191,13 @@ export default {
         v-if="photoPreview"
         @mouseleave="modalDelete = false"
         @mouseenter="modalDelete = true"
-        class="relative mt-5 overflow-hidden rounded-xl"
+        class="relative mt-5 overflow-hidden w-full max-h-full rounded-xl"
       >
         <div
           v-if="modalDelete"
           class="absolute duration-150 animate__animated animate__fadeIn bg-slate-800/70 w-full h-full flex items-center justify-center"
         >
-          <div
+          <button @click="deleteImage"
             class="flex items-center bg-red-500 text-white px-4 py-4 rounded-md cursor-pointer"
           >
             <svg
@@ -215,9 +215,9 @@ export default {
               />
             </svg>
             <p>Eliminar</p>
-          </div>
+          </button>
         </div>
-        <img :src="photoPreview" class="object-cover w-full" alt="" />
+        <img :src="photoPreview" class="object-cover size-[100%]" alt="" />
       </div>
       <div class="items-center flex justify-between pt-4 mt-2">
         <div class="flex items-center gap-3">

@@ -5,12 +5,6 @@ import LiLoaders from "../Loaders/LiLoaders.vue";
 export default {
   name: "RandomUsers",
   components: {LiLoaders},
-  props: {
-    usertag: {
-      type: String,
-      required: true,
-    },
-  },
   data() {
     return {
       loader: false,
@@ -18,15 +12,18 @@ export default {
     };
   },
   async mounted() {
-    console.log(this.usertag)
-    const tag = this.usertag
-    await getRandomsUser(tag, (data) => {
+ 
+    let local = localStorage.getItem('user')
+    let usuario = JSON.parse(local)
+    const tag  = usuario.usertag
+    console.log('tag:', this.usertag)
+ 
+ 
+      await getRandomsUser(tag, (data) => {
       this.users = data;
       this.loader = true;
     });
-    this.users.forEach((element) => {
-      console.log(element.usertag);
-    });
+  
   },
 };
 </script>

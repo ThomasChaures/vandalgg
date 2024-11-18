@@ -43,7 +43,7 @@ export default {
         rango: null,
         photo: null,
       },
-      isLiking: false, // Controla si el botón de like está habilitado o no
+      isLiking: false, 
     };
   },
   async mounted() {
@@ -66,25 +66,25 @@ export default {
     },
     async deleteChat() {
       if (!this.isLiking) {
-        // Establecer estados iniciales
+        
         this.deleteLoader = true;
         this.isLiking = true;
         this.toolbar = false;
 
         try {
-          // Esperar a que la función eliminarMensaje termine
-          console.log(this.message); // Para depuración, si es necesario
+         
+          console.log(this.message); 
           await eliminarMensaje(this.message.id, this.userLogged.id);
 
-          // Añadir un retraso mínimo de 1 segundo
+          
           await new Promise((resolve) => setTimeout(resolve, 1000));
 
-          // Redirigir después del retraso
+         
           this.$router.push(`/`);
         } catch (error) {
           console.error("Error al eliminar el mensaje:", error);
         } finally {
-          // Restablecer los estados
+         
           this.deleteLoader = false;
           this.isLiking = false;
         }
@@ -114,7 +114,7 @@ export default {
       v-if="toolbar"
     >
       <ul class="flex flex-col gap-2 text-white">
-        <li class="bg-slate-800 hover:bg-slate-950 transition-all rounded-md text-center px-2">Editar</li>
+        <li class="bg-slate-800 hover:bg-slate-950 transition-all rounded-md text-center px-2"><router-link :to="`/publicacion/${message.id}/editar`">Editar</router-link></li>
         <li
           class="bg-slate-800 hover:bg-slate-950 transition-all rounded-md text-center px-2"
           @click="deleteChat"
@@ -165,6 +165,10 @@ export default {
           >
             @{{ message.usertag }}
           </router-link>
+
+          <div class="text-sm z-10 pl-2 opacity-60" v-if="message.editado">
+            <p>(Editado)</p>
+          </div>
         </div>
       </div>
 
@@ -205,8 +209,8 @@ export default {
     </template>
 
     <template v-if="message.photoChat">
-      <div class="mb-4 rounded-xl w-full overflow-hidden">
-        <img :src="message.photoChat" class="w-full object-cover" alt="" />
+      <div class="mb-4 rounded-xl w-full h-full overflow-hidden">
+        <img :src="message.photoChat" class="object-cover size-[100%]" alt="" />
       </div>
     </template>
 
