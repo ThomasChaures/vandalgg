@@ -1,7 +1,7 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
 import { editarPerfil } from "@/service/users";
-import error from "@/components/slot/Error.vue";
+import error from "@/components/slot/error.vue";
 let unsubscribeFromAuth = () => {};
 
 export default {

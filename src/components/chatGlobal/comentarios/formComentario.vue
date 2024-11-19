@@ -1,5 +1,5 @@
 <script>
-import sButton from "@/components/slot/SButton.vue";
+import sButton from "@/components/slot/sButton.vue";
 import { subscribeToAuth } from "@/service/auth";
 import { enviarComentarioAlPost } from "@/service/chatGlobal";
 

@@ -1,7 +1,7 @@
 <script>
 import { busqueda } from "@/service/search";
 import post from "@/components/chatGlobal/Post.vue";
-import sButton from "@/components/slot/SButton.vue";
+import sButton from "@/components/slot/sButton.vue";
 
 export default {
   name: "SearchView",

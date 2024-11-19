@@ -1,7 +1,7 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
 import { darLike} from "@/service/chatGlobal";
-import sButton from "../slot/SButton.vue";
+import sButton from "../slot/sButton.vue";
 import blockCode from "./blockCode/BlockCode.vue";
 import comentario from "./comentarios/Comentario.vue";
 import formComentario from "./comentarios/FormComentario.vue";

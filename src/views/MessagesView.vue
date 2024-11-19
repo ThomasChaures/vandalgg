@@ -1,6 +1,6 @@
 <script>
-import Router from "@/components/slot/Router.vue";
-import SButton from "@/components/slot/SButton.vue";
+import Router from "@/components/slot/router.vue";
+import SButton from "@/components/slot/sButton.vue";
 import { subscribeToAuth } from "@/service/auth";
 import {
   savePrivateChatMessage,

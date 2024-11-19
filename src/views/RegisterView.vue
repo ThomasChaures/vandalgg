@@ -1,7 +1,7 @@
 <script>
 import { register } from "@/service/auth";
 import { crearDatosDeUsuario, esUnicoTag } from "@/service/users";
-import Error from "@/components/slot/Error.vue";
+import Error from "@/components/slot/error.vue";
 
 export default {
   name: "RegisterView",
