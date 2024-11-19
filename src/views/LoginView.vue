@@ -1,6 +1,6 @@
 <script>
 import { login } from "@/service/auth";
-import error from '../components/slot/Error.vue';
+import error from '../components/slot/error.vue';
 import GeneralLoaders from "@/components/Loaders/GeneralLoaders.vue";
 export default {
   name: "LoginView",
