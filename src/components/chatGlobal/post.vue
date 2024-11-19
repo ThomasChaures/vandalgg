@@ -1,7 +1,7 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
-import { darLike, getComentariosDelPost } from "@/service/chatGlobal";
-import sButton from "../slot/sButton.vue";
+import { darLike} from "@/service/chatGlobal";
+import sButton from "../slot/SButton.vue";
 import blockCode from "./blockCode/blockCode.vue";
 import comentario from "./comentarios/comentario.vue";
 import formComentario from "./comentarios/formComentario.vue";
@@ -209,10 +209,14 @@ export default {
     </template>
 
     <template v-if="message.photoChat">
-      <div class="mb-4 rounded-xl w-full h-full overflow-hidden">
-        <img :src="message.photoChat" class="object-cover size-[100%]" alt="" />
-      </div>
-    </template>
+  <div class="mb-4 rounded-xl w-full max-h-[600px] overflow-hidden">
+    <img 
+      :src="message.photoChat" 
+      class="object-cover w-full" 
+      alt="Imagen del mensaje" 
+    />
+  </div>
+</template>
 
     <div class="interaccion z-20 flex items-center">
       <div

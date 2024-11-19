@@ -1,7 +1,7 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
 import { editarPerfil } from "@/service/users";
-import error from "@/components/slot/error.vue";
+import error from "@/components/slot/Error.vue";
 let unsubscribeFromAuth = () => {};
 
 export default {
@@ -58,9 +58,9 @@ export default {
       if (!this.editProfile.username) {
         flag = true;
         this.errors.username = "El nombre no puede estar vacío.";
-      } else if (this.editProfile.username.length > 10) {
+      } else if (!this.editProfile.username.length > 3) {
         flag = true;
-        this.errors.username = "El nombre no puede tener más de 10 caracteres.";
+        this.errors.username = "El nombre debe tener más de 3 caracteres.";
       }
 
       if (!this.editProfile.description) {

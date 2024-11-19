@@ -50,6 +50,7 @@ export default {
     "$route.params.usertag": function (newUsertag) {
       this.usertag = newUsertag;
       this.modalEdit = false;
+      this.modalSeguidos = false;
       this.modalSeguidores = false;
       this.loadData();
     },
@@ -123,7 +124,7 @@ export default {
     >
       <ListaSeguidores
         @close-modal="closeModal"
-         :type="'Seguidores'"
+        :type="'Seguidores'"
         class="fixed top-[20%] left-1/2 translate-x-[-50%] w-[300px] bg-slate-950 min-h-[400px]"
         :seguidores="userProfile.seguidores_cuentas"
       />
@@ -142,7 +143,6 @@ export default {
       />
     </div>
   </template>
-
 
   <div
     class="min-h-screen mt-10 max-w-[800px] mx-auto w-full flex flex-col gap-2"
@@ -170,7 +170,7 @@ export default {
         class="bg-slate-950 mb-5 pb-1 relative rounded-xl overflow-hidden min-h-[400px]"
       >
         <div
-          class="banner overflow-hidden bg-black  max-h-[210px] object-contain border-b border-white/10"
+          class="banner overflow-hidden bg-black max-h-[210px] object-contain border-b border-white/10"
         >
           <img
             class="w-full h-full"
@@ -231,7 +231,6 @@ export default {
         <!--  -->
 
         <template v-if="!myProfile">
-          
           <div
             class="follow-button flex gap-x-2 absolute top-[48%] left-[85%] transform -translate-x-1/2"
           >
@@ -252,7 +251,11 @@ export default {
               </template>
             </form>
 
-            <router-link :to="`/mensajes/${userProfile.usertag}`"  class="border transition-all hover:border-white w-[130px] hover:bg-green-500 hover:text-white rounded-xl flex items-center justify-evenly text-white bg-cyan-950">Mensaje privado</router-link>
+            <router-link
+              :to="`/mensajes/${userProfile.usertag}`"
+              class="border transition-all hover:border-white w-[130px] hover:bg-green-500 hover:text-white rounded-xl flex items-center justify-evenly text-white bg-cyan-950"
+              >Mensaje privado</router-link
+            >
           </div>
         </template>
 
@@ -282,7 +285,7 @@ export default {
             {{ userProfile.seguidores }}
             <span class="text-white/50">Seguidores</span>
           </p>
-          <p class="mr-4 cursor-pointer"   @click="modalSeguidos = true">
+          <p class="mr-4 cursor-pointer" @click="modalSeguidos = true">
             {{ userProfile.seguidos }}
             <span class="text-white/50">Seguidos</span>
           </p>

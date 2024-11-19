@@ -1,7 +1,7 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
 import { addPhotoToChat } from "@/service/chatGlobal";
-import sButton from "../slot/sButton.vue";
+import sButton from "../slot/SButton.vue";
 import { enviarMensajeAfirebase } from "@/service/chatGlobal";
 import SubmitPostLoaders from "../Loaders/SubmitPostLoaders.vue";
 let unsubscribeFromAuth = () => {};

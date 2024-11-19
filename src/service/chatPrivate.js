@@ -18,8 +18,8 @@ import { db } from "./firebase";
 
 let chatDocCache = {};
 
-function getCacheKey(senderTag, receiverTag){
-  return [senderTag, receiverTag].sort().join("_")
+function getCacheKey(senderId, receiverId){
+  return [senderId, receiverId].sort().join("_")
 }
 function getPrivateChatDocFromCache(key){
   return chatDocCache[key] || null
@@ -28,10 +28,10 @@ function getPrivateChatDocFromCache(key){
 function addPrivateChatDocToCache(key, doc){
   chatDocCache[key] = doc
 }
-async function getPrivateChat(senderTag, receiverTag) {
+async function getPrivateChat(senderId, receiverId) {
 
 
-  const cacheKey = getCacheKey(senderTag, receiverTag);
+  const cacheKey = getCacheKey(senderId, receiverId);
   const cacheDoc = getPrivateChatDocFromCache(cacheKey);
 
   if(cacheDoc) return cacheDoc
@@ -41,8 +41,8 @@ async function getPrivateChat(senderTag, receiverTag) {
   const q = query(
     chatRef,
     where("users", "==", {
-      [senderTag]: true,
-      [receiverTag]: true,
+      [senderId]: true,
+      [receiverId]: true,
     }),
     limit(1)
   );
@@ -53,10 +53,10 @@ async function getPrivateChat(senderTag, receiverTag) {
   if (chatSnap.empty) {
     chatDoc = await addDoc(chatRef, {
       users: {
-        [senderTag]: true,
-        [receiverTag]: true,
+        [senderId]: true,
+        [receiverId]: true,
       },
-      usersArray: [senderTag, receiverTag],
+      usersArray: [senderId, receiverId],
     });
   } else {
     chatDoc = chatSnap.docs[0];
@@ -67,20 +67,21 @@ async function getPrivateChat(senderTag, receiverTag) {
   return chatDoc;
 }
 
-export async function savePrivateChatMessage(senderTag, receiverTag, text) {
-  const chatDoc = await getPrivateChat(senderTag, receiverTag);
+export async function savePrivateChatMessage(senderId, receiverId, text, usertag) {
+  const chatDoc = await getPrivateChat(senderId, receiverId);
 
   const messagesRef = collection(db, `private-chats/${chatDoc.id}/messages`);
 
   await addDoc(messagesRef, {
-    user: senderTag,
+    user_id: senderId,
+    usertag: usertag,
     content: text,
     created_at: serverTimestamp(),
   });
 }
 
-export async function subscribeToPrivateChat(senderTag, receiverTag, callback) {
-  const chatDoc = await getPrivateChat(senderTag, receiverTag);
+export async function subscribeToPrivateChat(senderId, receiverId, callback) {
+  const chatDoc = await getPrivateChat(senderId, receiverId);
   const messagesRef = collection(db, `private-chats/${chatDoc.id}/messages`);
 
   const q = query(messagesRef, orderBy("created_at"));
@@ -88,7 +89,7 @@ export async function subscribeToPrivateChat(senderTag, receiverTag, callback) {
     const messages = snap.docs.map((doc) => {
       return {
         id: doc.id,
-        user_id: doc.data().user,
+        user_id: doc.data().user_id,
         content: doc.data().content,
         created_at: doc.data().created_at,
       };
@@ -97,50 +98,48 @@ export async function subscribeToPrivateChat(senderTag, receiverTag, callback) {
   });
 }
 
-async function getDocIds(usertag, callback) {
+async function getDocIds(user_id) {
   const chatRef = collection(db, "private-chats");
-
-  console.log(usertag);
-
-  const q = query(chatRef, where("usersArray", "array-contains", usertag));
+  const q = query(chatRef, where("usersArray", "array-contains", user_id));
 
   try {
     const querySnapshot = await getDocs(q);
-    const chats = querySnapshot.docs.map((doc) => {
-      console.log(doc);
-      return {
-        id: doc.id,
-      };
-    });
 
-    callback(chats);
+
+    return querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+    }));
   } catch (error) {
     console.error("Error al obtener los documentos: ", error);
-    callback([]);
+    return []; 
   }
 }
 
-export async function getListadoDeChats(usertag) {
+
+ async function getListadoDeChats(user_id) {
   const docsC = [];
 
-  await getDocIds(usertag, async (chats) => {
-    for (const chat of chats) {
-      console.log(chat);
-      const messagesRef = collection(db, `private-chats/${chat.id}/messages`);
 
-      const q = query(messagesRef, orderBy("created_at", "desc"), limit(1));
-      const messageSnap = await getDocs(q);
+  const chats = await getDocIds(user_id); 
 
-      messageSnap.forEach((doc) => {
-        docsC.push({
-          chatId: chat.id,
-          nombre: doc.data().user,
-          contenido: doc.data().content,
-          fecha: doc.data().created_at,
-        });
+
+  for (const chat of chats) {
+    console.log(chat);
+
+    const messagesRef = collection(db, `private-chats/${chat.id}/messages`);
+    const q = query(messagesRef, orderBy("created_at", "desc"), limit(1));
+    const messageSnap = await getDocs(q);
+
+    messageSnap.forEach((doc) => {
+      docsC.push({
+        chatId: chat.id,
+        nombre: doc.data().usertag,
+        contenido: doc.data().content,
+        fecha: doc.data().created_at,
       });
-    }
-  });
+    });
+  }
 
-  return docsC;
+  return docsC; 
 }
+
