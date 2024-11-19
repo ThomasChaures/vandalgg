@@ -7,7 +7,7 @@ import PostLoaders from '../Loaders/PostLoaders.vue'
 
 
 export default {
-  name: 'chatGlobalSection',
+  name: 'ChatGlobalSection',
   components: { chatForm, chatList, PostLoaders },
   data() {
     return {
