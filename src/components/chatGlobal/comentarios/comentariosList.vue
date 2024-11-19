@@ -1,10 +1,10 @@
 <script>
-import Comentario from './Comentario.vue';
+import comentario from './comentario.vue';
 
 
 export default{
     name: 'comentariosList',
-    components: {Comentario},
+    components: {comentario},
     props: {
         comentarios: {
             type: Object,
@@ -18,7 +18,7 @@ export default{
     <section >
         <h2 class="sr-only">Comentarios</h2>
         <div v-for="(comentario, index) in comentarios" :key="index">
-            <Comentario :comentario="comentario"/>
+            <comentario :comentario="comentario"/>
         </div>
     </section>
 </template>

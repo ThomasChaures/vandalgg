@@ -1,7 +1,7 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
 import { obtenerPostsDeUsuarioById } from "@/service/chatGlobal";
-import chatList from "@/components/chatGlobal/ChatList.vue";
+import chatList from "@/components/chatGlobal/chatList.vue";
 import EditProfileImgView from "../components/Profile/EditProfileImg.vue";
 import {
   darFollow,

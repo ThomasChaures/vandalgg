@@ -1,6 +1,6 @@
 <script>
 import { busqueda } from "@/service/search";
-import post from "@/components/chatGlobal/Post.vue";
+import post from "@/components/chatGlobal/post.vue";
 import sButton from "@/components/slot/sButton.vue";
 
 export default {
