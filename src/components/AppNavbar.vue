@@ -1,6 +1,6 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
-import Router from "./slot/Router.vue";
+import Router from "./slot/router.vue";
 let unsubscribeFromAuth = () => {};
 
 export default {

@@ -1,7 +1,7 @@
 <script>
 import { RouterLink } from "vue-router";
 import { cerrarSesion, subscribeToAuth } from "@/service/auth";
-import sButton from "./slot/SButton.vue";
+import sButton from "./slot/sButton.vue";
 import AppNavbar from "./AppNavbar.vue";
 let unsubscribeFromAuth = () => {};
 
