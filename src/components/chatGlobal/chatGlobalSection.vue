@@ -1,6 +1,6 @@
 <script>
-import chatForm from './ChatForm.vue'
-import chatList from './ChatList.vue'
+import chatForm from './chatForm.vue'
+import chatList from './chatList.vue'
 import { cambiosEnElChat } from '@/service/chatGlobal.js'
 import { subscribeToAuth } from '@/service/auth'
 import PostLoaders from '../Loaders/PostLoaders.vue'

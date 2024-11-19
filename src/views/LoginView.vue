@@ -37,14 +37,13 @@ export default {
 </script>
 
 <template>
-      <template v-if="loading">
-        <Section>
+
+        <Section v-if="loading">
           <GeneralLoaders/>
         </Section>
  
-    </template>
-  <section
-    class="w-full fixed h-full animate__animated animate__fadeInLeft top-[0%] left-[0%] translate-y-[-50%] max-w-[50%] bg-slate-950 shadow-sm"
+
+  <section class="w-full fixed h-full animate__animated animate__fadeInLeft top-[0%] left-[0%] translate-y-[-50%] max-w-[50%] bg-slate-950 shadow-sm"
   >
 
 
@@ -96,8 +95,7 @@ export default {
           <router-link to="/registro"
             ><span class="text-blue-500 underline"
               >Registrate!</span
-            ></router-link
-          >
+            ></router-link>
         </p>
       </form>
     </div>

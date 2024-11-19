@@ -1,5 +1,5 @@
 <script>
-import ChatGlobalSection from "@/components/chatGlobal/ChatGlobalSection.vue";
+import ChatGlobalSection from "@/components/chatGlobal/chatGlobalSection.vue";
 import MiniProfile from "@/components/Profile/MiniProfile.vue";
 import RandomUsers from "@/components/UsuariosRecomendados/RandomUsers.vue";
 import MessageList from "@/components/chatPrivate/MessageList.vue";
