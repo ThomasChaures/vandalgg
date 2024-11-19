@@ -1,5 +1,5 @@
 <script>
-import { cerrarSesion, subscribeToAuth } from "@/service/auth";
+import { subscribeToAuth } from "@/service/auth";
 import Router from "./slot/Router.vue";
 let unsubscribeFromAuth = () => {};
 
