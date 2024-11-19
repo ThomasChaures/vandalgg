@@ -52,14 +52,14 @@ export default {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 z-[2000] w-full flex  shadow-sm bg-slate-950 border-b border-white/10">
+  <header class="fixed top-0 left-0 z-[2000] w-full flex shadow-sm bg-slate-950 border-b border-white/10">
     <div
-      class=" h-20 w-[1250px] mx-auto flex items-center justify-between"
+      class=" h-20 max-w-[1250px] container  mx-auto flex items-center justify-between"
     >
       <div class="flex gap-4 items-center">
         <router-link :to="'/'">
           <h1
-          class="text-4xl mb-2 max-[700px]:text-xl text-white font-bold"
+          class="text-4xl mb-2   max-[700px]:text-xl text-white font-bold"
         >
           DevLog
         </h1>

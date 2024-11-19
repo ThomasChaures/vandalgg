@@ -1,6 +1,6 @@
 <script>
-import ComentariosList from '@/components/chatGlobal/comentarios/comentariosList.vue';
-import Post from '@/components/chatGlobal/post.vue';
+import ComentariosList from '@/components/chatGlobal/comentarios/ComentariosList.vue';
+import Post from '@/components/chatGlobal/Post.vue';
 import ComentarioLoaders from '@/components/Loaders/ComentarioLoaders.vue';
 import PostLoaders from '@/components/Loaders/PostLoaders.vue';
 import { subscribeToAuth } from '@/service/auth';

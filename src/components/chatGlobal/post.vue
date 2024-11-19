@@ -2,9 +2,9 @@
 import { subscribeToAuth } from "@/service/auth";
 import { darLike} from "@/service/chatGlobal";
 import sButton from "../slot/SButton.vue";
-import blockCode from "./blockCode/blockCode.vue";
-import comentario from "./comentarios/comentario.vue";
-import formComentario from "./comentarios/formComentario.vue";
+import blockCode from "./blockCode/BlockCode.vue";
+import comentario from "./comentarios/Comentario.vue";
+import formComentario from "./comentarios/FormComentario.vue";
 import eliminarMensaje from "@/service/chatGlobal";
 import SubmitPostLoaders from "../Loaders/SubmitPostLoaders.vue";
 let unsubscribeFromAuth = () => {};

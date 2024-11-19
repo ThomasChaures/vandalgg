@@ -1,7 +1,7 @@
 <script>
-import chatForm from './chatForm.vue'
-import chatList from './chatList.vue'
-import { enviarMensajeAfirebase, cambiosEnElChat } from '@/service/chatGlobal.js'
+import chatForm from './ChatForm.vue'
+import chatList from './ChatList.vue'
+import { cambiosEnElChat } from '@/service/chatGlobal.js'
 import { subscribeToAuth } from '@/service/auth'
 import PostLoaders from '../Loaders/PostLoaders.vue'
 
@@ -43,7 +43,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col max-w-[600px]  w-[100%]">
+  <div class="flex flex-col max-w-[600px] mx-auto  w-[100%]">
     <section v-if="this.userLogged.id">
       <h2 class="sr-only">Nueva publicacion</h2>
       <chatForm />

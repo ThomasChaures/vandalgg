@@ -1,9 +1,10 @@
 <script>
 import { login } from "@/service/auth";
 import error from '../components/slot/Error.vue';
+import GeneralLoaders from "@/components/Loaders/GeneralLoaders.vue";
 export default {
   name: "LoginView",
-  components: { error },
+  components: { error, GeneralLoaders },
   data() {
     return {
       error: "",
@@ -36,9 +37,18 @@ export default {
 </script>
 
 <template>
+      <template v-if="loading">
+        <Section>
+          <GeneralLoaders/>
+        </Section>
+ 
+    </template>
   <section
     class="w-full fixed h-full animate__animated animate__fadeInLeft top-[0%] left-[0%] translate-y-[-50%] max-w-[50%] bg-slate-950 shadow-sm"
   >
+
+
+
     <div
       class="absolute top-[50%] left-[50%] translate-x-[-50%] max-w-[600px] w-full translate-y-[-50%]"
     >

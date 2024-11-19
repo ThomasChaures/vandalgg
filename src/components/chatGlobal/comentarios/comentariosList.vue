@@ -1,5 +1,5 @@
 <script>
-import Comentario from './comentario.vue';
+import Comentario from './Comentario.vue';
 
 
 export default{

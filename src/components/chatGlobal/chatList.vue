@@ -1,7 +1,7 @@
 <script>
 import { subscribeToAuth } from "@/service/auth";
 import { RouterLink } from "vue-router";
-import post from "./post.vue";
+import post from "./Post.vue";
 let unsubscribeFromAuth = () => {};
 
 

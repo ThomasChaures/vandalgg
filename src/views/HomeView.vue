@@ -1,5 +1,5 @@
 <script>
-import chatGlobalSection from "@/components/chatGlobal/chatGlobalSection.vue";
+import chatGlobalSection from "@/components/chatGlobal/ChatGlobalSection.vue";
 import MiniProfile from "@/components/Profile/MiniProfile.vue";
 import RandomUsers from "@/components/UsuariosRecomendados/RandomUsers.vue";
 import MessageList from "@/components/chatPrivate/MessageList.vue";
@@ -12,10 +12,10 @@ export default {
 
 <template>
   <div class="flex w-full">
-    <div class="w-full justify-between max-xl:flex-col flex items-start">
+    <div class="w-full justify-between mx-auto max-xl:flex-col flex items-start">
       <MiniProfile class="max-xl:hidden" />
       <chatGlobalSection />
-      <RandomUsers />
+      <RandomUsers  class="max-xl:hidden" />
     </div>
   </div>
 </template>
